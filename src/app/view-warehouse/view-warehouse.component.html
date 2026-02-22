@@ -1,0 +1,77 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>warehouse</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">تفاصيل المستودع</h2>
+        <p class="dialog-subtitle">عرض بيانات المستودع المحدد</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>warehouse</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم المستودع بالعربي</span>
+          <span class="info-value">{{Warehouse.warehouseNameArabic}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>translate</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم المستودع بالانجليزي</span>
+          <span class="info-value">{{Warehouse.warehouseNameEnglish}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>location_on</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">العنوان</span>
+          <span class="info-value badge badge-location">{{Warehouse.warehouseLocation}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>phone</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">رقم الهاتف</span>
+          <span class="info-value">{{Warehouse.phoneNumber}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>engineering</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم الفني</span>
+          <span class="info-value badge badge-technician">{{Warehouse.userNmAr}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-actions mt-4">
+      <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light">
+        <mat-icon>arrow_back</mat-icon>
+        رجوع
+      </button>
+    </div>
+  </div>
+</div>

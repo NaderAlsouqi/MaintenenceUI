@@ -1,0 +1,57 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>error_outline</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">تفاصيل العطل</h2>
+        <p class="dialog-subtitle">عرض بيانات العطل المحدد</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>code</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">رمز العطل</span>
+          <span class="info-value badge badge-code">{{fault.faultCode}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>error_outline</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم العطل</span>
+          <span class="info-value">{{fault.faultNameAr}}</span>
+        </div>
+      </div>
+
+      <div class="info-card full-width">
+        <div class="info-icon">
+          <mat-icon>description</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">وصف العطل</span>
+          <span class="info-value">{{fault.faultName || '-'}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-actions mt-4">
+      <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light">
+        <mat-icon>arrow_back</mat-icon>
+        رجوع
+      </button>
+    </div>
+  </div>
+</div>

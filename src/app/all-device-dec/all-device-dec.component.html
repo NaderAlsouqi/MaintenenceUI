@@ -1,0 +1,179 @@
+<div class="page-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>devices</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">إدارة الأجهزة والمنتجات</h1>
+          <p class="page-subtitle">إدارة وتعديل بيانات الأجهزة والموديلات المسجلة في النظام</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-primary" (click)="openAddDialog()">
+          <mat-icon>add_circle</mat-icon>
+          <span class="btn-text">إضافة جهاز جديد</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="DownloadInvoice()" matTooltip="تصدير Excel">
+          <mat-icon>file_download</mat-icon>
+          <span class="btn-text">تصدير</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="PrintInvoice()" matTooltip="طباعة القائمة">
+          <mat-icon>print</mat-icon>
+          <span class="btn-text">طباعة</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Table Section -->
+  <div class="card card-modern filter-card">
+    <div class="filter-header">
+      <mat-icon>list_alt</mat-icon>
+      <span>سجل الأجهزة والمنتجات</span>
+      <div class="filter-header-action">
+        <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #tableMenu="matMenu" class="modern-menu">
+          <button mat-menu-item (click)="openAddDialog()">
+            <mat-icon>add_circle</mat-icon>
+            <span>إضافة جهاز جديد</span>
+          </button>
+          <button mat-menu-item (click)="DownloadInvoice()">
+            <mat-icon>file_download</mat-icon>
+            <span>تصدير البيانات</span>
+          </button>
+          <button mat-menu-item (click)="PrintInvoice()">
+            <mat-icon>print</mat-icon>
+            <span>طباعة القائمة</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- Search Bar Integrated like Area Page -->
+      <div class="filter-form mb-4">
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>بحث سريع في السجل</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="بحث باسم المنتج، النوع، الموديل..." #input>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-id">{{row.id}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Product ID Column -->
+          <ng-container matColumnDef="devicePro_ID">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم المنتج </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="text-muted">{{row.devicePro_ID==0?'-':row.devicePro_ID}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Product Name Column -->
+          <ng-container matColumnDef="devicePor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم المنتج </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="device-info">
+                <span class="name">{{row.devicePor=='Unknown'?'-':row.devicePor}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Type ID Column -->
+          <ng-container matColumnDef="deviceType_ID">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم النوع </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="text-muted">{{row.deviceType_ID==0?'-':row.deviceType_ID}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Type Name Column -->
+          <ng-container matColumnDef="deviceType_Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم النوع </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-type">{{row.deviceType_Name=='Unknown'?'-':row.deviceType_Name}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Model ID Column -->
+          <ng-container matColumnDef="deviceModel_ID">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم الموديل </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="text-muted">{{row.deviceModel_ID==0?'-':row.deviceModel_ID}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Model Name Column -->
+          <ng-container matColumnDef="deviceModel_Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم الموديل </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-model">{{row.deviceModel_Name=='Unknown'?'-':row.deviceModel_Name}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> الإجراءات </th>
+            <td mat-cell *matCellDef="let row" class="text-center">
+              <div class="action-buttons">
+                <button mat-icon-button class="btn-action edit" (click)="OpenEditDeviceDEC(row)" matTooltip="تعديل">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action view" (click)="viewArea(row)" matTooltip="عرض التفاصيل">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action delete" (click)="openDeleteDialog(row.id)" matTooltip="حذف">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center p-5" [attr.colspan]="displayedColumns.length">
+              <div class="no-data">
+                <mat-icon>devices</mat-icon>
+                <p>لم يتم العثور على أجهزة تطابق البحث: "{{input.value}}"</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons
+          class="modern-paginator"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #deviceDeleteDialog>
+  <div class="confirm-dialog" dir="rtl">
+    <h2 mat-dialog-title>تأكيد الحذف</h2>
+    <mat-dialog-content>
+      هل أنت متأكد من رغبتك في حذف هذا الجهاز؟ لا يمكن التراجع عن هذا الإجراء.
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button class="btn-modern btn-light" mat-dialog-close="no">إلغاء</button>
+      <button class="btn-modern btn-danger ms-2" mat-dialog-close="yes">نعم، حذف الجهاز</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>

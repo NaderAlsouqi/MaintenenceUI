@@ -1,0 +1,67 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>inventory_2</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">تفاصيل المادة</h2>
+        <p class="dialog-subtitle">عرض بيانات المادة المحددة</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>inventory_2</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم المادة</span>
+          <span class="info-value">{{item.itemName}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>format_list_numbered</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">عدد القطع</span>
+          <span class="info-value badge badge-quantity">{{item.itemPieces}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>attach_money</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">سعر القطعة</span>
+          <span class="info-value badge badge-price">{{item.itemPiece}} ر.س</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>warehouse</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم المستودع</span>
+          <span class="info-value badge badge-warehouse">{{item.warehouseNumber}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-actions mt-4">
+      <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light">
+        <mat-icon>arrow_back</mat-icon>
+        رجوع
+      </button>
+    </div>
+  </div>
+</div>

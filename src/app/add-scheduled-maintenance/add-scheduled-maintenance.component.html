@@ -1,0 +1,97 @@
+<div class="dialog-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>event_repeat</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">إضافة صيانة دورية</h2>
+        <p class="dialog-subtitle">جدولة موعد صيانة دورية جديد للعميل</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Form Content -->
+  <div class="dialog-content">
+    <form [formGroup]="addScheduledForm" (ngSubmit)="onSubmit()">
+      <div class="row g-3">
+        <!-- Maintenance Date -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>تاريخ الصيانة</mat-label>
+            <input formControlName="maintenanceDate" matInput [matDatepicker]="picker" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-icon matPrefix>event</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Request ID -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رقم طلب الصيانة</mat-label>
+            <input formControlName="intro_id" matInput placeholder="أدخل رقم الطلب" required pattern="[0-9]*">
+            <mat-icon matSuffix>tag</mat-icon>
+            <mat-error *ngIf="addScheduledForm.get('intro_id').hasError('pattern')">
+              يرجى إدخال أرقام فقط
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Customer Selection -->
+        <div class="col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم العميل</mat-label>
+            <input #customerInput type="text" placeholder="ابحث عن العميل..." matInput formControlName="CustomersNum"
+              required [matAutocomplete]="CustomerAuto">
+            <mat-autocomplete autoActiveFirstOption #CustomerAuto="matAutocomplete" class="customer-autocomplete">
+              <mat-option *ngFor="let option of CustomerFilteredOptions | async" [value]="option.customersNum"
+                (onSelectionChange)="selectCustomer(option)">
+                <div class="customer-option">
+                  <mat-icon>person</mat-icon>
+                  <div class="customer-details">
+                    <span class="customer-name">{{ option.customerName }}</span>
+                    <span class="customer-phone">{{ option.customersNum }}</span>
+                  </div>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>person_search</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Status Selection -->
+        <div class="col-12">
+          <div class="status-section">
+            <label class="status-label">
+              <mat-icon class="label-icon">assignment_turned_in</mat-icon>
+              حالة الصيانة:
+            </label>
+            <mat-radio-group formControlName="status" required (change)="onStatusChange($event)" class="status-options">
+              <mat-radio-button *ngFor="let status of MStatus" [value]="status" color="primary" class="status-radio">
+                {{ status }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="dialog-actions">
+        <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light">
+          <mat-icon>close</mat-icon>
+          إلغاء
+        </button>
+        <button mat-raised-button color="primary" type="submit" class="btn-modern btn-primary"
+          [disabled]="!addScheduledForm.valid" [mat-dialog-close]="false">
+          <mat-icon>add_circle</mat-icon>
+          إضافة الصيانة
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

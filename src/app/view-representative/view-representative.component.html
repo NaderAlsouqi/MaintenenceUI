@@ -1,0 +1,68 @@
+
+
+<div  mat-dialog-title>
+    <div id="grad1" class="card-heading">
+      <h2 class="title">  بيانات المندوبين   
+      </h2>
+      </div> 
+   
+  </div>
+  <div class="registration-form m-3 p-4">
+    <form dir="rtl" >
+  
+    
+      <div class="row">
+  
+        
+  
+        <div class="col-md-4">
+         <mat-form-field appearance="outline" dir="rtl">
+          <mat-label >اسم المندوب </mat-label>
+          <input  readonly="true" formControlName="deviceID" matInput placeholder="اسم المندوب " [value]="representative.deviceID">
+          <mat-icon matSuffix>person_outline</mat-icon>
+        </mat-form-field>
+        </div> 
+  
+        
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label>رقم هاتف</mat-label>
+           <input readonly="true"  formControlName="customersNum" matInput placeholder="رقم هاتف المندوب " [value]="representative.customersNum">
+           <mat-icon matSuffix>phone</mat-icon>
+         </mat-form-field>
+         </div> 
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label>رقم المول</mat-label>
+           <input readonly="true"  formControlName="deviceType" matInput placeholder="رقم المول  " [value]="representative.deviceType">
+           <mat-icon matSuffix>phone</mat-icon>
+         </mat-form-field>
+         </div> 
+        
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label >  المسؤول</mat-label>
+           <input readonly="true"  formControlName="customers_FName" matInput placeholder="المسؤول " [value]="representative.customers_FName">
+           <mat-icon matSuffix>person</mat-icon>
+         </mat-form-field>
+         </div> 
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label >   اسم المولات </mat-label>
+           
+           <input readonly="true"  formControlName="deviceSR" matInput placeholder="  اسم المول " [value]="representative.deviceSR">
+
+           <mat-icon matSuffix>domain</mat-icon>
+         </mat-form-field>
+         </div> 
+           
+          <div mat-dialog-actions class="action">
+            <button mat-raised-button type="button" [mat-dialog-close]="false"><mat-icon matSuffix>keyboard_backspace</mat-icon>  رجوع  </button>
+          </div>
+  
+  
+  
+      </div>
+   </form>
+  </div>
+         

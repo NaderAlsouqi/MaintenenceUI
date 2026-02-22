@@ -1,0 +1,204 @@
+<div class="registration-form m-2 p-3 m-t">
+  <form class="frame" dir="rtl"  [formGroup]="billlForm">
+
+    <div mat-dialog-title>
+      <div id="grad1" class="card-heading">
+        <h2 class="title"> سندات القبض</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <mat-form-field appearance="outline" dir="rtl">
+          <mat-label>من تاريخ</mat-label>
+          <input formControlName="date1" matInput [matDatepicker]="picker">
+          <mat-icon class="matt" matSuffix>
+            <mat-datepicker-toggle class="im" matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          </mat-icon>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-5">
+        <mat-form-field appearance="outline" dir="rtl">
+          <mat-label>الى تاريخ</mat-label>
+          <input formControlName="date2" matInput  [matDatepicker]="picker2">
+          <mat-icon class="matt" matSuffix>
+            <mat-datepicker-toggle class="im" matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+          </mat-icon>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      
+      <div class="col-md-10 d-flex justify-content-between">
+        <div>
+                    <mat-form-field appearance="outline" dir="rtl">
+            <mat-label>اسم الفني</mat-label>
+            <input #UserIdInput type="text" placeholder="اختر اسم الفني" aria-label="Number" matInput formControlName="UserNmAr" 
+              [matAutocomplete]="UserAuto">
+            <mat-autocomplete autoActiveFirstOption #UserAuto="matAutocomplete">
+              <mat-option *ngFor="let option of UserFilteredOptions | async" [value]="option.userNmAr" (onSelectionChange)="selectUser(option)">
+                {{ option.userNmAr }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>domain icon</mat-icon>
+          </mat-form-field>
+        </div>
+                <!-- (click)="onSearch()" -->
+
+        <div class="action-buttons">
+          <button mat-raised-button color="primary" type="button" (click)="onSearch()" class="ml-2">
+            <mat-icon>search</mat-icon>
+            بحث
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="text-align: right;" class="card">
+                  <div class="card-header card-header-info" style="padding: 30px;">
+                    <br>
+                    <div class="d-flex justify-content-between">
+                      <div style="position: absolute; top: 5px; left: 10px;"></div>
+                      <div  style="position: absolute; top: 5px; right:10px ;" dir="rtl">
+        
+                        <button mat-icon-button  [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" >
+        <img src="data:image/png;base64,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" 
+        width="50" height="50" alt="Resized Image">
+        
+                        </button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item (click)="DownloadInvoice()">
+        <img src="data:image/png;base64,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" width="30" height="40" alt="Resized Image">
+                            <span> &nbsp;تنزيل التقرير  &nbsp; </span>
+                          </button>
+                          <button mat-menu-item  (click)="PrintInvoice()">
+                            <img src="data:image/png;base64,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" width="30" height="40" alt="Resized Image">
+                            <span> &nbsp;  طباعة التقرير &nbsp; </span>
+                          </button>
+                         
+                        </mat-menu>
+                      </div>
+                    </div>
+        
+        
+        
+                  </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                          
+                          <div class="mat-elevation-z8">
+                            <mat-form-field appearance="fill">
+                              <mat-label> بحث </mat-label>
+                              <input matInput (keyup)="applyFilter($event)" placeholder="مثال :اسم البنك" #input>
+                            </mat-form-field>
+                          
+                          
+                            <table mat-table [dataSource]="dataSource" matSort>
+                              
+
+                              <!-- maintenanceID Column -->
+                              <ng-container matColumnDef="maintenanceID">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم الصيانة  </th>
+                                <td mat-cell *matCellDef="let row"> {{row.maintenanceID}} </td>
+                              </ng-container>
+                           <!-- end_Date Column -->
+                           <ng-container matColumnDef="tot">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> المجموع </th>
+                            <td mat-cell *matCellDef="let row"> {{row.tot}} </td>
+                          </ng-container>
+                              <!-- end_Date Column -->
+                              <ng-container matColumnDef="dis">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>الخصم </th>
+                                <td mat-cell *matCellDef="let row"> {{row.dis}} </td>
+                              </ng-container>
+                           
+                             <!-- end_Date Column -->
+                             <ng-container matColumnDef="tot_bill">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> صافي سند القبض </th>
+                              <td mat-cell *matCellDef="let row"> {{row.tot_bill}} </td>
+                            </ng-container>
+                              <!-- end_Date Column -->
+                              <ng-container matColumnDef="end_Date">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> تاريخ الانتهاء  </th>
+                                <td mat-cell *matCellDef="let row"> {{row.end_Date}} </td>
+                              </ng-container>
+                              <!-- request_statues Column -->
+                              <ng-container matColumnDef="Request_statues">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> حالة الطلب  </th>
+                                <td mat-cell *matCellDef="let row">{{
+                                  row.request_statues === 0 && row.technical === 0
+                                    ? 'لم يتم تحويل الطلب'
+                                    : row.request_statues === 0 && row.technical !== 0
+                                    ? 'لم يتم العمل عليه'
+                                    : row.request_statues === 1
+                                    ? 'بحاجة الى قطع'
+                                    : row.request_statues === 2
+                                    ? 'لاغي'
+                                    : row.request_statues === 3
+                                    ? 'تمت الصيانة'
+                                    : row.request_statues === 4
+                                    ? 'لم تتم الصيانة'
+                                    : row.request_statues === 5
+                                    ? 'موافقة العميل'
+                                    : row.request_statues === 6
+                                    ? 'سحب الجهاز'
+                                    : row.request_statues === 7
+                                    ? 'منتهي'
+                                    : row.request_statues === 8
+                                    ? 'إصدار سند قبض'
+                                    : row.request_statues === 9
+                                    ? 'مغلق- المتابعه'
+                                     : row.request_statues === 10
+                                    ? 'جديد- المتابعة' 
+                                    : row.request_statues === 11
+                                    ? 'مغلق -إصدار سند قبض'
+                                    : ''
+                                }}</td>
+                              </ng-container>
+                          
+                             
+                        
+                              <!-- Action Column -->
+                              <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                                <td mat-cell *matCellDef="let row">
+                                  <div   class="action p-2"  dir="rtl">
+                                    
+                                    <button mat-raised-button  color="primary" type="submit"  (click)="rowClicked(row)">   <mat-icon matSuffix>receipt_long</mat-icon>  عرض سند القبض  </button>
+                                    <!-- <button mat-raised-button  color="primary" type="submit"  (click)="rowClicked(row)">   <mat-icon matSuffix>receipt_long</mat-icon>  عرض عقد البيع  </button> -->
+                                  </div>
+                                </td>
+                              </ng-container>
+                          
+                              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          
+                              <!-- Row shown when there is no matching data. -->
+                              <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                              </tr>
+                            </table>
+                          
+                            <div dir="rtl">
+                              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" appearance="outline"
+                                dir="rtl"></mat-paginator>
+                            </div>
+                          </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  
+ 

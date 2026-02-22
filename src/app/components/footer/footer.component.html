@@ -1,0 +1,42 @@
+<footer class="footer-modern">
+    <div class="footer-container">
+        <div class="footer-content">
+            <!-- Brand Section -->
+            <div class="footer-brand">
+                <div class="brand-logo">
+                    <i class="material-icons">business</i>
+                    <span class="brand-text">SKYLINE INNOVATION</span>
+                </div>
+                <p class="brand-tagline">نظام إدارة الصيانة المتكامل</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-links">
+                <a [routerLink]="['/dashboard']" class="footer-link">
+                    <i class="material-icons">dashboard</i>
+                    <span>لوحة التحكم</span>
+                </a>
+                <a [routerLink]="['/customers']" class="footer-link">
+                    <i class="material-icons">people</i>
+                    <span>العملاء</span>
+                </a>
+                <a [routerLink]="['/requests']" class="footer-link">
+                    <i class="material-icons">build</i>
+                    <span>الصيانة</span>
+                </a>
+            </div>
+
+            <!-- Copyright -->
+            <div class="footer-copyright">
+                <div class="copyright-text">
+                    <i class="material-icons">copyright</i>
+                    <span>{{ test | date: 'yyyy' }} جميع الحقوق محفوظة</span>
+                </div>
+                <div class="made-by">
+                    صنع بـ <i class="material-icons heart">favorite</i> بواسطة
+                    <a href="#" class="company-link">SKYLINE INNOVATION</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

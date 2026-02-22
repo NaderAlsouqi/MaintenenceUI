@@ -1,0 +1,149 @@
+<div class="page-container" dir="rtl">
+    <!-- Premium Header -->
+    <div class="page-header">
+        <div class="header-content">
+            <div class="header-info">
+                <div class="icon-box">
+                    <mat-icon>history</mat-icon>
+                </div>
+                <div class="header-text">
+                    <h1 class="page-title">سجل العمليات</h1>
+                    <p class="page-subtitle">تتبع ومراقبة جميع الحركات والعمليات في النظام</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search/Filter Card -->
+    <div class="card card-modern filter-card mb-4">
+        <div class="filter-header">
+            <mat-icon>search</mat-icon>
+            <span>تصفية سجل العمليات</span>
+            <div class="filter-header-action">
+                <button class="btn-modern btn-primary btn-sm" type="submit" form="filterForm">
+                    <mat-icon>search</mat-icon>
+                    <span>بحث</span>
+                </button>
+            </div>
+        </div>
+        <div class="filter-form">
+            <form [formGroup]="filterForm" (ngSubmit)="loadLogs()" id="filterForm">
+                <div class="filter-row">
+                    <mat-form-field appearance="outline" class="filter-field">
+                        <mat-label>من تاريخ</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="startDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="filter-field">
+                        <mat-label>إلى تاريخ</mat-label>
+                        <input matInput [matDatepicker]="picker2" formControlName="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="filter-field">
+                        <mat-label>المستخدم (ID)</mat-label>
+                        <input matInput type="number" formControlName="userId" placeholder="رقم المستخدم">
+                        <mat-icon matSuffix>badge</mat-icon>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Data Table Card -->
+    <div class="card card-modern filter-card">
+        <div class="filter-header">
+            <mat-icon>list_alt</mat-icon>
+            <span>سجلات النظام والعمليات</span>
+            <div class="filter-header-action">
+                <button mat-icon-button (click)="loadLogs()" matTooltip="تحديث">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="table-container">
+                <!-- Table Filter -->
+                <div class="table-filter-bar mb-3">
+                    <mat-form-field appearance="outline" class="search-field">
+                        <mat-icon matPrefix>filter_list</mat-icon>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="تصفية النتائج..." #input>
+                    </mat-form-field>
+                </div>
+
+                <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+
+                    <!-- ID -->
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+                        <td mat-cell *matCellDef="let element">
+                            <span class="badge badge-id">{{element.id}}</span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Action -->
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>الإجراء</th>
+                        <td mat-cell *matCellDef="let element">
+                            <span class="badge" [ngClass]="getActionClass(element.action)">
+                                {{element.action}}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- User -->
+                    <ng-container matColumnDef="userName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>المستخدم</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="user-info">
+                                <mat-icon class="info-icon">person</mat-icon>
+                                <span class="main-text">{{element.userName || 'System'}}</span>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <!-- Timestamp -->
+                    <ng-container matColumnDef="timestamp">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>التوقيت</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="date-info">
+                                <mat-icon class="info-icon">access_time</mat-icon>
+                                <span>{{element.timestamp | date:'medium'}}</span>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <!-- Details -->
+                    <ng-container matColumnDef="details">
+                        <th mat-header-cell *matHeaderCellDef>التفاصيل</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.details}}
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <!-- No Data -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell text-center p-5" [attr.colspan]="displayedColumns.length">
+                            <div class="no-data">
+                                <mat-icon>search_off</mat-icon>
+                                <p>لا توجد نتائج تطابق البحث: "{{ input.value }}"</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons
+                    class="modern-paginator"></mat-paginator>
+
+            </div>
+        </div>
+    </div>
+
+</div>

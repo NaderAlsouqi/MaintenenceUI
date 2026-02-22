@@ -1,0 +1,120 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="text-align: right;" class="card">
+                    <div class="card-header card-header-info">
+                       
+                      <div class="d-flex justify-content-between">
+  
+                        <div style="position: absolute; top: 5px; left: 10px;">
+                        <button type="button"  mat-raised-button  class="family-font font-size-date  btn btn-primary " ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                        <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+                        </svg>إضافة
+                       </button> </div>
+                       
+                           <mat-form-field appearance="outline" dir="rtl">
+                             <mat-label>بحث</mat-label>
+                             <input matInput (keyup)="applyFilter($event)" placeholder="مثال :اسم المستخدم" #input>
+                           </mat-form-field>
+                         </div>
+                   
+  
+  
+  
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                          
+        <div class="mat-elevation-z8"   >
+  
+  
+          <table mat-table [dataSource]="dataSource" matSort >
+          
+          <!-- ExhibitionID Column -->
+          <ng-container matColumnDef="exhibitionID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم  </th>
+          <td mat-cell *matCellDef="let row"> {{row.exhibitionID}} </td>
+          </ng-container>
+  
+  
+            <!--  ExhibitionIDNmAr Column -->
+            <ng-container matColumnDef="exhibitionIDNmAr">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم المعرض   </th>
+              <td mat-cell *matCellDef="let row"> {{row.exhibitionIDNmAr}} </td>
+            </ng-container>
+        
+        
+        
+        
+        <!-- mobile1 Column -->
+        <ng-container matColumnDef="mobile1">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>  هاتف1 </th>
+          <td mat-cell *matCellDef="let row"> {{row.mobile1}} </td>
+        </ng-container>
+
+
+        <!-- mobile2 Column -->
+        <ng-container matColumnDef="mobile2">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>  هاتف2 </th>
+          <td mat-cell *matCellDef="let row"> {{row.mobile2}} </td>
+        </ng-container>
+        <!-- Address Column -->
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>   عنوان   </th>
+          <td mat-cell *matCellDef="let row"> {{row.address}} </td>
+        </ng-container>
+        
+  
+        
+         <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+        <td mat-cell *matCellDef="let row">
+          
+        
+  
+            <button mat-icon-button (click)="OpenEditAreaDialog(row)" class="mx-2" color="primary" ><i class="fa fa-pencil"
+              aria-hidden="true"></i></button>
+  
+            <button mat-icon-button (click)="viewArea(row)"  class="mx-2" color="accent" ><i class="fa fa-eye"
+              aria-hidden="true"></i></button>
+  
+  
+              <button (click)="openDeleteDialog(row.exhibitionID)" mat-icon-button color="warn" >
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+        </td>
+      </ng-container>  
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+       <!-- Row shown when there is no matching data. -->
+       <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+      </table>
+      <div  dir="rtl">
+    <mat-paginator  [pageSizeOptions]="[5,10, 25, 100]" aria-label="Select page of users"   appearance="outline" dir="rtl"></mat-paginator>
+  </div>
+  </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  
+  
+  <ng-template #ExhibitionDeleteDialog dir="rtl">
+    <h2>هل أنت متأكد من عملية الحذف لهذاالمستخدم </h2>
+    <mat-dialog-actions align="end">
+      <button class="btn btn-info" mat-button mat-dialog-close="no">لا</button>&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-danger" mat-button mat-dialog-close="yes">نعم</button>
+    </mat-dialog-actions>
+  
+  </ng-template>

@@ -1,0 +1,152 @@
+<div class="page-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>account_circle</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">الملف الشخصي</h1>
+          <p class="page-subtitle">تحديث البيانات الشخصية والمعلومات الأساسية</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-outline" routerLink="/dashboard">
+          <i class="material-icons">arrow_back</i>
+          <span class="btn-text">رجوع</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="profile-layout">
+    <!-- Profile Info Sidebar -->
+    <div class="card card-modern profile-sidebar">
+      <div class="profile-avatar-section">
+        <div class="avatar-circle">
+          <mat-icon>person</mat-icon>
+        </div>
+        <h3 class="profile-name">{{users?.[0]?.userNmAr}}</h3>
+        <span class="profile-role-badge">{{users?.[0]?.name_User_level}}</span>
+        <div class="profile-meta">
+          <div class="meta-item">
+            <mat-icon>email</mat-icon>
+            <span>{{users?.[0]?.email}}</span>
+          </div>
+          <div class="meta-item">
+            <mat-icon>event</mat-icon>
+            <span>{{users?.[0]?.transDate}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Form Card -->
+    <div class="card card-modern profile-form-card">
+      <div class="card-header-premium">
+        <div class="header-left">
+          <div class="d-flex align-items-center">
+            <div class="form-icon-box">
+              <mat-icon>edit</mat-icon>
+            </div>
+            <div class="ms-3">
+              <h2 class="header-title">تعديل البيانات الشخصية</h2>
+              <p class="header-subtitle">يمكنك تعديل اسمك والبريد الإلكتروني</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body-form">
+        <form [formGroup]="editNewUserForm" (ngSubmit)="onSubmit()">
+          <!-- Section: Basic Info -->
+          <div class="form-section">
+            <h4 class="section-title">
+              <mat-icon>badge</mat-icon>
+              المعلومات الأساسية
+            </h4>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>اسم المستخدم</mat-label>
+                  <input formControlName="userNmAr" matInput placeholder="أدخل اسم المستخدم"
+                    [value]="users?.[0]?.userNmAr">
+                  <mat-icon matPrefix>person</mat-icon>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>تاريخ الإضافة</mat-label>
+                  <input matInput formControlName="transDate" [value]="users?.[0]?.transDate" readonly>
+                  <mat-icon matPrefix>event</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Role Info (Read-only) -->
+          <div class="form-section">
+            <h4 class="section-title">
+              <mat-icon>work</mat-icon>
+              معلومات الوظيفة
+            </h4>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>المسمى الوظيفي</mat-label>
+                  <input matInput formControlName="name_User_level" [value]="users?.[0]?.name_User_level" readonly>
+                  <mat-icon matPrefix>assignment_ind</mat-icon>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>المسؤول المباشر</mat-label>
+                  <input matInput formControlName="name_relation_level" [value]="users?.[0]?.name_relation_level"
+                    readonly>
+                  <mat-icon matPrefix>supervisor_account</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Contact -->
+          <div class="form-section">
+            <h4 class="section-title">
+              <mat-icon>contact_mail</mat-icon>
+              معلومات التواصل
+            </h4>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>البريد الإلكتروني</mat-label>
+                  <input matInput formControlName="email" placeholder="example@domain.com" [value]="users?.[0]?.email">
+                  <mat-icon matPrefix>email</mat-icon>
+                </mat-form-field>
+              </div>
+              <!-- Hidden password field -->
+              <div class="col-md-6" hidden>
+                <mat-form-field appearance="outline" class="w-100" hidden>
+                  <input matInput formControlName="password" [value]="users?.[0]?.password" hidden>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="form-actions">
+            <button type="button" class="btn-modern btn-light" routerLink="/dashboard">
+              <mat-icon>keyboard_backspace</mat-icon>
+              رجوع
+            </button>
+            <button type="submit" class="btn-modern btn-primary" [disabled]="!editNewUserForm?.valid">
+              <mat-icon>save</mat-icon>
+              تحديث الملف الشخصي
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

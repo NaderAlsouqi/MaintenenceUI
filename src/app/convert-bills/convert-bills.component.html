@@ -1,0 +1,203 @@
+
+<div class="registration-form m-2 p-3 m-t">
+  <form class="frame" dir="rtl"  [formGroup]="billlForm">
+
+    <div mat-dialog-title>
+      <div id="grad1" class="card-heading">
+        <h2 class="title">تحويل سندات القبض</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <mat-form-field appearance="outline" dir="rtl">
+          <mat-label>من تاريخ</mat-label>
+          <input formControlName="date1" matInput [matDatepicker]="picker">
+          <mat-icon class="matt" matSuffix>
+            <mat-datepicker-toggle class="im" matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          </mat-icon>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-5">
+        <mat-form-field appearance="outline" dir="rtl">
+          <mat-label>الى تاريخ</mat-label>
+          <input formControlName="date2" matInput [matDatepicker]="picker2">
+          <mat-icon class="matt" matSuffix>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+          </mat-icon>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-10 d-flex justify-content-between">
+        <div>
+          <mat-form-field appearance="outline" dir="rtl">
+            <mat-label>الحالة</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="لم يتم التحويل">لم يتم التحويل</mat-option>
+              <mat-option value="تم التحويل">تم التحويل</mat-option>
+              <!-- Add other status options here -->
+            </mat-select>
+          </mat-form-field>
+        </div>
+      
+        <div class="action-buttons">
+          <button mat-raised-button color="primary" type="button" (click)="onSearch()">
+            <mat-icon>search</mat-icon>
+            بحث
+          </button>
+      
+          <button mat-raised-button color="accent" type="button" (click)="updateSelectedBillsStatus()" class="ml-2">
+            <mat-icon>check_circle</mat-icon>
+            ترحيل السندات المختارة
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </form>
+</div>
+
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div style="text-align: right;" class="card">
+                <div class="card-header card-header-info" style="padding: 30px;">
+                  <br>
+                  <div class="d-flex justify-content-between">
+                    <div style="position: absolute; top: 5px; left: 10px;"></div>
+                    <div  style="position: absolute; top: 5px; right:10px ;" dir="rtl">
+                    </div>
+                  </div>
+      
+      
+      
+                </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                        
+                        <div class="mat-elevation-z8">
+                          <mat-form-field appearance="fill">
+                            <mat-label> بحث </mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="مثال :اسم البنك" #input>
+                          </mat-form-field>
+                        
+                        
+                          <table mat-table [dataSource]="dataSource" matSort >
+                            
+
+                            <!-- Checkbox Column -->
+                            <ng-container matColumnDef="select">
+                              <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                                              [checked]="selection.hasValue() && isAllSelected()"
+                                              [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                              [aria-label]="checkboxLabel()">
+                                </mat-checkbox>
+                              </th>
+                              <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                              (change)="$event ? selection.toggle(row) : null"
+                                              [checked]="selection.isSelected(row)"
+                                              [aria-label]="checkboxLabel(row)">
+                                </mat-checkbox>
+                              </td>
+                            </ng-container>
+
+
+                            <!-- intro_id Column -->
+                            <ng-container matColumnDef="intro_id">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم طلب الصيانة </th>
+                              <td mat-cell *matCellDef="let row"> {{row.intro_id}} </td>
+                            </ng-container>
+
+                            <!-- billId Column -->
+                            <ng-container matColumnDef="billId">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم سند القبض </th>
+                              <td mat-cell *matCellDef="let row"> {{row.billId}} </td>
+                            </ng-container>
+
+                            <!-- billDate Column -->
+                            <ng-container matColumnDef="billDate">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> تاريخ سند القبض </th>
+                              <td mat-cell *matCellDef="let row"> {{row.billDate | date: 'shortDate'}} </td>
+                            </ng-container>
+
+                            <!-- discount Column -->
+                            <ng-container matColumnDef="discount">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> قيمة الخصم </th>
+                              <td mat-cell *matCellDef="let row"> {{row.discount}} </td>
+                            </ng-container>
+
+                            <!-- workers Column -->
+                            <ng-container matColumnDef="workers">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> أجور العمال </th>
+                              <td mat-cell *matCellDef="let row"> {{row.workers}} </td>
+                            </ng-container>
+
+                            <!-- taxes Column -->
+                            <ng-container matColumnDef="taxes">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> قيمة الضريبة </th>
+                              <td mat-cell *matCellDef="let row"> {{row.taxes}} </td>
+                            </ng-container>
+
+                            <!-- total Column -->
+                            <ng-container matColumnDef="total">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> الصافي </th>
+                              <td mat-cell *matCellDef="let row"> {{row.total}} </td>
+                            </ng-container>
+
+                            <!-- customerName Column -->
+                            <ng-container matColumnDef="customerName">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم العميل </th>
+                              <td mat-cell *matCellDef="let row"> {{row.customerName}} </td>
+                            </ng-container>
+
+                            <!-- customersNo Column -->
+                            <ng-container matColumnDef="customersNo">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم العميل </th>
+                              <td mat-cell *matCellDef="let row"> {{row.customersNo}} </td>
+                            </ng-container>
+
+                            <!-- customerAccNo Column -->
+                            <ng-container matColumnDef="customerAccNo">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> حساب العميل </th>
+                              <td mat-cell *matCellDef="let row"> {{row.customerAccNo}} </td>
+                            </ng-container>
+
+                            <!-- status Column -->
+                            <ng-container matColumnDef="status">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header> الحالة </th>
+                              <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+                            </ng-container>
+
+                        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                (click)="selection.toggle(row)">
+                            </tr>
+                        
+                            <!-- Row shown when there is no matching data. -->
+                            <tr class="mat-row" *matNoDataRow>
+                              <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                            </tr>
+                          </table>
+                        
+                          <div dir="rtl">
+                            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" appearance="outline"
+                              dir="rtl"></mat-paginator>
+                          </div>
+                        </div>
+                        
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+

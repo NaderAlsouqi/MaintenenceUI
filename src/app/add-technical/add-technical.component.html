@@ -1,0 +1,92 @@
+
+
+<div  mat-dialog-title>
+    <div id="grad1" class="card-heading">
+      <h2 class="title">     سائقين/الفنيين
+  
+      </h2>
+      </div> 
+   
+  </div>
+  <div class="registration-form m-3 p-4">
+    <form [formGroup]="addTechnicalForm" dir="rtl" (ngSubmit)="onSubmit()">
+  
+    
+      <div class="row">
+        
+  
+        <div class="col-md-4">
+         <mat-form-field appearance="outline" dir="rtl">
+          <mat-label >رقم السائق/الفن </mat-label>
+          <input formControlName="num_Driver" matInput placeholder="رقم السائق /الفني "required>
+          <mat-icon matSuffix>format_list_numbered</mat-icon>
+        </mat-form-field>
+        </div> 
+  
+        <div class="col-md-4">
+         <mat-form-field appearance="outline" dir="rtl">
+          <mat-label >رقم الهاتف </mat-label>
+          <input formControlName="phone" matInput placeholder="رقم السائق /الفني " required>
+          <mat-icon matSuffix>format_list_numbered</mat-icon>
+        </mat-form-field>
+        </div> 
+  
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label >اسم السائق /الفني</mat-label>
+           <input formControlName="name_Driver" matInput placeholder="اسم السائق /الفني" required>
+           <mat-icon matSuffix>person</mat-icon>
+         </mat-form-field>
+         </div> 
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label > السائق /الفني</mat-label>
+           <mat-select formControlName="driv" required>
+            <mat-option *ngFor="let techni of technicalList"  [value]="techni" >{{techni}}</mat-option>
+           </mat-select>
+           <mat-icon matSuffix>phone</mat-icon>
+         </mat-form-field>
+         </div> 
+         
+
+
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label > العنوان</mat-label>
+           <input formControlName="address" matInput placeholder="العنوان  " required>
+           <mat-icon matSuffix>location_on</mat-icon>
+         </mat-form-field>
+         </div> 
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label >  ملاحظات </mat-label>
+           <textarea formControlName="disc" matInput></textarea>
+           <mat-icon matSuffix>note</mat-icon>
+         </mat-form-field>
+         </div> 
+        
+       
+
+        <div class="col-md-12 d-flex align-items-center">
+          <mat-radio-group aria-label="Select an option" class="emat-mdc-radio-button" formControlName="Driver_Status" (change)="onEmergencyStatusChange($event)">
+            <label id="example-radio-group-label" class="mr-2"  >  حالة العميل  :&nbsp;  </label>
+
+            <mat-radio-button class="example-radio-button" *ngFor="let status of Driver_Statuss" [value]="status" [checked]="Driver_Status == status.value" >
+              <span class="mr-2">{{status.name}} &nbsp;</span>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+  
+          <div mat-dialog-actions class="action">
+            <button mat-raised-button color="primary" type="submit"  [mat-dialog-close]="false"  [disabled]="!addTechnicalForm.valid">اضافة</button>
+            <button mat-raised-button type="button" [mat-dialog-close]="false"><mat-icon matSuffix>keyboard_backspace</mat-icon>  رجوع  </button>
+
+          </div>
+  
+  
+  
+      </div>
+   </form>
+  </div>
+         

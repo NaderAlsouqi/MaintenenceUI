@@ -1,0 +1,255 @@
+<div class="page-container" dir="rtl">
+  <div class="card card-modern">
+    <div class="card-header-premium">
+      <div class="d-flex align-items-center">
+        <div class="icon-box">
+          <mat-icon>post_add</mat-icon>
+        </div>
+        <div class="ms-3">
+          <h2 class="header-title">تسجيل طلب صيانة جديد</h2>
+          <p class="header-subtitle">أدخل بيانات الجهاز وتفاصيل العطل</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body p-4">
+      <form [formGroup]="addIntroForm" (ngSubmit)="submit()">
+
+        <!-- Top Section: Date & Status -->
+        <div class="row g-4 mb-4">
+          <div class="col-md-3">
+            <div class="stat-card">
+              <span class="label">رقم الطلب</span>
+              <span class="value">{{lastIntroID || '---'}}</span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card">
+              <span class="label">تاريخ اليوم</span>
+              <span class="value">{{ currentDate | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="status-selector w-100">
+              <label class="d-block mb-3 fw-bold text-end">حالة الطوارئ:</label>
+              <mat-radio-group formControlName="intro_Emergency" class="d-flex gap-4 justify-content-end">
+                <mat-radio-button *ngFor="let status of MStatus" [value]="status" color="warn">
+                  {{status}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <mat-divider class="mb-4"></mat-divider>
+
+        <!-- Customer Selection -->
+        <h3 class="section-title mb-3">
+          <mat-icon>person</mat-icon> بيانات العميل
+        </h3>
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>رقم هاتف العميل</mat-label>
+              <input matInput placeholder="05xxxxxxxx" formControlName="CustomersNum" required
+                [(ngModel)]="customersNum" (keypress)="handleKeyPress($event)" (blur)="handleBlur()"
+                pattern="^0[0-9]{9}$">
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-hint>اضغط Enter للبحث</mat-hint>
+              <mat-error *ngIf="addIntroForm.get('CustomersNum').hasError('pattern')">رقم الهاتف غير صحيح</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100 customer-name-field" [class.filled]="customerName">
+              <mat-label>اسم العميل</mat-label>
+              <input matInput [readonly]="true" [value]="customerName || '---'">
+              <mat-icon matSuffix>account_circle</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>العنوان المسجل</mat-label>
+              <input matInput [readonly]="true" [value]="customersAddress || '---'">
+              <mat-icon matSuffix>location_on</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider class="mb-4"></mat-divider>
+
+        <!-- Device Details -->
+        <h3 class="section-title mb-3">
+          <mat-icon>devices</mat-icon> تفاصيل الجهاز
+        </h3>
+        <div class="row g-3 mb-4">
+          <!-- Device Type & Model -->
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>المنتج / الجهاز</mat-label>
+              <input type="text" matInput formControlName="devicePor" required [matAutocomplete]="productAuto">
+              <mat-autocomplete autoActiveFirstOption #productAuto="matAutocomplete">
+                <mat-option *ngFor="let option of ProductFilteredOptions | async" [value]="option.productName"
+                  (onSelectionChange)="selectProduct(option)">
+                  {{ option.productName }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>category</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>الماركة / النوع</mat-label>
+              <input type="text" matInput formControlName="deviceType_Name" required [matAutocomplete]="typeAuto"
+                (focus)="getTypeWhenPress()">
+              <mat-autocomplete #typeAuto="matAutocomplete">
+                <mat-option *ngFor="let option of TypeFilteredOptions | async" [value]="option.deviceType_Name"
+                  (onSelectionChange)="selectType(option)">
+                  {{ option.deviceType_Name }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>branding_watermark</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>الموديل</mat-label>
+              <input type="text" matInput formControlName="deviceModel_Name" required [matAutocomplete]="modelAuto"
+                (focus)="getModelWhenPress()">
+              <mat-autocomplete #modelAuto="matAutocomplete">
+                <mat-option *ngFor="let option of ModelFilteredOptions | async" [value]="option.deviceModel_Name"
+                  (onSelectionChange)="selectModel(option)">
+                  {{ option.deviceModel_Name }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>memory</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <!-- Barcode, Qty, Purchase Date -->
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>الباركود (S/N)</mat-label>
+              <input matInput formControlName="barcode" required>
+              <mat-icon matSuffix>qr_code</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>الكمية</mat-label>
+              <input type="number" matInput formControlName="CountDevise" required min="1">
+              <mat-icon matSuffix>onetwothree</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>تاريخ الشراء</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="datePurchase" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>اسم المعرض</mat-label>
+              <input type="text" matInput formControlName="ExhibitionIDNmAr" required
+                [matAutocomplete]="ExhibitionAuto">
+              <mat-autocomplete #ExhibitionAuto="matAutocomplete">
+                <mat-option *ngFor="let option of ExhibitionFilteredOptions | async" [value]="option.exhibitionIDNmAr"
+                  (onSelectionChange)="selectExhibition(option)">
+                  {{ option.exhibitionIDNmAr }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix>store</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider class="mb-4"></mat-divider>
+
+        <!-- Problem Description -->
+        <h3 class="section-title mb-3">
+          <mat-icon>report_problem</mat-icon> تفاصيل العطل
+        </h3>
+        <div class="row g-3 mb-4">
+          <div class="col-md-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>وصف العطل المشكو منه</mat-label>
+              <input matInput formControlName="intro_damage" required>
+              <mat-icon matSuffix>error_outline</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>ملاحظات إضافية</mat-label>
+              <textarea matInput formControlName="intro_disc" rows="3"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>الملحقات المستلمة</mat-label>
+              <textarea matInput formControlName="intro_discT" rows="3" placeholder="شاحن، حقيبة، كابل..."></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Service Type & Location (Radio Buttons) -->
+        <div class="row g-4 mb-4 bg-light p-3 rounded">
+          <div class="col-md-6">
+            <label class="d-block mb-2 fw-bold">مكان الخدمة:</label>
+            <mat-radio-group formControlName="intro_InOut" class="d-flex gap-3">
+              <mat-radio-button *ngFor="let status of MStatus2" [value]="status" color="primary">
+                {{ status }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="col-md-6">
+            <label class="d-block mb-2 fw-bold">نوع الطلب:</label>
+            <mat-radio-group formControlName="status_Intro" class="d-flex gap-3">
+              <mat-radio-button *ngFor="let status of MStatus3" [value]="status" color="primary">
+                {{ status }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+
+        <div class="form-actions d-flex justify-content-end gap-3 mt-4">
+          <button mat-button type="button" routerLink="/maintenance" class="btn-modern btn-light">
+            إلغاء
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!addIntroForm.valid"
+            class="btn-modern btn-primary px-5">
+            <mat-icon class="ms-2">save</mat-icon>
+            حفظ الطلب
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Customer not found dialog -->
+<ng-template #AddcustomerDialog dir="rtl">
+  <div class="p-4 text-center">
+    <h3 class="mb-4">رقم العميل غير موجود!</h3>
+    <p class="text-muted mb-4">هل ترغب في إضافة سجل جديد لهذا العميل؟</p>
+    <div class="d-flex justify-content-center gap-3">
+      <button mat-stroked-button mat-dialog-close="no">إلغاء</button>
+      <button mat-raised-button color="primary" routerLink="/customer" mat-dialog-close="yes">
+        <mat-icon class="ms-2">person_add</mat-icon> نعم، إضافة عميل
+      </button>
+    </div>
+  </div>
+</ng-template>

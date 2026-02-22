@@ -1,0 +1,66 @@
+.page-container {
+  padding: 1.5rem;
+}
+
+.stat-card {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 4px;
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.customer-name-field {
+  &.filled input {
+    color: var(--primary);
+    font-weight: 600;
+  }
+}
+
+.icon-box {
+  width: 56px;
+  height: 56px;
+  background: rgba(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+}

@@ -1,0 +1,55 @@
+<h2>المرفقات</h2>
+
+<div class="filter-inputs" dir="rtl">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="بحث">
+  </mat-form-field>
+</div>
+<div class="table-container">
+<table mat-table [dataSource]="dataSource" matSort matSortActive="uploadDate" matSortDirection="desc" dir="rtl">
+
+  <ng-container matColumnDef="fileName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header"> اسم الملف </th>
+    <td mat-cell *matCellDef="let attachment" class="table-cell">
+      {{ attachment.fileName }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="contentType">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header"> نوع الملف </th>
+    <td mat-cell *matCellDef="let attachment" class="table-cell"> {{ attachment.contentType }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header"> الوصف </th>
+    <td mat-cell *matCellDef="let attachment" class="table-cell">
+      {{ attachment.description }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="uploadDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header"> تاريخ الرفع </th>
+    <td mat-cell *matCellDef="let attachment" class="table-cell"> {{ attachment.uploadDate | date }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef class="table-header"> الإجراءات </th>
+    <td mat-cell *matCellDef="let attachment" class="table-cell">
+      <button mat-icon-button (click)="downloadAttachment(attachment)" color="primary">
+        <mat-icon>download</mat-icon>
+      </button>
+      <button [mat-dialog-close]="true" mat-icon-button (click)="deleteAttachment(attachment)" color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+</div>
+
+<div mat-dialog-actions dir="rtl">
+  <button mat-button (click)="onNoClick()">إغلاق</button>
+</div>
+

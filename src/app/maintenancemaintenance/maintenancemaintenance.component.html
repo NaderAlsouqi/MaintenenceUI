@@ -1,0 +1,247 @@
+<div    class="registration-form m-2 p-3 m-t" >
+    <form  class="frame"  [formGroup]="editMaintenanceForm" dir="rtl"   (ngSubmit)="onSubmit()">
+
+        <div mat-dialog-title>
+            <div id="grad1" class="card-heading">
+                <h2 class="title"> الصيانة
+                </h2>
+            </div>
+
+        </div>
+        <div class="row" *ngIf="bills">
+
+            <div class="col-md-6" >
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label>رقم طلب الصيانة</mat-label>
+                    <input formControlName="intro_id"  required readonly="true" matInput placeholder=" ادخل رقم طلب الصيانة"[value]="bills.intro_id">
+                    <mat-icon matSuffix>line_weight</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label>رقم الجهاز</mat-label>
+                    <input formControlName="DeviceSR" required matInput placeholder="رقم الجهاز" [value]="bills.DeviceSR1" pattern="[0-9]*">
+                    <mat-icon matSuffix>format_list_numbered</mat-icon>
+                </mat-form-field>
+                <div *ngIf="editMaintenanceForm.get('DeviceSR').hasError('pattern') && editMaintenanceForm.get('DeviceSR').touched" style="color: red;padding-bottom: 11px;">**يرجى إدخال أرقام فقط</div>
+
+            </div>
+
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label>النوع </mat-label>
+                    <input readonly="true"  matInput placeholder=" النوع  " [value]="bills.deviceType_Name">
+                    <mat-icon matSuffix>merge_type</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label>الموديل </mat-label>
+                    <input   readonly="true"  matInput placeholder="الموديل   "  [value]="bills.deviceModel_Name">
+                    <mat-icon matSuffix>view_module</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label>المنتج </mat-label>
+                    <input  readonly="true"  matInput placeholder="المنتج   "[value]="bills.devicePor">
+                    <mat-icon matSuffix>devices</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label>الاعطال المبلغ عنها </mat-label>
+                    <input readonly="true"   matInput placeholder=" "[value]="bills.intro_damage">
+                    <mat-icon matSuffix>construction</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label>الاعطال المكشفة </mat-label>
+                    <input formControlName="Defects_detected"  required  matInput placeholder=" ">
+                    <mat-icon matSuffix>precision_manufacturing</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-12">
+                <mat-form-field appearance="outline" dir="rtl" >
+                    <mat-label> ملاحظات الفني</mat-label>
+                    <textarea formControlName="Desc_technical" required matInput  ></textarea>
+                    <mat-icon matSuffix>note</mat-icon>
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label> تاريخ الاستقبال</mat-label>
+                    <input readonly="true"  matInput placeholder=" تاريخ الاستقبال" [value]="bills.intro_date">
+                    <mat-icon matSuffix>calendar_month</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label>وقت الاستقبال </mat-label>
+                    <input readonly="true"  matInput placeholder="وقت الاستقبال" [value]="bills.enter_Time">
+                    <mat-icon matSuffix>timer</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4"></div>
+
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label> تاريخ بداية العمل </mat-label>
+                    <input formControlName="start_date" readonly="true"  matInput placeholder=" تاريخ بداية العمل   ">
+                    <mat-icon matSuffix>calendar_month</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label>وقت بداية العمل   </mat-label>
+                    <input formControlName="start_Time" readonly="true"  matInput placeholder=" وقت بداية العمل " >
+                    <mat-icon matSuffix>timer</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4"></div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label>تاريخ نهاية العمل </mat-label>
+                    <input    readonly="true"  matInput placeholder=" تاريخ نهاية العمل  " [value]="bills.end_Date">
+                    <mat-icon matSuffix>calendar_month</mat-icon>
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label> وقت نهاية العمل      </mat-label>
+                    <input  readonly="true"  matInput placeholder="  وقت نهاية العمل   " [value]="bills.end_Time">
+                    <mat-icon matSuffix>timer</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4"></div>
+
+            <div class="col-md-8">
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label> فني الصيانة</mat-label>
+                    <input readonly="true"  matInput placeholder="فني الصيانة " [value]="bills.userNmAr">
+                    <mat-icon matSuffix>engineering</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-12 d-flex align-items-center">
+              <mat-radio-group  aria-label="Select an option" class="emat-mdc-radio-button"   formControlName="Request_statues" required (change)="onEmergencyStatusChange($event)" >
+              <label id="example-radio-group-label" class="mr-2" >  حالة الطلب  :&nbsp;  </label>
+                <mat-radio-button class="example-radio-button" *ngFor="let statu of Status" [value]="statu" [checked]="bills.request_statues == statu.value">
+                  <span class="mr-2">  {{statu.name}} &nbsp;  </span>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <br>
+       
+           
+            
+            <table   class="table table-bordered" >
+                <thead>
+
+                    <tr>
+                        <th>No.</th>
+                        <th>اسم المستودع</th>
+                        <th>اسم القطعة</th>
+                        <th>وصف القطعة</th>
+                        <th> المبلغ</th>
+                        <th> ملاحظة</th>
+                        <th>عدد القطع </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of warehouses , let y = index">
+                        <!-- <td> <input  type="text"  formControlName="warehouseNo"  [(ngModel)]="row.warehouseNo" name="row.warehouseNo"/></td> -->
+                        <td>{{y+1}}</td>
+                        <td> 
+                            <mat-form-field>
+                                <input type="text" placeholder="اختر المستودع" aria-label="Number" matInput formControlName="warehouseNoName"
+                            [(ngModel)]="row.warehouseNo" name="row.warehouseNo"   [matAutocomplete]="autowarehouseNo">
+                            <mat-autocomplete #autowarehouseNo="matAutocomplete" [displayWith]="displayWarehouseNo.bind(this)">
+                                <mat-option *ngFor="let option of filteredOptionsWarehouseNo | async" [value]="option"  (onSelectionChange)="selectwarehouse(option)">
+                                 {{option.warehouseNameArabic}}
+                                </mat-option>
+                              </mat-autocomplete>
+                              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            </mat-form-field>
+                          <td> 
+                            <mat-form-field>
+                                <input type="text" placeholder="اختر المادة" aria-label="Number" matInput formControlName="piece_numberName"
+                          [(ngModel)]="row.piece_number" name="row.piece_number"   [matAutocomplete]="itemAuto" (focus)="getItemWhenPress()">
+                          <mat-autocomplete  #itemAuto="matAutocomplete" [displayWith]="displayPieceNumber.bind(this)">
+                            <mat-option *ngFor="let option of ItemFilteredOptions | async; let i = index" [value]="option"
+                              (click)="selectItem(option, y)">
+                              {{ option.itemName }}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+
+                        </mat-form-field>
+
+                        </td>
+                        <!-- <td> <input type="text"  formControlName="piece_number" [(ngModel)]="row.piece_number" name="row.piece_number"/></td> -->
+                        <td> <input type="text"  formControlName="Desc_Piece" [(ngModel)]="row.Desc_Piece" name="row.Desc_Piece"></td>
+                        <td>   <input type="text" formControlName="Price" [(ngModel)]="row.Price" name="row.Price">
+                        </td>
+                        <td> <input type="text"  formControlName="disc" [(ngModel)]="row.disc" name="row.disc"></td>
+                        <td> <input type="text"  formControlName="Count_pieces" [(ngModel)]="row.Count_pieces" [value]="row.Count_pieces" name="row.Count_pieces"></td>
+                      
+                    </tr>
+                </tbody>
+            </table>
+        
+        </div>
+        <div class="col-md-7">
+            <mat-form-field appearance="outline" dir="rtl">
+                <mat-label >  تاريخ الصيانة القادم</mat-label>
+                <input  formControlName="maintenanceDate" [value]="bills.Customers_Address11"  placeholder="MM/DD/YYYY" matInput [matDatepicker]="picker">
+                <mat-hint> هذا العنصر اختياري</mat-hint>
+                <mat-icon  class="matt" matSuffix><mat-datepicker-toggle matIconSuffix [for]="picker" ></mat-datepicker-toggle></mat-icon>
+                <mat-datepicker  #picker></mat-datepicker>
+              </mat-form-field>
+          </div>
+          <div class="col-md-12" >
+            <br>
+          </div>
+
+            <div class="col-md-12" >
+                <mat-form-field appearance="outline" dir="rtl">
+                    <mat-label> ملاحظات عامة</mat-label>
+                    <textarea formControlName="General_Desc"  matInput  [value]="bills.general_Desc"></textarea>
+                    <mat-icon matSuffix>note</mat-icon>
+                </mat-form-field>
+            </div> 
+
+        <!--  button -->
+        <div  class="action p-2" dir="rtl">
+            <button mat-raised-button color="primary" type="submit"  [disabled]="!editMaintenanceForm.valid" >
+                <mat-icon matSuffix >save</mat-icon> حفظ
+            </button> 
+
+            <button mat-raised-button color="primary"  routerLink="/maintenanceTechnician" >   <mat-icon matSuffix>keyboard_backspace</mat-icon>  رجوع  </button>
+        </div>
+      
+    </form>
+</div>
+
+<ng-template #MaintenanceDeleteDialog dir="rtl">
+    <h2>هل أنت متأكد من عملية الحذف لهذا المعرض </h2>
+    <mat-dialog-actions align="end">
+      <button class="btn btn-info" mat-button mat-dialog-close="no">لا</button>&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-danger" mat-button mat-dialog-close="yes">نعم</button>
+    </mat-dialog-actions>
+  
+  </ng-template>

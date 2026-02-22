@@ -1,0 +1,173 @@
+<div class="page-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>warehouse</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">إدارة المستودعات</h1>
+          <p class="page-subtitle">إدارة وتعديل بيانات المستودعات والمخازن التابعة للنظام</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-primary" (click)="openDialog()">
+          <mat-icon>add_home_work</mat-icon>
+          <span class="btn-text">إضافة مستودع جديد</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="DownloadInvoice()" matTooltip="تصدير Excel">
+          <mat-icon>file_download</mat-icon>
+          <span class="btn-text">تصدير</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="PrintInvoice()" matTooltip="طباعة القائمة">
+          <mat-icon>print</mat-icon>
+          <span class="btn-text">طباعة</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Table Section -->
+  <div class="card card-modern filter-card">
+    <div class="filter-header">
+      <mat-icon>list_alt</mat-icon>
+      <span>سجل المستودعات والمخازن</span>
+      <div class="filter-header-action">
+        <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #tableMenu="matMenu" class="modern-menu">
+          <button mat-menu-item (click)="openDialog()">
+            <mat-icon>add_home_work</mat-icon>
+            <span>إضافة مستودع جديد</span>
+          </button>
+          <button mat-menu-item (click)="DownloadInvoice()">
+            <mat-icon>file_download</mat-icon>
+            <span>تصدير البيانات</span>
+          </button>
+          <button mat-menu-item (click)="PrintInvoice()">
+            <mat-icon>print</mat-icon>
+            <span>طباعة القائمة</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- Search Bar Integrated like Area Page -->
+      <div class="filter-form mb-4">
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>بحث سريع في السجل</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="بحث باسم المستودع، الموقع، أو الفني..." #input>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+
+          <!-- Warehouse Number Column -->
+          <ng-container matColumnDef="WarehouseNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم المستودع </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-id">{{row.warehouseNumber}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Warehouse Name Arabic Column -->
+          <ng-container matColumnDef="WarehouseNameArabic">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم المستودع بالعربي </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="warehouse-info">
+                <span class="name">{{row.warehouseNameArabic}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Warehouse Name English Column -->
+          <ng-container matColumnDef="WarehouseNameEnglish">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم المستودع بالانجليزي </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="text-muted">{{row.warehouseNameEnglish}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Location Column -->
+          <ng-container matColumnDef="WarehouseLocation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> العنوان </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-location">{{row.warehouseLocation}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Phone Column -->
+          <ng-container matColumnDef="PhoneNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم الهاتف </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-phone">{{row.phoneNumber}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Technician Column -->
+          <ng-container matColumnDef="UserNmAr">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم الفني </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-technician">{{row.userNmAr}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> الإجراءات </th>
+            <td mat-cell *matCellDef="let row" class="text-center">
+              <div class="action-buttons">
+                <button mat-icon-button class="btn-action edit" (click)="OpenEditWarehousDialog(row)"
+                  matTooltip="تعديل">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action view" (click)="viewArea(row)" matTooltip="عرض التفاصيل">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action delete" (click)="openDeleteDialog(row.warehouseNumber)"
+                  matTooltip="حذف">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center p-5" [attr.colspan]="displayedColumns.length">
+              <div class="no-data">
+                <mat-icon>warehouse</mat-icon>
+                <p>لم يتم العثور على مستودعات تطابق البحث: "{{input.value}}"</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons
+          class="modern-paginator"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #WarehousesDeleteDialog>
+  <div class="confirm-dialog" dir="rtl">
+    <h2 mat-dialog-title>تأكيد الحذف</h2>
+    <mat-dialog-content>
+      هل أنت متأكد من رغبتك في حذف هذا المستودع؟ لا يمكن التراجع عن هذا الإجراء.
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button class="btn-modern btn-light" mat-dialog-close="no">إلغاء</button>
+      <button class="btn-modern btn-danger ms-2" mat-dialog-close="yes">نعم، حذف المستودع</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>

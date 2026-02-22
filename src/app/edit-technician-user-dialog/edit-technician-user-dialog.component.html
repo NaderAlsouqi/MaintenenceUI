@@ -1,0 +1,84 @@
+<div class="dialog-container" dir="rtl">
+    <!-- Premium Dialog Header -->
+    <div class="dialog-header">
+        <div class="header-icon">
+            <mat-icon>manage_accounts</mat-icon>
+        </div>
+        <h2 mat-dialog-title>تعديل بيانات الفني</h2>
+        <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-body">
+        <form [formGroup]="editNewUserForm" (ngSubmit)="onSubmit()">
+
+            <!-- User Details Section -->
+            <h3 class="section-title">
+                <mat-icon>account_circle</mat-icon>
+                البيانات الشخصية
+            </h3>
+
+            <div class="row g-3">
+                <!-- Username -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>اسم الفني</mat-label>
+                        <input formControlName="userNmAr" matInput placeholder="أدخل الاسم الكامل">
+                        <mat-icon matSuffix>person</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>البريد الالكتروني</mat-label>
+                        <input formControlName="email" matInput placeholder="example@domain.com">
+                        <mat-icon matSuffix>email</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Trans Date -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>تاريخ الإضافة</mat-label>
+                        <input matInput formControlName="transDate" disabled readonly>
+                        <mat-icon matSuffix>calendar_today</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Role & Permissions Section -->
+            <h3 class="section-title mt-4">
+                <mat-icon>admin_panel_settings</mat-icon>
+                الوظيفة والحالة
+            </h3>
+
+            <div class="row g-3">
+                <!-- Status -->
+                <div class="col-md-12">
+                    <div class="status-container">
+                        <label class="status-label">حالة الفني:</label>
+                        <mat-radio-group formControlName="loginType" class="status-radio-group">
+                            <mat-radio-button *ngFor="let status of logIn_Statuss" [value]="status.value"
+                                color="primary">
+                                {{status.name}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dialog-actions">
+                <button type="button" class="btn-modern btn-outline" [mat-dialog-close]="false">
+                    إلغاء
+                </button>
+                <button type="submit" class="btn-modern btn-primary">
+                    <mat-icon>save_as</mat-icon>
+                    <span>حفظ التعديلات</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

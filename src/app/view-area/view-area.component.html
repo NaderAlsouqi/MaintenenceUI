@@ -1,0 +1,57 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>location_on</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">تفاصيل المنطقة</h2>
+        <p class="dialog-subtitle">عرض بيانات المنطقة المحددة</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>tag</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">رقم المنطقة</span>
+          <span class="info-value">{{area.noCity}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>location_city</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم المنطقة</span>
+          <span class="info-value">{{area.cityNameAr}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>map</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">المحافظة</span>
+          <span class="info-value">{{area.governorate}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-actions mt-4">
+      <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light">
+        <mat-icon>arrow_back</mat-icon>
+        رجوع
+      </button>
+    </div>
+  </div>
+</div>

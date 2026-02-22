@@ -1,0 +1,132 @@
+// Premium Dialog Container
+.dialog-container {
+    min-width: 550px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+// Dialog Header
+.dialog-header-premium {
+    padding: 1.5rem 2rem;
+    background: linear-gradient(to right, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.03));
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .dialog-icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: white;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        mat-icon {
+            color: #7c3aed;
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .dialog-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+    }
+
+    .dialog-subtitle {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin: 0;
+    }
+
+    .close-btn {
+        color: #94a3b8;
+
+        &:hover {
+            color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.05);
+        }
+    }
+}
+
+// Dialog Content
+.dialog-content {
+    padding: 2rem;
+}
+
+// Actions
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+// Buttons
+.btn-modern {
+    border-radius: 10px;
+    padding: 0.6rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+
+    mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+    }
+
+    &.btn-primary {
+        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        &:disabled {
+            background: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            transform: none;
+        }
+    }
+
+    &.btn-light {
+        background: #f8fafc;
+        color: #475569;
+        border: 1px solid #e2e8f0;
+
+        &:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+    }
+}
+
+// Labels Fix
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
+    top: 1.84375em;
+    margin-top: -0.25em;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label {
+    transform: translateY(-1.34375em) scale(0.75);
+    width: 133.33333%;
+}

@@ -1,0 +1,79 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>store</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">تفاصيل المعرض</h2>
+        <p class="dialog-subtitle">عرض بيانات المعرض أو المول</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>store</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم المعرض</span>
+          <span class="info-value">{{opposed.exhibitionIDNmAr}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>phone</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">الهاتف الأول</span>
+          <span class="info-value">{{opposed.mobile1}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>phone_android</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">الهاتف الثاني</span>
+          <span class="info-value">{{opposed.mobile2 || '-'}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>category</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">النوع</span>
+          <span class="info-value badge" [ngClass]="opposed.exhib === '1' ? 'badge-mall' : 'badge-exhibition'">
+            {{_exhibition}}
+          </span>
+        </div>
+      </div>
+
+      <div class="info-card full-width">
+        <div class="info-icon">
+          <mat-icon>location_on</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">العنوان</span>
+          <span class="info-value">{{opposed.address}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-actions mt-4">
+      <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light">
+        <mat-icon>arrow_back</mat-icon>
+        رجوع
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,257 @@
+<div class="page-container" dir="rtl">
+  <!-- Page Header -->
+  <div class="card card-modern mb-4">
+    <div class="card-header-premium">
+      <div class="header-left">
+        <div class="d-flex align-items-center">
+          <div class="icon-box">
+            <mat-icon>build</mat-icon>
+          </div>
+          <div class="ms-3">
+            <h2 class="header-title">تعديل طلب الصيانة</h2>
+            <p class="header-subtitle">تعديل بيانات طلب الصيانة رقم #{{request.intro_id}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="btn-modern btn-outline" routerLink="/maintenance" matTooltip="العودة للقائمة">
+          <i class="material-icons">arrow_back</i>
+          <span class="btn-text">رجوع</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Content -->
+  <div class="card card-modern">
+    <div class="card-body">
+      <form [formGroup]="editIntroForm" (ngSubmit)="onSubmit()">
+
+        <!-- Basic Info Section -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon>info</mat-icon>
+            المعلومات الأساسية
+          </h3>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>رقم طلب الصيانة</mat-label>
+                <input matInput formControlName="intro_id" [value]="request.intro_id" disabled readonly>
+                <mat-icon matSuffix>tag</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>التاريخ</mat-label>
+                <input matInput formControlName="intro_date" disabled readonly
+                  [value]="request.intro_date | date:'dd/MM/yyyy'">
+                <mat-icon matSuffix>calendar_today</mat-icon>
+                <mat-hint>DD/MM/YYYY</mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <div class="status-card">
+                <label class="status-label">نوع الصيانة</label>
+                <mat-radio-group formControlName="intro_Emergency" (change)="onEmergencyStatusChange($event)"
+                  class="status-options">
+                  <mat-radio-button *ngFor="let status of MStatus" [value]="status.value"
+                    [checked]="request.intro_Emergency == status.value" color="primary">
+                    {{status.name}}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer Info Section -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon>person</mat-icon>
+            بيانات العميل
+          </h3>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>رقم هاتف العميل</mat-label>
+                <input matInput formControlName="customersNum" disabled readonly [value]="request.customersNum">
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>اسم العميل</mat-label>
+                <input matInput formControlName="customerName" disabled readonly [value]="request.customerName">
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <div class="status-card">
+                <label class="status-label">موقع الصيانة</label>
+                <mat-radio-group formControlName="intro_InOut" class="status-options">
+                  <mat-radio-button *ngFor="let status of MStatus2" [value]="status.value"
+                    [checked]="request.intro_InOut == status.value" color="primary">
+                    {{status.name}}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <div class="col-md-8">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>العنوان</mat-label>
+                <input matInput formControlName="customers_Address1" readonly [value]="request.customers_Address1">
+                <mat-icon matSuffix>location_on</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <div class="status-card">
+                <label class="status-label">حالة الطلب</label>
+                <mat-radio-group formControlName="status_Intro" class="status-options">
+                  <mat-radio-button *ngFor="let status of MStatus3" [value]="status.value"
+                    [checked]="request.status_Intro == status.value" color="primary">
+                    {{status.name}}
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Info Section -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon>devices</mat-icon>
+            بيانات المنتج
+          </h3>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>المنتج</mat-label>
+                <input #productInput type="text" matInput [value]="request.productName" formControlName="devicePor"
+                  [matAutocomplete]="productAuto" placeholder="اختر المنتج">
+                <mat-autocomplete autoActiveFirstOption #productAuto="matAutocomplete">
+                  <mat-option [value]="'__add_new__'" class="add-new-option"
+                    (onSelectionChange)="onProductSelectionChange($event)">
+                    <div class="add-new-content"
+                      style="display: flex; align-items: center; gap: 8px; color: #3f51b5; font-weight: 500;">
+                      <mat-icon style="margin: 0; font-size: 20px; width: 20px; height: 20px;">add_circle</mat-icon>
+                      <span>إضافة جهاز جديد</span>
+                    </div>
+                  </mat-option>
+                  <mat-option *ngFor="let option of ProductFilteredOptions | async" [value]="option.productName"
+                    (onSelectionChange)="selectProduct(option)">
+                    {{ option.productName }}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix>devices</mat-icon>
+              </mat-form-field>
+            </div>
+
+
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>اسم المعرض</mat-label>
+                <mat-select formControlName="ExhibitionIDNmAr" (selectionChange)="onExhibitionSelectionChange($event)">
+                  <!-- Add New Option -->
+                  <mat-option value="__add_new__" class="add-new-option">
+                    <div class="add-new-content">
+                      <mat-icon>add_circle</mat-icon>
+                      <span>إضافة معرض جديد</span>
+                    </div>
+                  </mat-option>
+                  <mat-divider></mat-divider>
+                  <!-- Existing Options -->
+                  <mat-option *ngFor="let option of ExhibitionList" [value]="option.exhibitionIDNmAr">
+                    {{ option.exhibitionIDNmAr }}
+                  </mat-option>
+                </mat-select>
+                <mat-icon matSuffix>store</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>الباركود</mat-label>
+                <input matInput [value]="request.barcode" formControlName="barcode">
+                <mat-icon matSuffix>qr_code</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>الكمية</mat-label>
+                <input type="number" matInput [value]="request.countDevice" formControlName="countDevice">
+                <mat-icon matSuffix>inventory</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maintenance Details Section -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon>engineering</mat-icon>
+            تفاصيل الصيانة
+          </h3>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>العطل</mat-label>
+                <input matInput [value]="request.intro_damage" formControlName="intro_damage">
+                <mat-icon matSuffix>bug_report</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>تاريخ الشراء</mat-label>
+                <input matInput [value]="request.datePurchase | date:'dd/MM/yyyy'" disabled readonly
+                  formControlName="datePurchase">
+                <mat-icon matSuffix>event</mat-icon>
+                <mat-hint>DD/MM/YYYY</mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>ملاحظة 1</mat-label>
+                <textarea matInput [value]="request.intro_disc" formControlName="intro_disc" rows="3"></textarea>
+                <mat-icon matSuffix>note</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>ملاحظة 2</mat-label>
+                <textarea matInput [value]="request.intro_discT" formControlName="intro_discT" rows="3"></textarea>
+                <mat-icon matSuffix>note_add</mat-icon>
+                <mat-hint>اختياري</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button type="button" class="btn-modern btn-outline" routerLink="/maintenance">
+            <i class="material-icons">close</i>
+            <span>إلغاء</span>
+          </button>
+          <button type="submit" class="btn-modern btn-primary">
+            <i class="material-icons">save</i>
+            <span>حفظ التعديلات</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

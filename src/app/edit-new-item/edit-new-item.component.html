@@ -1,0 +1,75 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>edit</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">تعديل بيانات المادة</h2>
+        <p class="dialog-subtitle">قم بتعديل بيانات المادة المحددة</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <form [formGroup]="edititemForm" (ngSubmit)="onSubmit()">
+      <input type="hidden" formControlName="ItemNumber">
+
+      <div class="row g-3">
+        <!-- Item Name -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم المادة</mat-label>
+            <input formControlName="ItemName" matInput placeholder="اسم المادة">
+            <mat-icon matSuffix>inventory_2</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Item Pieces -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>عدد القطع</mat-label>
+            <input formControlName="ItemPieces" matInput placeholder="عدد القطع">
+            <mat-icon matSuffix>format_list_numbered</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Item Piece Price -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>سعر القطعة</mat-label>
+            <input formControlName="ItemPiece" matInput placeholder="سعر القطعة">
+            <mat-icon matSuffix>attach_money</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Warehouse -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم المستودع</mat-label>
+            <input #exhibitionInput type="text" placeholder="اختر المستودع" matInput
+              formControlName="warehouseNameArabic" [matAutocomplete]="ExhibitionAuto">
+            <mat-autocomplete autoActiveFirstOption #ExhibitionAuto="matAutocomplete">
+              <mat-option *ngFor="let option of ExhibitionFilteredOptions | async" [value]="option.warehouseNameArabic"
+                (onSelectionChange)="selectExhibition(option)">
+                {{ option.warehouseNameArabic }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>warehouse</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="dialog-actions mt-4">
+        <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light ms-2">إلغاء</button>
+        <button mat-raised-button color="primary" type="submit" class="btn-modern btn-primary">
+          <mat-icon class="ms-2">save</mat-icon>
+          حفظ التغييرات
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>edit_location</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">تعديل بيانات المنطقة</h2>
+        <p class="dialog-subtitle">قم بتعديل بيانات المنطقة المحددة</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <form [formGroup]="editAreaForm" (ngSubmit)="onSubmit()">
+      <input type="hidden" formControlName="CityID">
+
+      <div class="row g-3">
+        <!-- Area Number -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رقم المنطقة</mat-label>
+            <input formControlName="NoCity" matInput placeholder="رقم المنطقة">
+            <mat-icon matSuffix>tag</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Area Name -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم المنطقة</mat-label>
+            <input formControlName="CityNameAr" matInput placeholder="اسم المنطقة">
+            <mat-icon matSuffix>location_city</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Governorate -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>المحافظة</mat-label>
+            <mat-select formControlName="Governorate">
+              <mat-option *ngFor="let city of cityList" [value]="city">{{ city }}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>map</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="dialog-actions mt-4">
+        <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light ms-2">إلغاء</button>
+        <button mat-raised-button color="primary" type="submit" class="btn-modern btn-primary"
+          [disabled]="!editAreaForm.valid">
+          <mat-icon class="ms-2">save</mat-icon>
+          حفظ التغييرات
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

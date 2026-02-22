@@ -1,0 +1,55 @@
+{
+    "SIDEBAR": {
+        "DASHBOARD": "Dashboard",
+        "MAINTENANCE_SYSTEM": "Maintenance System",
+        "MAINTENANCE_REQUESTS": "Maintenance Requests",
+        "MAINTENANCE_MANAGER": "Maintenance Manager",
+        "MAINTENANCE_TECHNICIAN": "Maintenance Technician",
+        "BILLS": "Financial Manager",
+        "FOLLOW_UP": "Follow-up",
+        "ENQUIRY": "Enquiry",
+        "SCHEDULED_MAINTENANCE": "Scheduled Maintenance",
+        "DEFINITIONS": "Definitions",
+        "CUSTOMERS": "Customers",
+        "EXHIBITIONS": "Exhibitions",
+        "AREAS": "Areas",
+        "TECHNICIANS_DEFINITION": "Technicians Definition",
+        "WAREHOUSES": "Warehouses",
+        "ITEMS": "Items",
+        "DEVICES": "Devices",
+        "FAULTS": "Faults",
+        "TAX_DEFINITION": "Tax Definition",
+        "LOGS": "Operations Logs"
+    },
+    "NAVBAR": {
+        "PROFILE": "My Profile",
+        "CHANGE_PASSWORD": "Change Password",
+        "ADD_USER": "Add User",
+        "LOGOUT": "Logout",
+        "THEME": "Theme",
+        "LANGUAGE": "Language"
+    },
+    "COMMON": {
+        "SEARCH": "Search",
+        "ADD": "Add",
+        "EDIT": "Edit",
+        "DELETE": "Delete",
+        "VIEW": "View",
+        "SAVE": "Save",
+        "CANCEL": "Cancel",
+        "EXPORT": "Export",
+        "PRINT": "Print",
+        "FAST_SEARCH": "Fast Search",
+        "NO_DATA": "No data matching the search",
+        "ACTIONS": "Actions"
+    },
+    "PAGES": {
+        "AREAS": {
+            "TITLE": "Areas & Cities Records",
+            "SUBTITLE": "Manage and edit areas and cities registered in the system",
+            "FILTER_TITLE": "Filter Areas & Cities",
+            "TABLE_TITLE": "Areas & Cities List",
+            "ADD_NEW": "Add New Area"
+        }
+    }
+}

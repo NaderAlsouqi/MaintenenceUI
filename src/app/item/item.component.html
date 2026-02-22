@@ -1,0 +1,164 @@
+<div class="page-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>inventory_2</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">إدارة المواد والمخزون</h1>
+          <p class="page-subtitle">إدارة وتعديل بيانات المواد وقطع الغيار والمخزون</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-primary" (click)="openDialog()">
+          <mat-icon>add_box</mat-icon>
+          <span class="btn-text">إضافة مادة جديدة</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="DownloadInvoice()" matTooltip="تصدير Excel">
+          <mat-icon>file_download</mat-icon>
+          <span class="btn-text">تصدير</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="PrintInvoice()" matTooltip="طباعة القائمة">
+          <mat-icon>print</mat-icon>
+          <span class="btn-text">طباعة</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Table Section -->
+  <div class="card card-modern filter-card">
+    <div class="filter-header">
+      <mat-icon>list_alt</mat-icon>
+      <span>سجل المواد وقطع الغيار</span>
+      <div class="filter-header-action">
+        <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #tableMenu="matMenu" class="modern-menu">
+          <button mat-menu-item (click)="openDialog()">
+            <mat-icon>add_box</mat-icon>
+            <span>إضافة مادة جديدة</span>
+          </button>
+          <button mat-menu-item (click)="DownloadInvoice()">
+            <mat-icon>file_download</mat-icon>
+            <span>تصدير البيانات</span>
+          </button>
+          <button mat-menu-item (click)="PrintInvoice()">
+            <mat-icon>print</mat-icon>
+            <span>طباعة القائمة</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- Search Bar Integrated like Area Page -->
+      <div class="filter-form mb-4">
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>بحث سريع في السجل</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="بحث باسم المادة، المستودع..." #input>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+
+          <!-- Item Number Column -->
+          <ng-container matColumnDef="ItemNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم المادة </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-id">{{row.itemNumber}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Item Name Column -->
+          <ng-container matColumnDef="ItemName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم المادة </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="item-info">
+                <span class="name">{{row.itemName}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Item Pieces Column -->
+          <ng-container matColumnDef="ItemPieces">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> عدد القطع </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-quantity">{{row.itemPieces}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Item Piece Price Column -->
+          <ng-container matColumnDef="ItemPiece">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> سعر القطعة </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-price">{{row.itemPiece}} ر.س</span>
+            </td>
+          </ng-container>
+
+          <!-- Warehouse Name Column -->
+          <ng-container matColumnDef="WarehouseNameArabic">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم المستودع </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-warehouse">{{row.warehouseNameArabic}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> الإجراءات </th>
+            <td mat-cell *matCellDef="let row" class="text-center">
+              <div class="action-buttons">
+                <button mat-icon-button class="btn-action edit" (click)="OpenEdititemDialog(row)" matTooltip="تعديل">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action view" (click)="viewArea(row)" matTooltip="عرض التفاصيل">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action delete" (click)="openDeleteDialog(row.itemNumber)"
+                  matTooltip="حذف">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center p-5" [attr.colspan]="displayedColumns.length">
+              <div class="no-data">
+                <mat-icon>inventory_2</mat-icon>
+                <p>لم يتم العثور على مواد تطابق البحث: "{{input.value}}"</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons
+          class="modern-paginator"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #itemDeleteDialog>
+  <div class="confirm-dialog" dir="rtl">
+    <h2 mat-dialog-title>تأكيد الحذف</h2>
+    <mat-dialog-content>
+      هل أنت متأكد من رغبتك في حذف هذه المادة؟ لا يمكن التراجع عن هذا الإجراء.
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button class="btn-modern btn-light" mat-dialog-close="no">إلغاء</button>
+      <button class="btn-modern btn-danger ms-2" mat-dialog-close="yes">نعم، حذف المادة</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>

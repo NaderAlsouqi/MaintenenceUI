@@ -1,0 +1,59 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>edit</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">تعديل بيانات العطل</h2>
+        <p class="dialog-subtitle">قم بتعديل بيانات العطل المحدد</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <form [formGroup]="editFaultForm" (ngSubmit)="onSubmit()">
+      <input type="hidden" formControlName="FaultsID">
+
+      <div class="row g-3">
+        <!-- Fault Code -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رمز العطل</mat-label>
+            <input formControlName="FaultCode" matInput placeholder="رمز العطل">
+            <mat-icon matSuffix>code</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Fault Name Arabic -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم العطل</mat-label>
+            <input formControlName="FaultNameAr" matInput placeholder="اسم العطل">
+            <mat-icon matSuffix>error_outline</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Fault Description -->
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>وصف العطل</mat-label>
+            <input formControlName="FaultName" matInput placeholder="وصف تفصيلي للعطل">
+            <mat-icon matSuffix>description</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="dialog-actions mt-4">
+        <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light ms-2">إلغاء</button>
+        <button mat-raised-button color="primary" type="submit" class="btn-modern btn-primary">
+          <mat-icon class="ms-2">save</mat-icon>
+          حفظ التغييرات
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

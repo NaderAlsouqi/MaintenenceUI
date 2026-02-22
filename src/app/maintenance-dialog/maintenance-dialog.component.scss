@@ -1,0 +1,319 @@
+// === MAINTENANCE DIALOG MODAL STYLES ===
+
+.dialog-container {
+    overflow-x: hidden;
+    min-width: 550px;
+    max-width: 100%;
+}
+
+// === PREMIUM HEADER ===
+.dialog-header-premium {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 50%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .icon-box {
+        width: 52px;
+        height: 52px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        mat-icon {
+            font-size: 26px;
+            width: 26px;
+            height: 26px;
+            color: #fbbf24;
+        }
+    }
+
+    .dialog-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: white;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .dialog-subtitle {
+        margin: 4px 0 0;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+    }
+
+    .close-btn {
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.2s;
+        position: relative;
+        z-index: 1;
+
+        &:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+
+// === DIALOG CONTENT ===
+.dialog-content {
+    padding: 2rem;
+    background: #fafbfc;
+}
+
+// === FORM FIELDS ===
+mat-form-field {
+    width: 100%;
+
+    ::ng-deep .mat-form-field-wrapper {
+        padding-bottom: 0.5rem;
+    }
+
+    ::ng-deep .mat-form-field-outline {
+        background: white;
+        border-radius: 12px;
+    }
+}
+
+// === STATUS SECTION ===
+.status-section {
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    margin-bottom: 1.5rem;
+
+    .section-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: var(--text-main, #1e293b);
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+
+        .label-icon {
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            color: #6366f1;
+        }
+    }
+}
+
+// === PARTS SECTION ===
+.parts-section {
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    margin-top: 1.5rem;
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+            font-size: 1rem;
+
+            mat-icon {
+                color: #6366f1;
+            }
+        }
+    }
+
+    .part-row {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid #e2e8f0;
+        transition: all 0.2s;
+
+        &:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+    }
+
+    .dense-field {
+        ::ng-deep .mat-form-field-wrapper {
+            padding-bottom: 0;
+        }
+    }
+
+    .add-new-option {
+        color: #4f46e5;
+        font-weight: 500;
+
+        mat-icon {
+            margin-inline-end: 8px;
+        }
+    }
+
+    .no-parts-message {
+        background: #f1f5f9;
+        border-radius: 8px;
+        border: 1px dashed #cbd5e1;
+    }
+}
+
+// === ACTION BUTTONS ===
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.btn-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    min-width: 130px;
+
+    mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    min-width: auto;
+    font-size: 0.85rem;
+}
+
+.btn-light {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+
+    &:hover {
+        background: #e2e8f0;
+        color: #475569;
+    }
+}
+
+.btn-outline {
+    background: white;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+
+    &:hover {
+        background: #f8fafc;
+        color: #475569;
+        border-color: #cbd5e1;
+    }
+
+    &.btn-primary-outline {
+        color: #6366f1;
+        border-color: #e0e7ff;
+        background: #eef2ff;
+
+        &:hover {
+            background: #e0e7ff;
+            border-color: #c7d2fe;
+        }
+    }
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: white;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+
+    &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+// === RESPONSIVE ===
+@media (max-width: 767px) {
+    .dialog-container {
+        min-width: unset;
+    }
+
+    .dialog-header-premium {
+        padding: 1.25rem 1.5rem;
+
+        .icon-box {
+            width: 44px;
+            height: 44px;
+
+            mat-icon {
+                font-size: 22px;
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        .dialog-title {
+            font-size: 1.15rem;
+        }
+
+        .dialog-subtitle {
+            font-size: 0.8rem;
+        }
+    }
+
+    .dialog-content {
+        padding: 1.25rem;
+    }
+
+    .dialog-actions {
+        flex-direction: column;
+
+        .btn-modern {
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+.rtl-text {
+    direction: rtl;
+    text-align: right;
+}
+
+
+
+mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color {
+    font-size: x-large;
+}
+
+input[readonly] {
+    color: #97999be7; /* Set your desired background color here */
+    /* Add any other styles you want for readonly inputs */
+  }

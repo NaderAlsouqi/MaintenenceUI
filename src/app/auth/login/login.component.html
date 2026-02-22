@@ -1,0 +1,89 @@
+<div class="login-page" dir="rtl">
+  <!-- Animated Background -->
+  <div class="bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="login-container">
+    <!-- Left Panel - Branding -->
+    <div class="brand-panel">
+      <div class="brand-content">
+        <div class="brand-logo">
+          <img src="assets/img/Skyline-Logo-Dark.jpg" alt="Skyline Innovation" class="logo-img">
+        </div>
+        <h1 class="brand-title">SKYLINE INNOVATION</h1>
+        <p class="brand-subtitle">نظام إدارة الصيانة المتكامل</p>
+        <div class="brand-features">
+          <div class="feature-item">
+            <mat-icon>engineering</mat-icon>
+            <span>إدارة طلبات الصيانة</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon>assignment</mat-icon>
+            <span>متابعة الأعمال والتقارير</span>
+          </div>
+          <div class="feature-item">
+            <mat-icon>groups</mat-icon>
+            <span>توزيع المهام على الفنيين</span>
+          </div>
+        </div>
+      </div>
+      <div class="brand-footer">
+        <p>&copy; 2026 Skyline Innovation - جميع الحقوق محفوظة</p>
+      </div>
+    </div>
+
+    <!-- Right Panel - Login Form -->
+    <div class="form-panel">
+      <div class="form-content">
+        <div class="form-header">
+          <div class="welcome-icon">
+            <mat-icon>lock_open</mat-icon>
+          </div>
+          <h2 class="form-title">مرحباً بك</h2>
+          <p class="form-subtitle">قم بتسجيل الدخول للمتابعة</p>
+        </div>
+
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="input-group">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>اسم المستخدم</mat-label>
+              <input matInput name="username" (focus)="onFocus('username')" (blur)="onBlur()" formControlName="username"
+                autocomplete="username">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-error *ngIf="loginForm.controls['username'].hasError('required') && selectedField == 'username'">
+                اسم المستخدم <strong>مطلوب</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="input-group">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>كلمة المرور</mat-label>
+              <input matInput (focus)="onFocus('password')" (blur)="onBlur()" formControlName="password"
+                [type]="hide ? 'password' : 'text'" autocomplete="current-password">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'إظهار كلمة المرور'"
+                [attr.aria-pressed]="hide" type="button">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+
+          <button class="login-btn" type="submit">
+            <span class="btn-content">
+              <mat-icon>login</mat-icon>
+              <span>تسجيل الدخول</span>
+            </span>
+            <div class="btn-shine"></div>
+          </button>
+        </form>
+
+        <div class="form-footer">
+          <p>تم التطوير بواسطة <a href="#">Skyline Innovation</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

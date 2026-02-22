@@ -1,0 +1,190 @@
+<div class="dashboard-modern">
+    <div class="container-fluid" dir="rtl">
+        <!-- Header Section -->
+        <div class="page-header">
+            <div class="header-content">
+                <div class="header-info">
+                    <div class="icon-box">
+                        <i class="material-icons">dashboard</i>
+                    </div>
+                    <div class="header-text">
+                        <h1 class="page-title">لوحة التحكم</h1>
+                        <p class="page-subtitle">نظرة عامة على نظام إدارة الصيانة</p>
+                    </div>
+                </div>
+                <div class="header-date">
+                    <i class="material-icons">today</i>
+                    <span>{{ today | date:'EEEE، d MMMM yyyy':'':'ar' }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row g-4 mt-2">
+            <!-- Total Requests Card -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <a [routerLink]="['/maintenance']" class="stats-card-link">
+                    <div class="stats-card warning">
+                        <div class="card-glow"></div>
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="material-icons">receipt_long</i>
+                            </div>
+                            <div class="card-info">
+                                <span class="card-value">{{MaintenanceIntroCounts?.totalMaintenanceIntro || 0}}</span>
+                                <span class="card-label">طلبات الصيانة</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="footer-text">
+                                <i class="material-icons">arrow_forward</i>
+                                عرض الطلبات
+                            </span>
+                        </div>
+                        <div class="card-pattern"></div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Completed Requests Card -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <a [routerLink]="['/maintenance']" [queryParams]="{status: 'completed'}" class="stats-card-link">
+                    <div class="stats-card success">
+                        <div class="card-glow"></div>
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="material-icons">task_alt</i>
+                            </div>
+                            <div class="card-info">
+                                <span class="card-value">{{MaintenanceIntroCounts?.finishedMaintenanceIntro ||
+                                    0}}</span>
+                                <span class="card-label">تمت صيانتها</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="footer-text">
+                                <i class="material-icons">verified</i>
+                                الطلبات المكتملة
+                            </span>
+                        </div>
+                        <div class="card-pattern"></div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Pending Requests Card -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <a [routerLink]="['/maintenance']" class="stats-card-link">
+                    <div class="stats-card danger">
+                        <div class="card-glow"></div>
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="material-icons">pending_actions</i>
+                            </div>
+                            <div class="card-info">
+                                <span class="card-value">{{MaintenanceIntroCounts?.unfinishedMaintenanceIntro ||
+                                    0}}</span>
+                                <span class="card-label">قيد الانتظار</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="footer-text">
+                                <i class="material-icons">priority_high</i>
+                                تطلب متابعة
+                            </span>
+                        </div>
+                        <div class="card-pattern"></div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Active Team Card -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <a [routerLink]="['/maintenance']" class="stats-card-link">
+                    <div class="stats-card indigo">
+                        <div class="card-glow"></div>
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="material-icons">engineering</i>
+                            </div>
+                            <div class="card-info">
+                                <span class="card-value">{{MaintenanceIntroCounts?.activeTechnicalUsers || 0}}</span>
+                                <span class="card-label">الفريق النشط</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="footer-text">
+                                <i class="material-icons">group</i>
+                                إدارة الفريق
+                            </span>
+                        </div>
+                        <div class="card-pattern"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Actions Section -->
+        <div class="row g-4 mt-3">
+            <div class="col-lg-4 col-md-6">
+                <a [routerLink]="['/customer']" class="quick-action-card">
+                    <div class="action-icon customers">
+                        <i class="material-icons">people</i>
+                    </div>
+                    <div class="action-content">
+                        <h4>إدارة العملاء</h4>
+                        <p>عرض وتعديل بيانات العملاء</p>
+                    </div>
+                    <i class="material-icons action-arrow">chevron_left</i>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a [routerLink]="['/scheduledMaintenance']" class="quick-action-card">
+                    <div class="action-icon scheduled">
+                        <i class="material-icons">event_repeat</i>
+                    </div>
+                    <div class="action-content">
+                        <h4>الصيانة الدورية</h4>
+                        <p>جدولة ومتابعة الصيانة الدورية</p>
+                    </div>
+                    <i class="material-icons action-arrow">chevron_left</i>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a [routerLink]="['/area']" class="quick-action-card">
+                    <div class="action-icon areas">
+                        <i class="material-icons">location_on</i>
+                    </div>
+                    <div class="action-content">
+                        <h4>إدارة المناطق</h4>
+                        <p>إضافة وتعديل المناطق والأحياء</p>
+                    </div>
+                    <i class="material-icons action-arrow">chevron_left</i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title-section">
+                            <h3 class="chart-title">إحصائيات الصيانة الشهرية</h3>
+                            <p class="chart-subtitle">تحليل الأداء للسنة الحالية</p>
+                        </div>
+                        <div class="chart-legend">
+                            <span class="legend-item">
+                                <span class="legend-dot"></span>
+                                عدد الطلبات
+                            </span>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="ct-chart" id="monthlyIntroChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

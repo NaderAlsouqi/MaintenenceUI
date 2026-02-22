@@ -1,0 +1,95 @@
+
+<div class="registration-form m-2 p-3 m-t">
+    <form class="frame"  dir="rtl" [formGroup]="followMaintForm" (ngSubmit)="onSubmit()">
+  
+      <div  mat-dialog-title>
+        <div id="grad1" class="card-heading">
+          <h2 class="title">   متابعة ما بعد الصيانة    
+          </h2>
+          </div> 
+       
+      </div>
+      <div class="row">
+
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+            <mat-label>رقم طلب الصيانة</mat-label>
+            <input formControlName="intro_id" matInput [value]="follow.intro_id" placeholder=" ادخل رقم طلب الصيانة" readonly="true">
+            <mat-icon matSuffix>line_weight</mat-icon>
+          </mat-form-field>
+        </div>
+        
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+            <mat-label>رقم العميل</mat-label>
+            <input formControlName="CustomersNum" [value]="follow.customersNum" matInput placeholder="رقم العميل" readonly="true">
+            <mat-icon matSuffix>phone</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+            <mat-label>اسم العمبل</mat-label>
+            <input  [value]="follow.customers_Fname1" matInput placeholder="اسم العميل" readonly="true">
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+        </div>
+
+
+
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+            <mat-label>رقم الجهاز</mat-label>
+            <input formControlName="deviceSR"  [value]="follow.deviceSR" matInput placeholder="رقم الجهاز" readonly="true">
+            <mat-icon matSuffix>line_weight</mat-icon>
+          </mat-form-field>
+        </div>
+     
+
+
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label >النوع    </mat-label>
+           <input   [value]="follow.deviceType_Name" matInput placeholder=" النوع  " readonly="true">
+           <mat-icon matSuffix>merge_type</mat-icon>
+         </mat-form-field>
+         </div> 
+
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label >الموديل  </mat-label>
+           <input    [value]="follow.deviceModel_Name" matInput placeholder="الموديل   " readonly="true">
+           <mat-icon matSuffix>view_module</mat-icon>
+         </mat-form-field>
+         </div> 
+
+         
+         <div class="col-md-12">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label >  ملاحظات </mat-label>
+           <textarea formControlName="disc" matInput [value]="follow.disc" ></textarea>
+           <mat-icon matSuffix>note</mat-icon>
+         </mat-form-field>
+         </div> 
+        </div>
+
+
+     
+        <!--  button -->
+        <div mat-dialog-actions class="action"  dir="rtl">
+          <button mat-raised-button color="primary" type="submit" >
+            <mat-icon matSuffix>save</mat-icon> حفظ
+          </button>
+          <button mat-raised-button color="primary" type="button" (click)="openDeleteDialog(follow.intro_id)">   <mat-icon matSuffix>delete</mat-icon>  حذف  </button>
+      </div>
+   </form>
+  </div>
+
+
+  <ng-template #followDeleteDialog dir="rtl">
+    <h2>هل أنت متأكد من عملية الحذف لهذا المعرض </h2>
+    <mat-dialog-actions align="end">
+      <button class="btn btn-info" mat-button mat-dialog-close="no">لا</button>&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-danger" mat-button mat-dialog-close="yes">نعم</button>
+    </mat-dialog-actions>
+  
+  </ng-template>

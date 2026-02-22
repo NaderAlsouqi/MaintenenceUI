@@ -1,0 +1,301 @@
+<div class="page-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>engineering</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">مدير الصيانة</h1>
+          <p class="page-subtitle">إدارة وتوزيع طلبات الصيانة على الفنيين</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-outline" (click)="DownloadInvoice(searchedData)" matTooltip="تصدير Excel">
+          <i class="material-icons">file_download</i>
+          <span class="btn-text">تصدير</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="PrintInvoice(searchedData)" matTooltip="طباعة التقرير">
+          <i class="material-icons">print</i>
+          <span class="btn-text">طباعة</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search/Filter Card -->
+  <div class="card card-modern filter-card mb-4">
+    <div class="filter-header">
+      <mat-icon>search</mat-icon>
+      <span>بحث في طلبات الصيانة</span>
+      <button class="btn-modern btn-primary btn-sm filter-header-action" type="button" (click)="onSearch()">
+        <mat-icon>search</mat-icon>
+        <span>بحث</span>
+      </button>
+    </div>
+    <div class="filter-form">
+      <form [formGroup]="mangerForm">
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>من تاريخ</mat-label>
+            <input formControlName="date1" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>الى تاريخ</mat-label>
+            <input formControlName="date2" matInput [matDatepicker]="picker2">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Stats Overview -->
+  <div class="stats-strip mb-4">
+    <div class="stat-card total">
+      <div class="stat-icon">
+        <mat-icon>assignment</mat-icon>
+      </div>
+      <div class="stat-content">
+        <span class="stat-value">{{dataSource?.filteredData?.length || 0}}</span>
+        <span class="stat-label">إجمالي الطلبات</span>
+      </div>
+    </div>
+    <div class="stat-card pending">
+      <div class="stat-icon">
+        <mat-icon>hourglass_empty</mat-icon>
+      </div>
+      <div class="stat-content">
+        <span class="stat-value">{{getPendingCount()}}</span>
+        <span class="stat-label">قيد الانتظار</span>
+      </div>
+    </div>
+    <div class="stat-card assigned">
+      <div class="stat-icon">
+        <mat-icon>person_pin</mat-icon>
+      </div>
+      <div class="stat-content">
+        <span class="stat-value">{{getAssignedCount()}}</span>
+        <span class="stat-label">تم التحويل</span>
+      </div>
+    </div>
+    <div class="stat-card emergency">
+      <div class="stat-icon">
+        <mat-icon>priority_high</mat-icon>
+      </div>
+      <div class="stat-content">
+        <span class="stat-value">{{getEmergencyCount()}}</span>
+        <span class="stat-label">طلبات طارئة</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Table Card -->
+  <div class="card card-modern filter-card">
+    <div class="filter-header">
+      <mat-icon>list_alt</mat-icon>
+      <span>سجل طلبات الصيانة</span>
+      <div class="filter-header-action">
+        <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #tableMenu="matMenu" class="modern-menu">
+          <button mat-menu-item (click)="DownloadInvoice(searchedData)">
+            <mat-icon>file_download</mat-icon>
+            <span>تنزيل التقرير</span>
+          </button>
+          <button mat-menu-item (click)="PrintInvoice(searchedData)">
+            <mat-icon>print</mat-icon>
+            <span>طباعة التقرير</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="table-container">
+        <!-- Table Filter -->
+        <div class="table-filter-bar mb-3">
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-icon matPrefix>filter_list</mat-icon>
+            <input matInput (keyup)="applyFilter($event)" placeholder="تصفية النتائج..." #input>
+          </mat-form-field>
+        </div>
+
+        <!-- Data Table -->
+        <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+          <!-- intro_id Column -->
+          <ng-container matColumnDef="intro_id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>رقم الطلب</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-id">{{ row.intro_id }}</span>
+            </td>
+          </ng-container>
+
+          <!-- intro_date Column -->
+          <ng-container matColumnDef="intro_date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>التاريخ</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="date-info">
+                <mat-icon class="info-icon">event</mat-icon>
+                <span>{{ row.intro_date }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- CustomerName Column -->
+          <ng-container matColumnDef="customers_FName1">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>العميل</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="customer-name">{{ row.customers_FName1 }}</span>
+            </td>
+          </ng-container>
+
+
+          <!-- devicePor Column -->
+          <ng-container matColumnDef="devicePor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>المنتج</th>
+            <td mat-cell *matCellDef="let row" [matTooltip]="row.devicePor">
+              <div class="device-info">
+                <mat-icon class="info-icon">devices</mat-icon>
+                <span>{{ row.devicePor }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- chooseTechnical Column -->
+          <ng-container matColumnDef="chooseTechnical">
+            <th mat-header-cell *matHeaderCellDef>الفني</th>
+            <td mat-cell *matCellDef="let row">
+              <mat-form-field appearance="outline" class="select-field compact">
+                <mat-select [(value)]="row.technical" placeholder="اختر الفني">
+                  <mat-option *ngFor="let option of loginTypeOptions" [value]="option.userID">
+                    {{ option.userNmAr }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <!-- UserNmAr Column -->
+          <ng-container matColumnDef="UserNmAr">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>محول لـ</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-success" *ngIf="row.userNmAr">
+                <mat-icon class="badge-icon">person</mat-icon>
+                {{ row.userNmAr }}
+              </span>
+              <span class="badge badge-warning" *ngIf="!row.userNmAr">غير محول</span>
+            </td>
+          </ng-container>
+
+          <!-- Customers_Address2 Column -->
+          <ng-container matColumnDef="Customers_Address2">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>المنطقة</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="location-info">
+                <mat-icon class="info-icon">location_on</mat-icon>
+                <span>{{ row.customers_Address2 }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- intro_Emergency Column -->
+          <ng-container matColumnDef="intro_Emergency">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>الأولوية</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge" [ngClass]="row.intro_Emergency === 1 ? 'badge-danger' : 'badge-success'">
+                <mat-icon class="badge-icon">{{ row.intro_Emergency === 1 ? 'warning' : 'check_circle' }}</mat-icon>
+                {{ row.intro_Emergency === 1 ? 'طارئة' : 'عادية' }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- intro_InOut Column -->
+          <ng-container matColumnDef="intro_InOut">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>النوع</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge" [ngClass]="row.intro_InOut === 1 ? 'badge-info' : 'badge-secondary'">
+                {{ row.intro_InOut === 1 ? 'داخلي' : 'خارجي' }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Request_statues Column -->
+          <ng-container matColumnDef="Request_statues">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>حالة الطلب</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge" [ngClass]="getStatusClass(row.request_statues, row.technical)">
+                {{ getStatusText(row.request_statues, row.technical) }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center">الإجراءات</th>
+            <td mat-cell *matCellDef="let row" class="text-center">
+              <div class="action-buttons">
+                <button mat-icon-button class="btn-action save"
+                  [ngClass]="{ 'disabled-btn': !row.technical, 'saved-btn': row.userNmAr }" [disabled]="!row.technical"
+                  (click)="addUserMaint(row.intro_id, row.technical)" matTooltip="حفظ التحويل">
+                  <mat-icon>{{ row.userNmAr ? 'check_circle' : 'save' }}</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action view" [routerLink]="['/maintenance']"
+                  [queryParams]="{ intro_id: row.intro_id }" matTooltip="فتح طلب الصيانة">
+                  <mat-icon>construction</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action attach" (click)="openViewAttachmentsDialog(row.intro_id)"
+                  matTooltip="عرض المرفقات">
+                  <mat-icon>attach_file</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action upload" (click)="openAttachmentUploadDialog(row.intro_id)"
+                  matTooltip="رفع مرفقات">
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.emergency-row]="row.intro_Emergency === 1"
+            [class.assigned-row]="row.userNmAr"></tr>
+
+          <!-- No Data Row -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center p-5" [attr.colspan]="displayedColumns.length">
+              <div class="no-data">
+                <mat-icon>search_off</mat-icon>
+                <p>لا توجد نتائج تطابق البحث: "{{ input.value }}"</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons
+          class="modern-paginator"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #faultsDeleteDialog dir="rtl">
+  <div class="confirm-dialog">
+    <div class="dialog-icon">
+      <mat-icon>warning</mat-icon>
+    </div>
+    <h2 mat-dialog-title>تأكيد الحذف</h2>
+    <mat-dialog-content>
+      هل أنت متأكد من رغبتك في حذف هذا الطلب؟ لا يمكن التراجع عن هذا الإجراء.
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button class="btn-modern btn-light" mat-dialog-close="no">إلغاء</button>
+      <button class="btn-modern btn-danger ms-2" mat-dialog-close="yes">نعم، حذف</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>

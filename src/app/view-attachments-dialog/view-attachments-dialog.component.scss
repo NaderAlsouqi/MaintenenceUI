@@ -1,0 +1,31 @@
+.attachments-table {
+    width: 100%;
+    margin: 20px;
+  }
+  
+  .table-header {
+    font-weight: bold;
+    padding: 10px;
+  }
+  
+  .table-cell {
+    padding: 10px;
+  }
+
+  .table-container {
+    max-height: 300px; /* Adjust the max height as needed */
+    overflow: auto;
+    margin-top: 20px; /* Add some margin to separate from the filter input */
+  }
+  
+  /* Optionally, you can add a scrollbar design */
+  .table-container::-webkit-scrollbar {
+    width: 10px; /* Adjust scrollbar width as needed */
+  }
+  
+  .table-container::-webkit-scrollbar-thumb {
+    background: #888; /* Scrollbar thumb color */
+    border-radius: 5px; /* Rounded corners for the thumb */
+  }
+  
+  

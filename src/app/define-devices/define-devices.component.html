@@ -1,0 +1,158 @@
+
+   <div class="registration-form m-2 p-3 m-t">
+    <form class="frame"  dir="rtl"  [formGroup]="defineForm"  >
+  
+      <div  mat-dialog-title>
+        <div id="grad1" class="card-heading">
+          <h2 class="title">   تعريف الأجهزة   
+          </h2>
+          </div> 
+       
+      </div>
+      <div class="row p-0">
+
+        <div class="col-md-4">
+        </div>
+        <div class=" col-md-4"> 
+            <mat-form-field  appearance="outline" dir="rtl"  >
+             <mat-label >المنتج  </mat-label>
+             <input  formControlName="product" 
+             matInput placeholder="المنتج  ">
+             <mat-icon  matSuffix>devices</mat-icon>
+           </mat-form-field>
+           </div>
+           <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4" >
+        <div mat-dialog-actions class="action"  dir="rtl">
+            <button mat-raised-button class="btnSave" color="primary" type="submit" (click)="saveproduct()"  (click)="enableNext(0)">
+              <mat-icon matSuffix>save</mat-icon> حفظ
+            </button>
+        </div>
+      </div>
+        <div class="col-md-4"></div>
+  
+
+
+
+
+
+
+
+
+
+
+        
+       
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+
+          <mat-form-field appearance="outline" dir="rtl">
+            <mat-label>المنتج</mat-label>
+            <input [readonly]="!isControlEnabled[1]" #productInput type="text" placeholder="اختر المنتج" aria-label="Number" matInput formControlName="devicePor1"
+              [matAutocomplete]="productAuto1" >
+            <mat-autocomplete autoActiveFirstOption #productAuto1="matAutocomplete">
+              <mat-option  [disabled]="!isControlEnabled[1]" *ngFor="let option of ProductFilteredOptions1 | async" [value]="option.productName" (click)=" selectProductFromList(option)">
+                {{ option.productName }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>devices </mat-icon>
+          </mat-form-field>
+         
+             
+          </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <mat-form-field appearance="outline" dir="rtl">
+             <mat-label >نوع الجهاز   </mat-label>
+             <input formControlName="deviceType_Name1" matInput placeholder="نوع الجهاز" [readonly]="!isControlEnabled[1]">
+             <mat-icon matSuffix>merge_type</mat-icon>
+           </mat-form-field>
+           </div>
+           <div class="col-md-4">
+            
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4" >
+        <div mat-dialog-actions class="action"  dir="rtl">
+            <button mat-raised-button class="btnSave" color="primary" type="submit" [disabled]="!isControlEnabled[1]" (click)="saveproductType()" (click)="enableNext(1)">
+              <mat-icon matSuffix>save</mat-icon> حفظ
+            </button>
+        </div>
+      </div>
+        <div class="col-md-4"></div>
+           <div class="col-md-4">
+        </div>
+       
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" dir="rtl">
+              <mat-label>المنتج</mat-label>
+              <input [readonly]="!isControlEnabled[2]"  #productInput type="text" placeholder="اختر المنتج" aria-label="Number" matInput formControlName="devicePor"
+                [matAutocomplete]="productAuto">
+              <mat-autocomplete autoActiveFirstOption #productAuto="matAutocomplete">
+                <mat-option [disabled]="!isControlEnabled[2]" *ngFor="let option of ProductFilteredOptions | async" [value]="option.productName" (click)="selectProductFromList1(option)" (onSelectionChange)="selectProduct(option)">
+                  {{ option.productName }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-icon matSuffix> devices</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+        </div>
+        
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+            <mat-label>النوع</mat-label>
+            <input [readonly]="!isControlEnabled[2]"  #typeInput type="text" placeholder="اختر النوع" aria-label="Number" matInput formControlName="deviceType_Name"
+              [matAutocomplete]="typeAuto" (focus)="getTypeWhenPress()">
+            <mat-autocomplete autoActiveFirstOption #typeAuto="matAutocomplete">
+              <mat-option [disabled]="!isControlEnabled[2]" *ngFor="let option of TypeFilteredOptions | async; let i = index" [value]="option.deviceType_Name"
+                (onSelectionChange)="selectType(option)" (click)="selectTypeFromList(option)">
+                {{ option.deviceType_Name }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>merge_type </mat-icon>
+          </mat-form-field>
+        </div>
+  
+
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+        </div> 
+        <div class="col-md-4">
+            <mat-form-field appearance="outline" dir="rtl">
+             <mat-label >الموديل  </mat-label>
+             <input formControlName="deviceModel_Name" matInput placeholder="الموديل   " [readonly]="!isControlEnabled[2]">
+             <mat-icon matSuffix>view_module</mat-icon>
+           </mat-form-field>
+           </div> 
+           <div class="col-md-4">
+        </div>
+
+           <div class="col-md-4">
+        </div>
+        <div class="col-md-4" >
+        <div mat-dialog-actions class="action"  dir="rtl">
+            <button mat-raised-button class="btnSave" color="primary" type="submit" (click)="saveproductModel()"  [disabled]="!isControlEnabled[2]">
+              <mat-icon matSuffix>save</mat-icon> حفظ
+            </button>
+        </div>
+      </div>
+        <div class="col-md-4"></div>
+        
+      
+  
+        </div>
+   </form>
+  </div>

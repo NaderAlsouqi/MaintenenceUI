@@ -1,0 +1,55 @@
+{
+    "SIDEBAR": {
+        "DASHBOARD": "الصفحة الرئيسية",
+        "MAINTENANCE_SYSTEM": "نظام الصيانة",
+        "MAINTENANCE_REQUESTS": "طلبات الصيانة",
+        "MAINTENANCE_MANAGER": "مدير الصيانة",
+        "MAINTENANCE_TECHNICIAN": "فني الصيانة",
+        "BILLS": "المدير المالي",
+        "FOLLOW_UP": "متابعه",
+        "ENQUIRY": "استعلام",
+        "SCHEDULED_MAINTENANCE": "الصيانة الدورية",
+        "DEFINITIONS": "التعريفات",
+        "CUSTOMERS": "العملاء",
+        "EXHIBITIONS": "المعارض",
+        "AREAS": "المناطق",
+        "TECHNICIANS_DEFINITION": "تعريف الفنيين",
+        "WAREHOUSES": "المستودعات",
+        "ITEMS": "المواد",
+        "DEVICES": "تعريف الأجهزة",
+        "FAULTS": "تعريف الأعطال",
+        "TAX_DEFINITION": "تعريف الضرائب",
+        "LOGS": "سجل العمليات"
+    },
+    "NAVBAR": {
+        "PROFILE": "حسابي",
+        "CHANGE_PASSWORD": "تغير كلمة المرور",
+        "ADD_USER": "إضافة مستخدم",
+        "LOGOUT": "تسجيل الخروج",
+        "THEME": "المظهر",
+        "LANGUAGE": "اللغة"
+    },
+    "COMMON": {
+        "SEARCH": "بحث",
+        "ADD": "إضافة",
+        "EDIT": "تعديل",
+        "DELETE": "حذف",
+        "VIEW": "عرض",
+        "SAVE": "حفظ",
+        "CANCEL": "إلغاء",
+        "EXPORT": "تصدير",
+        "PRINT": "طباعة",
+        "FAST_SEARCH": "بحث سريع",
+        "NO_DATA": "لا توجد بيانات مطابقة للبحث",
+        "ACTIONS": "العمليات"
+    },
+    "PAGES": {
+        "AREAS": {
+            "TITLE": "سجل المناطق والمدن",
+            "SUBTITLE": "إدارة وتعديل بيانات المناطق والمدن المسجلة في النظام",
+            "FILTER_TITLE": "تصفية المناطق والمدن",
+            "TABLE_TITLE": "قائمة المناطق والمدن",
+            "ADD_NEW": "إضافة منطقة جديدة"
+        }
+    }
+}

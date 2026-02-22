@@ -1,0 +1,148 @@
+<div class="page-container">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>location_on</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">{{ 'PAGES.AREAS.TITLE' | translate }}</h1>
+          <p class="page-subtitle">{{ 'PAGES.AREAS.SUBTITLE' | translate }}</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-primary" (click)="openDialog()">
+          <mat-icon>add_location</mat-icon>
+          <span class="btn-text">{{ 'PAGES.AREAS.ADD_NEW' | translate }}</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="DownloadInvoice()" matTooltip="تصدير Excel">
+          <mat-icon>file_download</mat-icon>
+          <span class="btn-text">{{ 'COMMON.EXPORT' | translate }}</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="PrintInvoice()" matTooltip="طباعة القائمة">
+          <mat-icon>print</mat-icon>
+          <span class="btn-text">{{ 'COMMON.PRINT' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Table Section -->
+  <div class="card card-modern filter-card">
+    <div class="filter-header">
+      <mat-icon>list_alt</mat-icon>
+      <span>{{ 'PAGES.AREAS.TITLE' | translate }}</span>
+      <div class="filter-header-action">
+        <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #tableMenu="matMenu" class="modern-menu">
+          <button mat-menu-item (click)="openDialog()">
+            <mat-icon>add_location</mat-icon>
+            <span>{{ 'PAGES.AREAS.ADD_NEW' | translate }}</span>
+          </button>
+          <button mat-menu-item (click)="DownloadInvoice()">
+            <mat-icon>file_download</mat-icon>
+            <span>{{ 'COMMON.EXPORT' | translate }}</span>
+          </button>
+          <button mat-menu-item (click)="PrintInvoice()">
+            <mat-icon>print</mat-icon>
+            <span>{{ 'COMMON.PRINT' | translate }}</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- Search Bar Integrated like Enquiry Search -->
+      <div class="filter-form mb-4">
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>{{ 'COMMON.FAST_SEARCH' | translate }}</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="بحث باسم المنطقة أو المحافظة..." #input>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+
+          <!-- NoCity Column -->
+          <ng-container matColumnDef="noCity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> الرقم </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-id">{{row.noCity}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Area Name Column -->
+          <ng-container matColumnDef="cityNameAr">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم المنطقة </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="area-info">
+                <span class="name">{{row.cityNameAr}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Governorate Column -->
+          <ng-container matColumnDef="governorate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> المحافظة </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-location">{{row.governorate}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> {{ 'COMMON.ACTIONS' | translate }} </th>
+            <td mat-cell *matCellDef="let row" class="text-center">
+              <div class="action-buttons">
+                <button mat-icon-button class="btn-action edit" (click)="OpenEditAreaDialog(row)" matTooltip="تعديل">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action view" (click)="viewArea(row)" matTooltip="عرض التفاصيل">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action delete" (click)="openDeleteDialog(row.cityID)"
+                  matTooltip="حذف">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center p-5" [attr.colspan]="displayedColumns.length">
+              <div class="no-data">
+                <mat-icon>location_off</mat-icon>
+                <p>{{ 'COMMON.NO_DATA' | translate }}: "{{input.value}}"</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons
+          class="modern-paginator"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #CityDeleteDialog>
+  <div class="confirm-dialog" dir="rtl">
+    <h2 mat-dialog-title>تأكيد الحذف</h2>
+    <mat-dialog-content>
+      هل أنت متأكد من رغبتك في حذف هذه المنطقة؟ لا يمكن التراجع عن هذا الإجراء.
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button class="btn-modern btn-light" mat-dialog-close="no">إلغاء</button>
+      <button class="btn-modern btn-danger ms-2" mat-dialog-close="yes">نعم، حذف المنطقة</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>

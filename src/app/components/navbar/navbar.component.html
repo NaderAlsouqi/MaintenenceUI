@@ -1,0 +1,95 @@
+<nav class="navbar navbar-expand-lg floating-navbar glass-panel">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <h2 class="navbar-title">{{getTitle()}}</h2>
+        </div>
+
+        <button class="navbar-toggler-modern" type="button" (click)="sidebarToggle()">
+            <i class="material-icons">menu</i>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item language-picker-wrapper">
+                    <a class="nav-link-icon lang-toggle-btn" title="تغيير اللغة" style="cursor:pointer;">
+                        <span class="lang-flag">{{currentLang === 'ar' ? 'ar' : 'en'}}</span>
+                    </a>
+                    <div class="language-dropdown glass-panel-deep">
+                        <a class="lang-option" [class.active]="currentLang === 'ar'" (click)="switchLanguage('ar')">
+                            <span class="lang-label">العربية</span>
+                            <i class="material-icons" *ngIf="currentLang === 'ar'">check</i>
+                        </a>
+                        <a class="lang-option" [class.active]="currentLang === 'en'" (click)="switchLanguage('en')">
+                            <span class="lang-label">English</span>
+                            <i class="material-icons" *ngIf="currentLang === 'en'">check</i>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link-icon" [routerLink]="['/dashboard']" title="Dashboard">
+                        <i class="material-icons">dashboard</i>
+                    </a>
+                </li>
+
+                <li class="nav-item theme-picker-wrapper">
+                    <a class="nav-link-icon theme-toggle-btn" (click)="toggleThemeMenu($event)"
+                        [title]="'NAVBAR.THEME' | translate" style="cursor:pointer;">
+                        <i class="material-icons">{{currentThemeOption.icon}}</i>
+                    </a>
+
+                    <div class="theme-picker-dropdown" [class.show]="themeMenuOpen">
+                        <div class="theme-picker-title">
+                            <i class="material-icons">palette</i>
+                            <span>{{ 'NAVBAR.THEME' | translate }}</span>
+                        </div>
+                        <div class="theme-picker-options">
+                            <a class="theme-option" *ngFor="let theme of themes"
+                                [class.active]="theme.name === currentTheme" (click)="selectTheme(theme.name)">
+                                <span class="theme-swatch" [style.background]="theme.swatchBg"
+                                    [style.border-color]="theme.swatch">
+                                    <span class="theme-swatch-dot" [style.background]="theme.swatch"></span>
+                                </span>
+                                <span class="theme-option-label">{{theme.label}}</span>
+                                <i class="material-icons theme-check"
+                                    *ngIf="theme.name === currentTheme">check_circle</i>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown profile-dropdown">
+                    <a class="nav-link-profile" href="javascript:void(0)" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="user-avatar">
+                            <i class="material-icons">account_circle</i>
+                        </div>
+                        <span class="username-text">{{username || 'User'}}</span>
+                        <i class="material-icons">expand_more</i>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-modern glass-panel-deep"
+                        aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item-modern" [routerLink]="['/user-profile']">
+                            <i class="material-icons">person</i>
+                            <span>{{ 'NAVBAR.PROFILE' | translate }}</span>
+                        </a>
+                        <a class="dropdown-item-modern" (click)="openDialog()">
+                            <i class="material-icons">lock_reset</i>
+                            <span>{{ 'NAVBAR.CHANGE_PASSWORD' | translate }}</span>
+                        </a>
+                        <a *ngIf="userrole == 9" class="dropdown-item-modern border-top" [routerLink]="['/addUser']">
+                            <i class="material-icons">person_add</i>
+                            <span>{{ 'NAVBAR.ADD_USER' | translate }}</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item-modern logout" (click)="logout()">
+                            <i class="material-icons">exit_to_app</i>
+                            <span>{{ 'NAVBAR.LOGOUT' | translate }}</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,210 @@
+<div class="page-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>receipt_long</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">متابعة الصيانة</h1>
+          <p class="page-subtitle">إدارة ومتابعة طلبات الصيانة المنجزة</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-outline" (click)="DownloadInvoice()" matTooltip="تصدير Excel">
+          <i class="material-icons">file_download</i>
+          <span class="btn-text">تصدير</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="PrintInvoice()" matTooltip="طباعة التقرير">
+          <i class="material-icons">print</i>
+          <span class="btn-text">طباعة</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Table Card -->
+  <div class="card card-modern">
+    <div class="card-header-premium">
+      <div class="header-left">
+      </div>
+      <div class="header-right">
+        <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #tableMenu="matMenu" class="modern-menu">
+          <button mat-menu-item (click)="DownloadInvoice()">
+            <mat-icon>file_download</mat-icon>
+            <span>تنزيل التقرير</span>
+          </button>
+          <button mat-menu-item (click)="PrintInvoice()">
+            <mat-icon>print</mat-icon>
+            <span>طباعة التقرير</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="table-container">
+        <!-- Table Filter -->
+        <div class="table-filter-bar mb-3">
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-icon matPrefix>filter_list</mat-icon>
+            <input matInput (keyup)="applyFilter($event)" placeholder="تصفية النتائج..." #input>
+          </mat-form-field>
+        </div>
+
+        <!-- Data Table -->
+        <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+
+          <!-- intro_id Column -->
+          <ng-container matColumnDef="intro_id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>رقم الصيانة</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-id">{{ row.intro_id }}</span>
+            </td>
+          </ng-container>
+
+          <!-- intro_date Column -->
+          <ng-container matColumnDef="intro_date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>التاريخ</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="date-info">
+                <mat-icon class="info-icon">event</mat-icon>
+                <span>{{ row.intro_date }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- intro_Emergency Column -->
+          <ng-container matColumnDef="intro_Emergency">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>الأولوية</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge" [ngClass]="row.intro_Emergency === 1 ? 'badge-danger' : 'badge-success'">
+                <mat-icon class="badge-icon">{{ row.intro_Emergency === 1 ? 'warning' : 'check_circle' }}</mat-icon>
+                {{ row.intro_Emergency === 0 ? 'غير طارئة' : row.intro_Emergency === 1 ? 'طارئة' : '' }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- DeviceProduct Column -->
+          <ng-container matColumnDef="devicePor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>المنتج</th>
+            <td mat-cell *matCellDef="let row" [matTooltip]="row.devicePor">
+              <div class="device-info">
+                <mat-icon class="info-icon">devices</mat-icon>
+                <span class="truncate-text">{{ row.devicePor }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- CustomerName Column -->
+          <ng-container matColumnDef="customers_Fname1">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>العميل</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="customer-name">{{ row.customers_Fname1 }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Customers_Address Column -->
+          <ng-container matColumnDef="customers_Address">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>العنوان</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="location-info">
+                <mat-icon class="info-icon">location_on</mat-icon>
+                <span class="truncate-text address-text">{{ row.customers_Address }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- LoginType Column -->
+          <ng-container matColumnDef="intro_InOut">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>النوع</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge" [ngClass]="row.intro_InOut === 0 ? 'badge-info' : 'badge-secondary'">
+                {{ row.intro_InOut === 0 ? 'داخلي' : row.intro_InOut === 1 ? 'خارجي' : '' }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Request_statues Column -->
+          <ng-container matColumnDef="request_statues">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>حالة الطلب</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge" [ngClass]="{
+                'badge-info': row.request_statues == 0,
+                'badge-warning': row.request_statues == 1,
+                'badge-secondary': row.request_statues == 2 || row.request_statues == 4 || row.request_statues == 6,
+                'badge-success': row.request_statues == 3 || row.request_statues == 7,
+                'badge-primary': row.request_statues == 5 || row.request_statues == 8,
+                'badge-dark': row.request_statues == 9 || row.request_statues == 11
+              }">
+                {{
+                row.request_statues === 0 && row.technical === 0
+                ? 'لم يتم تحويل الطلب'
+                : row.request_statues === 0 && row.technical !== 0
+                ? 'لم يتم العمل عليه'
+                : row.request_statues === 1
+                ? 'بحاجة الى قطع'
+                : row.request_statues === 2
+                ? 'لاغي'
+                : row.request_statues === 3
+                ? 'تمت الصيانة'
+                : row.request_statues === 4
+                ? 'لم تتم الصيانة'
+                : row.request_statues === 5
+                ? 'موافقة العميل'
+                : row.request_statues === 6
+                ? 'سحب الجهاز'
+                : row.request_statues === 7
+                ? 'منتهي'
+                : row.request_statues === 8
+                ? 'اصدار سند قبض'
+                : row.request_statues === 9
+                ? 'مغلق- المتابعه'
+                : row.request_statues === 11
+                ? 'مغلق -إصدار سند قبض'
+                : ''
+                }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center">الإجراءات</th>
+            <td mat-cell *matCellDef="let row" class="text-center">
+              <div class="action-buttons">
+                <button mat-icon-button class="btn-action view" [routerLink]="['/maintenance']"
+                  [queryParams]="{ intro_id: row.intro_id }" matTooltip="عرض طلب الصيانة">
+                  <mat-icon>construction</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action edit" (click)="closeandNew(row)" matTooltip="إغلاق وفتح جديد">
+                  <mat-icon>edit_square</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <!-- No Data Row -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center p-5" [attr.colspan]="displayedColumns.length">
+              <div class="no-data">
+                <mat-icon>search_off</mat-icon>
+                <p>لا توجد نتائج تطابق البحث: "{{ input.value }}"</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+          class="modern-paginator"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

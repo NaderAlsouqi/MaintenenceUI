@@ -1,0 +1,115 @@
+<div class="dialog-container" dir="rtl">
+  <!-- Premium Dialog Header -->
+  <div class="dialog-header">
+    <div class="header-icon">
+      <mat-icon>manage_accounts</mat-icon>
+    </div>
+    <h2 mat-dialog-title>تعديل بيانات المستخدم</h2>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-body">
+    <form [formGroup]="editNewUserForm" (ngSubmit)="onSubmit()">
+
+      <!-- User Details Section -->
+      <h3 class="section-title">
+        <mat-icon>account_circle</mat-icon>
+        البيانات الشخصية
+      </h3>
+
+      <div class="row g-3">
+        <!-- Username -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم المستخدم</mat-label>
+            <input formControlName="userNmAr" matInput placeholder="أدخل الاسم الكامل">
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>البريد الالكتروني</mat-label>
+            <input formControlName="email" matInput placeholder="example@domain.com">
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Password (Hidden in original code? Line 25: div class="col-md-4" hidden. I'll keep it hidden or expose it if it was meant to be editable) -->
+        <!-- The original code had it hidden. I will omit it from the UI or keep it hidden to match logic. -->
+
+        <!-- Trans Date -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>تاريخ الإضافة</mat-label>
+            <input matInput formControlName="transDate" disabled readonly>
+            <mat-icon matSuffix>calendar_today</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Password Field (if needed to change password) -->
+        <div class="col-md-6" *ngIf="false"> <!-- Keeping it logically hidden -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>كلمة المرور الجديدة</mat-label>
+            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Role & Permissions Section -->
+      <h3 class="section-title mt-4">
+        <mat-icon>admin_panel_settings</mat-icon>
+        الوظيفة والحالة
+      </h3>
+
+      <div class="row g-3">
+        <!-- Job Title / Role -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>المسمى الوظيفي</mat-label>
+            <input type="text" placeholder="اختر المسمى الوظيفي" matInput formControlName="name_User_level"
+              [matAutocomplete]="userAuto">
+            <mat-autocomplete autoActiveFirstOption #userAuto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name_User_level"
+                (onSelectionChange)="selectuser(option)">
+                {{ option.name_User_level }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>work</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Status -->
+        <div class="col-md-12">
+          <div class="status-container">
+            <label class="status-label">حالة المستخدم:</label>
+            <mat-radio-group formControlName="loginType" (change)="onEmergencyStatusChange($event)"
+              class="status-radio-group">
+              <mat-radio-button *ngFor="let status of logIn_Statuss" [value]="status.value"
+                [checked]="users.loginType == status.value" color="primary">
+                {{status.name}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog-actions">
+        <button type="button" class="btn-modern btn-outline" [mat-dialog-close]="false">
+          إلغاء
+        </button>
+        <button type="submit" class="btn-modern btn-primary">
+          <mat-icon>save_as</mat-icon>
+          <span>حفظ التعديلات</span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

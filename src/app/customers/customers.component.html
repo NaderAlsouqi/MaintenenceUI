@@ -1,0 +1,175 @@
+<div class="page-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>group</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">قاعدة بيانات العملاء</h1>
+          <p class="page-subtitle">إدارة وتعديل بيانات العملاء والبحث في سجلاتهم</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-primary" (click)="OpenAddCustomerDialog()">
+          <mat-icon>person_add</mat-icon>
+          <span class="btn-text">إضافة عميل جديد</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="DownloadInvoice()" matTooltip="تصدير Excel">
+          <mat-icon>file_download</mat-icon>
+          <span class="btn-text">تصدير</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="PrintInvoice()" matTooltip="طباعة القائمة">
+          <mat-icon>print</mat-icon>
+          <span class="btn-text">طباعة</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Table Section -->
+  <div class="card card-modern filter-card">
+    <div class="filter-header">
+      <mat-icon>list_alt</mat-icon>
+      <span>سجل العملاء</span>
+      <div class="filter-header-action">
+        <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #tableMenu="matMenu" class="modern-menu">
+          <button mat-menu-item (click)="OpenAddCustomerDialog()">
+            <mat-icon>person_add</mat-icon>
+            <span>إضافة عميل جديد</span>
+          </button>
+          <button mat-menu-item (click)="DownloadInvoice()">
+            <mat-icon>file_download</mat-icon>
+            <span>تصدير البيانات</span>
+          </button>
+          <button mat-menu-item (click)="PrintInvoice()">
+            <mat-icon>print</mat-icon>
+            <span>طباعة القائمة</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- Search Bar Integrated -->
+      <div class="filter-form mb-4">
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>بحث سريع في السجل</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="بحث بالاسم، البريد، أو الهاتف..." #input>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table mat-table [dataSource]="this.dataSource" matSort class="modern-table">
+
+          <!-- Customer ID / Phone Column -->
+          <ng-container matColumnDef="customersNum">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> الهاتف </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-id">{{row.customersNum}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Customer Name Column -->
+          <ng-container matColumnDef="customers_FName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> الاسم بالكامل </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="customer-info">
+                <span class="name">{{row.customers_FName}} {{row.customers_FaName}}</span>
+                <span class="email-sub">{{row.customers_email}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+
+
+          <!-- City Column -->
+          <ng-container matColumnDef="customers_Address">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> المدينة </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="text-muted">{{row.customers_AddressName}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="customers_Status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> الحالة </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge" [ngClass]="row.customers_Status === 1 ? 'badge-success' : 'badge-danger'">
+                {{row.customers_Status === 1 ? 'فعال' : 'غير فعال'}}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Location Column -->
+          <ng-container matColumnDef="Location_Coordinates">
+            <th mat-header-cell *matHeaderCellDef> الموقع </th>
+            <td mat-cell *matCellDef="let row">
+              <a class="btn-action view"
+                href="https://www.google.com/maps/?q={{row.locationLatitude}},{{row.locationLongitude}}" target="_blank"
+                matTooltip="خرائط جوجل">
+                <mat-icon>location_on</mat-icon>
+              </a>
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> الإجراءات </th>
+            <td mat-cell *matCellDef="let row" class="text-center">
+              <div class="action-buttons">
+                <button mat-icon-button class="btn-action edit" (click)="OpenEditCustomerDialog(row)"
+                  matTooltip="تعديل">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action view" (click)="viewCustomer(row)" matTooltip="عرض التفاصيل">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action delete" (click)="openDeleteDialog(row.customersID)"
+                  matTooltip="حذف">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center p-5" [attr.colspan]="displayedColumns.length">
+              <div class="no-data">
+                <mat-icon>person_search</mat-icon>
+                <p>لم يتم العثور على عملاء يطابقون البحث: "{{input.value}}"</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons
+          class="modern-paginator"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #customerDeleteDialog>
+  <div class="confirm-dialog" dir="rtl">
+    <h2 mat-dialog-title>تأكيد الحذف</h2>
+    <mat-dialog-content>
+      هل أنت متأكد من رغبتك في حذف بيانات هذا العميل؟ لا يمكن التراجع عن هذا الإجراء وسيتم إلغاء كافة العمليات المرتبطة
+      به.
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button class="btn-modern btn-light" mat-dialog-close="no">إلغاء</button>
+      <button class="btn-modern btn-danger ms-2" mat-dialog-close="yes">نعم، حذف العميل</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>

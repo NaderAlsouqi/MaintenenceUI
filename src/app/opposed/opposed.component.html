@@ -1,0 +1,166 @@
+<div class="page-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>storefront</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">قاعدة بيانات المعارض</h1>
+          <p class="page-subtitle">إدارة وتعديل بيانات المعارض والمولات والبحث في سجلاتهم</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-primary" (click)="OpenDialog()">
+          <mat-icon>add_business</mat-icon>
+          <span class="btn-text">إضافة معرض جديد</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="DownloadInvoice()" matTooltip="تصدير Excel">
+          <mat-icon>file_download</mat-icon>
+          <span class="btn-text">تصدير</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="PrintInvoice()" matTooltip="طباعة القائمة">
+          <mat-icon>print</mat-icon>
+          <span class="btn-text">طباعة</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Table Section -->
+  <div class="card card-modern filter-card">
+    <div class="filter-header">
+      <mat-icon>list_alt</mat-icon>
+      <span>سجل المعارض والمولات</span>
+      <div class="filter-header-action">
+        <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #tableMenu="matMenu" class="modern-menu">
+          <button mat-menu-item (click)="OpenDialog()">
+            <mat-icon>add_business</mat-icon>
+            <span>إضافة معرض جديد</span>
+          </button>
+          <button mat-menu-item (click)="DownloadInvoice()">
+            <mat-icon>file_download</mat-icon>
+            <span>تصدير البيانات</span>
+          </button>
+          <button mat-menu-item (click)="PrintInvoice()">
+            <mat-icon>print</mat-icon>
+            <span>طباعة القائمة</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- Search Bar Integrated like Enquiry Search -->
+      <div class="filter-form mb-4">
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>بحث سريع في السجل</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="بحث باسم المعرض، الهاتف، أو العنوان..." #input>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+
+          <!-- Exhibition Name Column -->
+          <ng-container matColumnDef="exhibitionIDNmAr">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم المعرض </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="exhibition-info">
+                <span class="name">{{row.exhibitionIDNmAr}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Phone 1 Column -->
+          <ng-container matColumnDef="mobile1">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> الهاتف الأول </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-phone">{{row.mobile1}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Phone 2 Column -->
+          <ng-container matColumnDef="mobile2">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> الهاتف الثاني </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="text-muted">{{row.mobile2 || '-'}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Address Column -->
+          <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> العنوان </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="text-muted">{{row.address}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Type Column -->
+          <ng-container matColumnDef="exhib">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> النوع </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge" [ngClass]="row.exhib === '1' ? 'badge-mall' : 'badge-exhibition'">
+                {{row.exhib === '1' ? 'مول' : row.exhib === '2' ? 'معرض' : ''}}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> الإجراءات </th>
+            <td mat-cell *matCellDef="let row" class="text-center">
+              <div class="action-buttons">
+                <button mat-icon-button class="btn-action edit" (click)="OpenEditDialog(row)" matTooltip="تعديل">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action view" (click)="viewOpposed(row)" matTooltip="عرض التفاصيل">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action delete" (click)="openDeleteDialog(row.exhibitionID)"
+                  matTooltip="حذف">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center p-5" [attr.colspan]="displayedColumns.length">
+              <div class="no-data">
+                <mat-icon>store_mall_directory</mat-icon>
+                <p>لم يتم العثور على معارض تطابق البحث: "{{input.value}}"</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons
+          class="modern-paginator"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #opposedDeleteDialog>
+  <div class="confirm-dialog" dir="rtl">
+    <h2 mat-dialog-title>تأكيد الحذف</h2>
+    <mat-dialog-content>
+      هل أنت متأكد من رغبتك في حذف هذا المعرض؟ لا يمكن التراجع عن هذا الإجراء.
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button class="btn-modern btn-light" mat-dialog-close="no">إلغاء</button>
+      <button class="btn-modern btn-danger ms-2" mat-dialog-close="yes">نعم، حذف المعرض</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>

@@ -1,0 +1,189 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>edit_note</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">تعديل بيانات العميل</h2>
+        <p class="dialog-subtitle">تحديث المعلومات المسجلة للعميل {{customer?.customers_FName}}</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <form [formGroup]="editCustomerForm" (ngSubmit)="onSubmit()">
+      <!-- Hidden ID -->
+      <input type="hidden" formControlName="CustomersID">
+
+      <div class="row g-3">
+        <!-- Customer ID -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رقم العميل</mat-label>
+            <input formControlName="CustomersNum" matInput placeholder="رقم العميل" required pattern="^[0-9]*$">
+            <mat-icon matSuffix>badge</mat-icon>
+            <mat-error *ngIf="editCustomerForm.get('CustomersNum').hasError('pattern')">يرجى إدخال أرقام فقط</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Name Field -->
+        <div class="col-md-8">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>الاسم الكامل</mat-label>
+            <input formControlName="Customers_FName" matInput required>
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رقم الهاتف (أساسي)</mat-label>
+            <input formControlName="Customers_phone1" matInput placeholder="05xxxxxxxx" required pattern="^[0-9]*$">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="editCustomerForm.get('Customers_phone1').hasError('pattern')">يرجى إدخال أرقام
+              فقط</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رقم الهاتف (بديل)</mat-label>
+            <input formControlName="Customers_phone2" matInput placeholder="05xxxxxxxx" pattern="^[0-9]*$">
+            <mat-icon matSuffix>phone_iphone</mat-icon>
+            <mat-error *ngIf="editCustomerForm.get('Customers_phone2').hasError('pattern')">يرجى إدخال أرقام
+              فقط</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>البريد الإلكتروني</mat-label>
+            <input formControlName="Customers_email" matInput placeholder="user@example.com">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error>صيغة البريد الإلكتروني غير صحيحة</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Address -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>المحافظة / المدينة</mat-label>
+            <mat-select formControlName="Customers_AddressName" required>
+              <mat-option *ngFor="let city of cityList" [value]="city" (onSelectionChange)="selectProduct(city)">
+                {{ city }}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>location_city</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>الحي / المنطقة</mat-label>
+            <mat-select formControlName="Customers_Address2" required (selectionChange)="onAreaSelectionChange($event)">
+              <!-- Add New Area Option -->
+              <mat-option value="__add_new__" class="add-new-option">
+                <div class="d-flex align-items-center text-primary">
+                  <mat-icon class="me-2">add_circle</mat-icon>
+                  <span>إضافة منطقة جديدة</span>
+                </div>
+              </mat-option>
+              <mat-divider></mat-divider>
+              <!-- Area List -->
+              <mat-option *ngFor="let area of areaList" [value]="area">
+                {{ area }}
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>map</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم الشارع</mat-label>
+            <input formControlName="Customers_Address1" matInput>
+            <mat-icon matSuffix>signpost</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Financial Info -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم البنك</mat-label>
+            <input formControlName="Customers_bank" matInput>
+            <mat-icon matSuffix>account_balance</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رقم الحساب البنكي (IBAN)</mat-label>
+            <input formControlName="Customers_ACC" matInput>
+            <mat-icon matSuffix>credit_card</mat-icon>
+            <mat-error>يرجى إدخال رقم حساب صحيح</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 my-3">
+          <button mat-stroked-button color="primary" type="button" (click)="getUserLocation()"
+            class="w-100 btn-location">
+            <mat-icon class="me-2">my_location</mat-icon>
+            تحديد الموقع تلقائياً
+          </button>
+        </div>
+        <div class="col-md-6 my-3">
+          <button mat-stroked-button color="accent" type="button" (click)="toggleMap()"
+            class="w-100 btn-location btn-map">
+            <mat-icon class="me-2">{{ showMap ? 'map' : 'place' }}</mat-icon>
+            {{ showMap ? 'إخفاء الخريطة' : 'تحديد الموقع من الخريطة' }}
+          </button>
+        </div>
+
+        <!-- Inline Map -->
+        <div class="col-12" *ngIf="showMap">
+          <div class="map-section">
+            <div class="d-flex gap-2 p-2 align-items-center bg-white border-bottom">
+              <input class="form-control" [formControl]="searchControl"
+                placeholder="ابحث عن موقع (اسم شارع، معلم، منطقة...)" (keyup.enter)="searchAddress()">
+              <button mat-raised-button color="primary" (click)="searchAddress()" type="button"
+                style="min-width: auto; padding: 0 16px;">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+            <p class="map-hint">اضغط على الخريطة لتحديد موقع العميل</p>
+            <div id="edit-customer-map" class="inline-map"></div>
+            <div class="coords-display"
+              *ngIf="editCustomerForm.get('LocationLatitude').value && editCustomerForm.get('LocationLongitude').value">
+              <mat-icon>gps_fixed</mat-icon>
+              <span>خط العرض: {{editCustomerForm.get('LocationLatitude').value | number:'1.6-6'}} | خط الطول:
+                {{editCustomerForm.get('LocationLongitude').value | number:'1.6-6'}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="status-section">
+            <label class="status-label">حالة العميل:</label>
+            <mat-radio-group formControlName="Customers_Status" (change)="onEmergencyStatusChange($event)"
+              class="d-flex gap-4">
+              <mat-radio-button *ngFor="let status of customerStatus" [value]="status.value"
+                [checked]="customer.customers_Status == status.value" color="primary">
+                {{status.name}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog-actions mt-4">
+        <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light ms-2">إلغاء</button>
+        <button mat-raised-button color="primary" type="submit" class="btn-modern btn-primary"
+          [disabled]="!editCustomerForm.valid">
+          <mat-icon class="ms-2">save</mat-icon>
+          حفظ التعديلات
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { pdfUrl: string },
+    private dialog: MatDialog
+  ) {}
+
+  onCloseClick(): void {
+    this.dialog.closeAll();
+  }

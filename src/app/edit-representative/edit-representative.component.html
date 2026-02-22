@@ -1,0 +1,74 @@
+
+<div  mat-dialog-title>
+    <div id="grad1" class="card-heading">
+      <h2 class="title">   شاشه تعديل المندوبين   
+      </h2>
+      </div> 
+   
+  </div>
+  <div class="registration-form m-3 p-4">
+    <form [formGroup]="editRepresentativeForm" dir="rtl"  (ngSubmit)="onSubmit()">
+  
+    
+      <div class="row">
+        <input type="hidden" formControlName="id" matInput [value]="_representative.id">
+
+        
+  
+        <div class="col-md-4">
+         <mat-form-field appearance="outline" dir="rtl">
+          <mat-label >اسم المندوب </mat-label>
+          <input formControlName="deviceID" matInput placeholder="اسم المندوب " [value]="_representative.deviceID">
+          <mat-icon matSuffix>person_outline</mat-icon>
+        </mat-form-field>
+        </div> 
+  
+        
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label>رقم هاتف</mat-label>
+           <input formControlName="customersNum" matInput placeholder="رقم هاتف المندوب " [value]="_representative.customersNum">
+           <mat-icon matSuffix>phone</mat-icon>
+         </mat-form-field>
+         </div> 
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label>رقم المول</mat-label>
+           <input formControlName="deviceType" matInput placeholder="رقم المول  " [value]="_representative.deviceType">
+           <mat-icon matSuffix>phone</mat-icon>
+         </mat-form-field>
+         </div> 
+        
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label >  المسؤول</mat-label>
+           <input formControlName="customers_FName" matInput placeholder="المسؤول " [value]="_representative.customers_FName">
+           <mat-icon matSuffix>person</mat-icon>
+         </mat-form-field>
+         </div> 
+ 
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+            <mat-label>اسم المعرض</mat-label>
+            <input #exhibitionInput type="text" placeholder="اختر المعرض" aria-label="Number" [value]="_representative.exhibitionIDNmAr"  matInput formControlName="deviceSR"
+              [matAutocomplete]="ExhibitionAuto">
+            <mat-autocomplete autoActiveFirstOption #ExhibitionAuto="matAutocomplete">
+              <mat-option *ngFor="let option of ExhibitionFilteredOptions | async" [value]="option.exhibitionIDNmAr" >
+                {{ option.exhibitionIDNmAr }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>domain icon</mat-icon>
+          </mat-form-field>
+        </div>
+          <div mat-dialog-actions class="action">
+            <button mat-raised-button color="primary" type="submit"  [mat-dialog-close]="false">تعديل</button>
+            <button mat-raised-button type="button" [mat-dialog-close]="false"><mat-icon matSuffix>keyboard_backspace</mat-icon>  رجوع  </button>
+
+          </div>
+  
+  
+  
+      </div>
+   </form>
+  </div>
+         

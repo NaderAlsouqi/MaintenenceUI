@@ -1,0 +1,205 @@
+// Premium Color Palette
+$primary-color: #1e1b4b;
+$secondary-color: #312e81;
+$accent-color: #6366f1;
+$highlight-color: #fbbf24;
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$background-light: #f3f4f6;
+$background-card: #ffffff;
+$danger-color: #ef4444;
+$success-color: #10b981;
+$warning-color: #f59e0b;
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+
+// Dialog Container
+.dialog-container {
+  font-family: 'Cairo', sans-serif;
+  padding: 0;
+  border-radius: 12px;
+  background-color: white;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+// Premium Header
+.dialog-header {
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  position: relative;
+
+  .header-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 16px;
+
+    mat-icon {
+      color: $highlight-color;
+    }
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    flex-grow: 1;
+  }
+
+  .close-btn {
+    color: white;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+// Dialog Body
+.dialog-body {
+  padding: 24px;
+}
+
+// Section Titles
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: $primary-color;
+  border-bottom: 2px solid $background-light;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  mat-icon {
+    color: $accent-color;
+  }
+}
+
+// Form Fields
+mat-form-field {
+  width: 100%;
+}
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: rgba(0, 0, 0, 0.12);
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: $primary-color;
+}
+
+::ng-deep .mat-form-field-label {
+  color: $text-secondary;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: $primary-color;
+}
+
+// Status Radio Group
+.status-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  background: $background-light;
+  border-radius: 8px;
+  margin-bottom: 20px;
+
+  .status-label {
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  .status-radio-group {
+    display: flex;
+    gap: 16px;
+  }
+
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: $success-color !important;
+  }
+
+  ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: $success-color !important;
+  }
+
+  ::ng-deep .mat-radio-button.mat-radio-disabled .mat-radio-label-content {
+    color: $text-primary; // Keep text readable even if disabled
+  }
+}
+
+// Dialog Actions
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  border-top: 1px solid $background-light;
+  padding-top: 16px;
+}
+
+
+// Modern Buttons
+.btn-modern {
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &.btn-primary {
+    background: $primary-color;
+    color: white;
+    box-shadow: 0 4px 6px rgba($primary-color, 0.2);
+
+    &:hover {
+      background: lighten($primary-color, 5%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px rgba($primary-color, 0.25);
+    }
+
+    &:disabled {
+      background: $text-secondary;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
+
+  &.btn-outline {
+    background: white;
+    color: $text-secondary;
+    border: 1px solid #e5e7eb;
+
+    &:hover {
+      background: #f9fafb;
+      color: $text-primary;
+      border-color: #d1d5db;
+    }
+  }
+}

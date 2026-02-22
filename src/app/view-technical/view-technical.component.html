@@ -1,0 +1,89 @@
+
+<div  mat-dialog-title>
+    <div id="grad1" class="card-heading">
+      <h2 class="title">    بيانات سائقين/الفنيين 
+  
+      </h2>
+      </div> 
+   
+  </div>
+  <div class="registration-form m-3 p-4">
+    <form  dir="rtl" >
+  
+    
+      <div class="row">
+  
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+            <mat-label>رقم</mat-label>
+            <input   readonly="true" formControlName="driver_ID" matInput placeholder="رقم"  [value]="technical.driver_ID">
+            <mat-icon matSuffix>line_weight</mat-icon>
+          </mat-form-field>
+         </div> 
+  
+         <div class="col-md-4">
+          <mat-form-field appearance="outline" dir="rtl">
+           <mat-label >رقم السائق/الفن </mat-label>
+           <input  readonly="true" formControlName="num_Driver" matInput placeholder="رقم السائق /الفني "[value]="technical.num_Driver">
+           <mat-icon matSuffix>format_list_numbered</mat-icon>
+         </mat-form-field>
+         </div> 
+   
+         <div class="col-md-4">
+           <mat-form-field appearance="outline" dir="rtl">
+            <mat-label >اسم السائق /الفني</mat-label>
+            <input readonly="true" formControlName="name_Driver" matInput placeholder="اسم السائق /الفني"[value]="technical.name_Driver">
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+          </div> 
+       
+      
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" dir="rtl">
+             <mat-label > السائق /الفني</mat-label>
+
+             <input readonly="true"  formControlName="driv" matInput placeholder="لسائق /الفني  " value="{{ _techni }}">
+
+             <mat-icon matSuffix>phone</mat-icon>
+           </mat-form-field>
+           </div> 
+          
+ 
+ 
+          <div class="col-md-4">
+           <mat-form-field appearance="outline" dir="rtl">
+            <mat-label > العنوان</mat-label>
+            <input readonly="true"  formControlName="address" matInput placeholder="العنوان  " [value]="technical.address">
+            <mat-icon matSuffix>location_on</mat-icon>
+          </mat-form-field>
+          </div> 
+          <div class="col-md-4">
+           <mat-form-field appearance="outline" dir="rtl">
+            <mat-label >  ملاحظات </mat-label>
+            <textarea  readonly="true" formControlName="disc" matInput [value]="technical.disc"></textarea>
+            <mat-icon matSuffix>note</mat-icon>
+          </mat-form-field>
+          </div> 
+
+          
+         <div class="col-md-12 d-flex align-items-center">
+          <mat-radio-group aria-label="Select an option" class="emat-mdc-radio-button"   [disabled]="true" formControlName="driver_Status" >
+            <label id="example-radio-group-label" class="mr-2"  >  حالة العميل  :&nbsp;  </label>
+
+            <mat-radio-button class="example-radio-button" *ngFor="let status of driver_Statuss" [value]="status.value" [checked]="technical.driver_Status == status.value" >
+              <span class="mr-2">{{status.name}} &nbsp;</span>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+          
+  
+          <div mat-dialog-actions class="action">
+            <button mat-raised-button type="button" [mat-dialog-close]="false"><mat-icon matSuffix>keyboard_backspace</mat-icon>  رجوع  </button>
+          </div>
+  
+  
+  
+      </div>
+   </form>
+  </div>
+         

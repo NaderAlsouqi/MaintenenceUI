@@ -1,0 +1,84 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>add_business</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">إضافة معرض جديد</h2>
+        <p class="dialog-subtitle">أدخل بيانات المعرض أو المول للتسجيل في النظام</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <form [formGroup]="addOpposedForm" (ngSubmit)="Submit()">
+      <input type="hidden" formControlName="exhibitionID">
+
+      <div class="row g-3">
+        <!-- Exhibition Name -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم المعرض</mat-label>
+            <input formControlName="exhibitionIDNmAr" matInput placeholder="أدخل اسم المعرض" required>
+            <mat-icon matSuffix>store</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Phone 1 -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رقم الهاتف الأول</mat-label>
+            <input formControlName="mobile1" matInput placeholder="رقم الهاتف" required
+              pattern="^((?:[+?0?0?966]+)(?:\s?\d{2})(?:\s?\d{7}))$">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="addOpposedForm.get('mobile1').hasError('pattern')">يرجى إدخال رقم هاتف صحيح</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Phone 2 -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رقم الهاتف الثاني</mat-label>
+            <input formControlName="mobile2" matInput placeholder="رقم الهاتف (اختياري)"
+              pattern="^((?:[+?0?0?966]+)(?:\s?\d{2})(?:\s?\d{7}))$">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="addOpposedForm.get('mobile2').hasError('pattern')">يرجى إدخال رقم هاتف صحيح</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Type -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>النوع</mat-label>
+            <mat-select formControlName="exhib" required>
+              <mat-option *ngFor="let Opposed of OpposedList" [value]="Opposed">{{Opposed}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>category</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Address -->
+        <div class="col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>العنوان</mat-label>
+            <input formControlName="address" matInput placeholder="أدخل العنوان الكامل" required>
+            <mat-icon matSuffix>location_on</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="dialog-actions mt-4">
+        <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light ms-2">إلغاء</button>
+        <button mat-raised-button color="primary" type="submit" class="btn-modern btn-primary"
+          [disabled]="!addOpposedForm.valid">
+          <mat-icon class="ms-2">check</mat-icon>
+          إضافة المعرض
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

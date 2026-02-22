@@ -1,0 +1,206 @@
+<div class="page-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>handyman</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">طلبات الصيانة</h1>
+          <p class="page-subtitle">إدارة ومتابعة كافة الطلبات المسجلة</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-primary" [routerLink]="['/addrequests']"
+          [queryParams]="{ currentDate : currentDate ,lastIntroID : lastIntroID }">
+          <mat-icon>add_circle</mat-icon>
+          <span class="btn-text">إضافة طلب جديد</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="DownloadInvoice(searchedData)" matTooltip="تصدير Excel">
+          <mat-icon>file_download</mat-icon>
+          <span class="btn-text">تصدير</span>
+        </button>
+        <button class="btn-modern btn-outline" (click)="PrintInvoice(searchedData)" matTooltip="طباعة القائمة">
+          <mat-icon>print</mat-icon>
+          <span class="btn-text">طباعة</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search/Filter Card -->
+  <div class="card card-modern filter-card mb-4">
+    <div class="filter-header">
+      <mat-icon>search</mat-icon>
+      <span>تصفية طلبات الصيانة</span>
+      <button class="btn-modern btn-primary btn-sm filter-header-action" type="button" (click)="Search()">
+        <mat-icon>search</mat-icon>
+        <span>بحث</span>
+      </button>
+    </div>
+    <div class="filter-form">
+      <div class="filter-row">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>بحث سريع</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="بحث بالاسم، الهاتف، أو رقم الطلب..." #input
+            [(ngModel)]="customerSearchValue" (keyup.enter)="Search()">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Table Card -->
+  <div class="card card-modern filter-card">
+    <div class="filter-header">
+      <mat-icon>list_alt</mat-icon>
+      <span>سجل طلبات الصيانة</span>
+      <div class="filter-header-action">
+        <button mat-icon-button [matMenuTriggerFor]="tableMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #tableMenu="matMenu" class="modern-menu">
+          <button mat-menu-item (click)="DownloadInvoice(searchedData)">
+            <mat-icon>file_download</mat-icon>
+            <span>تصدير البيانات</span>
+          </button>
+          <button mat-menu-item (click)="PrintInvoice(searchedData)">
+            <mat-icon>print</mat-icon>
+            <span>طباعة القائمة</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+          <!-- ID Column -->
+          <ng-container matColumnDef="intro_id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> رقم الطلب </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge badge-id">{{row.intro_id}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Customer Name Column -->
+          <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> العميل </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="customer-info">
+                <span class="name">{{row.customerName}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Product Details Column -->
+          <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> المنتج </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="product-info">
+                <span class="type">{{row.typeName}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Damage Column -->
+          <ng-container matColumnDef="intro_damage">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> العطل </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="damage-text" [matTooltip]="row.intro_damage">{{row.intro_damage |
+                slice:0:20}}{{row.intro_damage.length > 20 ? '...' : ''}}</span>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> الإجراءات </th>
+            <td mat-cell *matCellDef="let row" class="text-center">
+              <div class="action-buttons">
+                <button mat-icon-button class="btn-action edit" (click)="editrequests(row)" matTooltip="تعديل">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action view" (click)="viewrequests(row)" matTooltip="عرض">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action attach" (click)="openViewAttachmentsDialog(row.intro_id)"
+                  matTooltip="المرفقات">
+                  <mat-icon>attach_file</mat-icon>
+                </button>
+                <button mat-icon-button class="btn-action delete" (click)="openDeleteDialog(row.intro_id)"
+                  matTooltip="حذف">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Hidden Columns -->
+          <ng-container matColumnDef="customerID">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"></td>
+          </ng-container>
+          <ng-container matColumnDef="customersNum">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"></td>
+          </ng-container>
+          <ng-container matColumnDef="typeName">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"></td>
+          </ng-container>
+          <ng-container matColumnDef="modelName">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"></td>
+          </ng-container>
+          <ng-container matColumnDef="countDevice">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"></td>
+          </ng-container>
+          <ng-container matColumnDef="datePurchase">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"></td>
+          </ng-container>
+          <ng-container matColumnDef="intro_disc">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"></td>
+          </ng-container>
+          <ng-container matColumnDef="intro_discT">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row"></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center p-5" [attr.colspan]="displayedColumns.length">
+              <div class="no-data">
+                <mat-icon>search_off</mat-icon>
+                <p>لا توجد نتائج تطابق البحث: "{{input.value}}"</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons class="modern-paginator"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #deleteDialog>
+  <div class="confirm-dialog" dir="rtl">
+    <div class="dialog-icon">
+      <mat-icon>warning</mat-icon>
+    </div>
+    <h2 mat-dialog-title>تأكيد الحذف</h2>
+    <mat-dialog-content>
+      هل أنت متأكد من رغبتك في حذف طلب الصيانة هذا؟ لا يمكن التراجع عن هذا الإجراء.
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button class="btn-modern btn-light" mat-dialog-close="no">إلغاء</button>
+      <button class="btn-modern btn-danger ms-2" mat-dialog-close="yes">نعم، حذف</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>

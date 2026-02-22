@@ -1,0 +1,61 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>add_location</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">إضافة منطقة جديدة</h2>
+        <p class="dialog-subtitle">أدخل بيانات المنطقة للتسجيل في النظام</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <form [formGroup]="addAreaForm" (ngSubmit)="onSubmit()">
+      <div class="row g-3">
+        <!-- Area Number -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رقم المنطقة</mat-label>
+            <input formControlName="noCity" matInput placeholder="أدخل رقم المنطقة" required pattern="[0-9]*">
+            <mat-icon matSuffix>tag</mat-icon>
+            <mat-error *ngIf="addAreaForm.get('noCity').hasError('pattern')">يرجى إدخال أرقام فقط</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Area Name -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم المنطقة</mat-label>
+            <input formControlName="CityNameAr" matInput placeholder="أدخل اسم المنطقة" required>
+            <mat-icon matSuffix>location_city</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Governorate -->
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>المحافظة</mat-label>
+            <mat-select formControlName="Governorate" required>
+              <mat-option *ngFor="let city of cityList" [value]="city">{{ city }}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>map</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="dialog-actions mt-4">
+        <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light ms-2">إلغاء</button>
+        <button mat-raised-button color="primary" type="submit" class="btn-modern btn-primary"
+          [disabled]="!addAreaForm.valid">
+          <mat-icon class="ms-2">check</mat-icon>
+          إضافة المنطقة
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

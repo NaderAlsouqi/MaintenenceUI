@@ -1,0 +1,106 @@
+<div class="dialog-container" dir="rtl">
+  <!-- Premium Dialog Header -->
+  <div class="dialog-header">
+    <div class="header-icon">
+      <mat-icon>visibility</mat-icon>
+    </div>
+    <h2 mat-dialog-title>تفاصيل المستخدم</h2>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-body">
+
+    <!-- User Details Section -->
+    <h3 class="section-title">
+      <mat-icon>account_circle</mat-icon>
+      البيانات الشخصية
+    </h3>
+
+    <div class="row g-3">
+      <!-- User ID -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>رقم المستخدم</mat-label>
+          <input matInput [value]="user.userID" readonly>
+          <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Username -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>اسم المستخدم</mat-label>
+          <input matInput [value]="user.userNmAr" readonly>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Email -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>البريد الالكتروني</mat-label>
+          <input matInput [value]="user.email" readonly>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Trans Date -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>تاريخ الإضافة</mat-label>
+          <input matInput [value]="user.transDate" readonly>
+          <mat-icon matSuffix>calendar_today</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Role & Permissions Section -->
+    <h3 class="section-title mt-4">
+      <mat-icon>admin_panel_settings</mat-icon>
+      الوظيفة والحالة
+    </h3>
+
+    <div class="row g-3">
+      <!-- Job Title / Role -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>المسمى الوظيفي</mat-label>
+          <input matInput [value]="user.name_User_level" readonly>
+          <mat-icon matSuffix>work</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Manager -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>المسؤول المباشر</mat-label>
+          <input matInput [value]="user.name_relation_level" readonly>
+          <mat-icon matSuffix>supervisor_account</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Status -->
+      <div class="col-md-12">
+        <div class="status-container">
+          <label class="status-label">حالة المستخدم:</label>
+          <mat-radio-group [disabled]="true" class="status-radio-group">
+            <mat-radio-button *ngFor="let status of logIn_Statuss" [value]="status.value"
+              [checked]="user.loginType == status.value" color="primary">
+              {{status.name}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-actions">
+      <button type="button" class="btn-modern btn-outline" [mat-dialog-close]="false">
+        <mat-icon>keyboard_backspace</mat-icon>
+        <span>رجوع</span>
+      </button>
+    </div>
+
+  </div>
+</div>

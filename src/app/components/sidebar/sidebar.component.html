@@ -1,0 +1,67 @@
+<div class="logo-container glass-panel">
+  <a [routerLink]="['/dashboard']" class="logo-link">
+    <div class="logo-img">
+      <img src="/assets/img/Skyline-Logo-Dark.jpg" alt="Skyline Innovation Logo" />
+    </div>
+  </a>
+</div>
+
+<div class="sidebar-wrapper">
+  <ul class="nav">
+    <ng-container *ngFor="let menuItem of menuItems">
+      <li routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: menuItem.path === '/dashboard'}"
+        class="nav-item {{menuItem.class}}" [class.active-parent]="menuItem.subMenuVisible">
+
+        <!-- Parent items WITH sub-routes: only toggle, don't navigate -->
+        <a *ngIf="menuItem.subRouteInfo && menuItem.subRouteInfo.length > 0" class="nav-link-modern"
+          (click)="toggleSubMenu(menuItem)" style="cursor:pointer;">
+          <div class="icon-wrapper">
+            <i class="material-icons">{{menuItem.icon}}</i>
+          </div>
+          <span class="nav-text">{{ (menuItem.key | translate) !== menuItem.key ? (menuItem.key | translate) :
+            menuItem.title }}</span>
+          <i class="material-icons caret-icon" [class.rotated]="menuItem.subMenuVisible">expand_more</i>
+        </a>
+
+        <!-- Items WITHOUT sub-routes: navigate normally -->
+        <a *ngIf="!menuItem.subRouteInfo || menuItem.subRouteInfo.length === 0" class="nav-link-modern"
+          [routerLink]="[menuItem.path]">
+          <div class="icon-wrapper">
+            <i class="material-icons">{{menuItem.icon}}</i>
+          </div>
+          <span class="nav-text">{{ (menuItem.key | translate) !== menuItem.key ? (menuItem.key | translate) :
+            menuItem.title }}</span>
+        </a>
+
+        <!-- Submenu Level 1 -->
+        <div class="submenu-container" [class.visible]="menuItem.subMenuVisible"
+          *ngIf="menuItem.subRouteInfo && menuItem.subRouteInfo.length > 0">
+          <ul class="nav-sub">
+            <li *ngFor="let subItem of menuItem.subRouteInfo" routerLinkActive="active-sub-item" class="nav-item">
+              <a class="nav-link-modern sub" [routerLink]="[subItem.path]">
+                <i class="material-icons sub-icon">{{subItem.icon}}</i>
+                <span class="nav-text sub-text">{{ (subItem.key | translate) !== subItem.key ? (subItem.key | translate)
+                  : subItem.title }}</span>
+              </a>
+
+              <!-- Submenu Level 2 -->
+              <div class="submenu-container lv2" [class.visible]="subItem.subMenuVisible1"
+                *ngIf="subItem.subRouteInfo2 && subItem.subRouteInfo2.length > 0">
+                <ul class="nav-sub-lv2">
+                  <li *ngFor="let item of subItem.subRouteInfo2" routerLinkActive="active-sub-item-lv2"
+                    class="nav-item">
+                    <a class="nav-link-modern sub-lv2" [routerLink]="[item.path]">
+                      <i class="material-icons sub-icon-lv2">{{item.icon || 'fiber_manual_record'}}</i>
+                      <span class="nav-text sub-text-lv2">{{ (item.key | translate) !== item.key ? (item.key |
+                        translate) : item.title }}</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ng-container>
+  </ul>
+</div>

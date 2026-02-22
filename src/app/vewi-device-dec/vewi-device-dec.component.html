@@ -1,0 +1,87 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>devices</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">تفاصيل الجهاز</h2>
+        <p class="dialog-subtitle">عرض بيانات الجهاز المحدد</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>tag</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">رقم المنتج</span>
+          <span class="info-value">{{device.devicePro_ID || '-'}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>devices</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم المنتج</span>
+          <span class="info-value">{{device.devicePor || '-'}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>category</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">رقم نوع المنتج</span>
+          <span class="info-value">{{device.deviceType_ID || '-'}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>merge_type</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم نوع المنتج</span>
+          <span class="info-value badge badge-type">{{device.deviceType_Name || '-'}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>confirmation_number</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">رقم الموديل</span>
+          <span class="info-value">{{device.deviceModel_ID || '-'}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <mat-icon>view_module</mat-icon>
+        </div>
+        <div class="info-content">
+          <span class="info-label">اسم الموديل</span>
+          <span class="info-value badge badge-model">{{device.deviceModel_Name || '-'}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-actions mt-4">
+      <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light">
+        <mat-icon>arrow_back</mat-icon>
+        رجوع
+      </button>
+    </div>
+  </div>
+</div>

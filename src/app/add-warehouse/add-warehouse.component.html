@@ -1,0 +1,87 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>add_home_work</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">إضافة مستودع جديد</h2>
+        <p class="dialog-subtitle">أدخل بيانات المستودع للتسجيل في النظام</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <form [formGroup]="AddWarehouseForm" (ngSubmit)="onSubmit()">
+      <div class="row g-3">
+        <!-- Warehouse Name Arabic -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم المستودع بالعربي</mat-label>
+            <input formControlName="WarehouseNameArabic" required matInput placeholder="أدخل اسم المستودع بالعربي">
+            <mat-icon matSuffix>warehouse</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Warehouse Name English -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم المستودع بالانجليزي</mat-label>
+            <input formControlName="WarehouseNameEnglish" required matInput placeholder="Enter warehouse name">
+            <mat-icon matSuffix>translate</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Location -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>العنوان</mat-label>
+            <mat-select formControlName="WarehouseLocation" required>
+              <mat-option *ngFor="let city of cityList" [value]="city">{{ city }}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>location_on</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>رقم هاتف المستودع</mat-label>
+            <input formControlName="PhoneNumber" required matInput placeholder="رقم الهاتف" pattern="^0[0-9]{9}$">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="AddWarehouseForm.get('PhoneNumber').hasError('pattern')">يرجى إدخال رقم هاتف
+              صحيح</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Technician -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>اسم الفني</mat-label>
+            <input #UserIdInput type="text" placeholder="اختر اسم الفني" matInput formControlName="UserNmAr" required
+              [matAutocomplete]="UserAuto">
+            <mat-autocomplete autoActiveFirstOption #UserAuto="matAutocomplete">
+              <mat-option *ngFor="let option of UserFilteredOptions | async" [value]="option.userNmAr"
+                (onSelectionChange)="selectUser(option)">
+                {{ option.userNmAr }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>engineering</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="dialog-actions mt-4">
+        <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light ms-2">إلغاء</button>
+        <button mat-raised-button color="primary" type="submit" class="btn-modern btn-primary"
+          [disabled]="!AddWarehouseForm.valid">
+          <mat-icon class="ms-2">check</mat-icon>
+          إضافة المستودع
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

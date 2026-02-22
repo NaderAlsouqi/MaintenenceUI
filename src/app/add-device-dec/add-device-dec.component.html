@@ -1,0 +1,86 @@
+<div class="dialog-container" dir="rtl">
+    <div class="dialog-header-premium">
+        <div class="d-flex align-items-center">
+            <div class="icon-box">
+                <mat-icon>add_circle</mat-icon>
+            </div>
+            <div class="ms-3">
+                <h2 class="dialog-title">إضافة جهاز جديد</h2>
+                <p class="dialog-subtitle">أدخل بيانات الجهاز للتسجيل في النظام</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-content">
+        <form [formGroup]="addDeviceForm" (ngSubmit)="onSubmit()">
+            <div class="row g-3">
+                <!-- Product ID -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>رقم المنتج</mat-label>
+                        <input formControlName="devicePro_ID" matInput placeholder="رقم المنتج">
+                        <mat-icon matSuffix>tag</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Product Name -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>اسم المنتج</mat-label>
+                        <input formControlName="devicePor" matInput placeholder="اسم المنتج" required>
+                        <mat-icon matSuffix>devices</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Type ID -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>رقم نوع المنتج</mat-label>
+                        <input formControlName="deviceType_ID" matInput placeholder="رقم نوع المنتج">
+                        <mat-icon matSuffix>category</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Type Name -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>اسم نوع المنتج</mat-label>
+                        <input formControlName="deviceType_Name" matInput placeholder="اسم نوع المنتج">
+                        <mat-icon matSuffix>merge_type</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Model ID -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>رقم الموديل</mat-label>
+                        <input formControlName="deviceModel_ID" matInput placeholder="رقم الموديل">
+                        <mat-icon matSuffix>confirmation_number</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Model Name -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>اسم الموديل</mat-label>
+                        <input formControlName="deviceModel_Name" matInput placeholder="اسم الموديل">
+                        <mat-icon matSuffix>view_module</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="dialog-actions mt-4">
+                <button mat-button type="button" [mat-dialog-close]="false"
+                    class="btn-modern btn-light ms-2">إلغاء</button>
+                <button mat-raised-button color="primary" type="submit" class="btn-modern btn-primary"
+                    [disabled]="!addDeviceForm.valid">
+                    <mat-icon class="ms-2">check</mat-icon>
+                    إضافة الجهاز
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

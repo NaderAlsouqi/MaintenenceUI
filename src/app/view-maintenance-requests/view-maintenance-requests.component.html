@@ -1,0 +1,230 @@
+<div class="page-container" dir="rtl">
+  <!-- Premium Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <div class="icon-box">
+          <mat-icon>assignment</mat-icon>
+        </div>
+        <div class="header-text">
+          <h1 class="page-title">تفاصيل طلب الصيانة</h1>
+          <p class="page-subtitle">
+            <span class="request-badge">#{{request.intro_id}}</span>
+            <span class="separator">•</span>
+            <span>{{request.intro_date | date:'dd/MM/yyyy'}}</span>
+          </p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-modern btn-outline" matTooltip="طباعة التفاصيل">
+          <i class="material-icons">print</i>
+          <span class="btn-text">طباعة</span>
+        </button>
+        <button class="btn-modern btn-primary" routerLink="/maintenance">
+          <i class="material-icons">arrow_back</i>
+          <span class="btn-text">رجوع</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Info Strip -->
+  <div class="quick-info-strip mb-4">
+    <div class="quick-info-item">
+      <div class="quick-icon">
+        <mat-icon>person</mat-icon>
+      </div>
+      <div class="quick-content">
+        <span class="quick-label">العميل</span>
+        <span class="quick-value">{{request.customerName}}</span>
+      </div>
+    </div>
+    <div class="quick-info-item">
+      <div class="quick-icon phone">
+        <mat-icon>phone</mat-icon>
+      </div>
+      <div class="quick-content">
+        <span class="quick-label">رقم الهاتف</span>
+        <span class="quick-value">{{request.customersNum}}</span>
+      </div>
+    </div>
+    <div class="quick-info-item">
+      <div class="quick-icon device">
+        <mat-icon>devices</mat-icon>
+      </div>
+      <div class="quick-content">
+        <span class="quick-label">المنتج</span>
+        <span class="quick-value">{{request.productName || 'غير محدد'}}</span>
+      </div>
+    </div>
+    <div class="quick-info-item">
+      <div class="quick-icon status" [class.active]="request.status_Intro == 1"
+        [class.pending]="request.status_Intro != 1">
+        <mat-icon>{{request.status_Intro == 1 ? 'check_circle' : 'pending'}}</mat-icon>
+      </div>
+      <div class="quick-content">
+        <span class="quick-label">الحالة</span>
+        <span class="quick-value status-text" [class.active]="request.status_Intro == 1">
+          {{request.status_Intro == 1 ? 'مكتمل' : 'قيد المعالجة'}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="content-grid">
+    <!-- Customer & Request Info -->
+    <div class="card card-modern info-panel">
+      <div class="panel-header">
+        <div class="panel-icon customer">
+          <mat-icon>person_outline</mat-icon>
+        </div>
+        <h3 class="panel-title">بيانات العميل والطلب</h3>
+      </div>
+      <div class="panel-body">
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">رقم الطلب</span>
+            <span class="info-value highlight">{{request.intro_id}}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">تاريخ الطلب</span>
+            <span class="info-value">{{request.intro_date | date:'dd/MM/yyyy'}}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">اسم العميل</span>
+            <span class="info-value">{{request.customerName}}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">رقم الهاتف</span>
+            <span class="info-value phone-number">{{request.customersNum}}</span>
+          </div>
+          <div class="info-item full-width">
+            <span class="info-label">العنوان</span>
+            <span class="info-value">
+              <mat-icon class="inline-icon">location_on</mat-icon>
+              {{request.customers_Address1 || 'غير محدد'}}
+            </span>
+          </div>
+        </div>
+
+        <div class="status-group">
+          <div class="status-item">
+            <span class="status-label">نوع الصيانة</span>
+            <div class="status-badges">
+              <span *ngFor="let status of MStatus" class="status-badge"
+                [class.active]="request.intro_Emergency == status.value">
+                {{status.name}}
+              </span>
+            </div>
+          </div>
+          <div class="status-item">
+            <span class="status-label">موقع الصيانة</span>
+            <div class="status-badges">
+              <span *ngFor="let status of MStatus2" class="status-badge"
+                [class.active]="request.intro_InOut == status.value">
+                {{status.name}}
+              </span>
+            </div>
+          </div>
+          <div class="status-item">
+            <span class="status-label">حالة الطلب</span>
+            <div class="status-badges">
+              <span *ngFor="let status of MStatus3" class="status-badge"
+                [class.active]="request.status_Intro == status.value"
+                [class.success]="status.value == 1 && request.status_Intro == status.value">
+                {{status.name}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="card card-modern info-panel">
+      <div class="panel-header">
+        <div class="panel-icon product">
+          <mat-icon>inventory_2</mat-icon>
+        </div>
+        <h3 class="panel-title">بيانات المنتج</h3>
+      </div>
+      <div class="panel-body">
+        <div class="product-showcase">
+          <div class="product-main">
+            <div class="product-icon-large">
+              <mat-icon>devices_other</mat-icon>
+            </div>
+            <div class="product-details">
+              <h4 class="product-name">{{request.productName || 'غير محدد'}}</h4>
+              <p class="product-meta">{{request.typeName || 'نوع غير محدد'}} • {{request.modelName || 'موديل غير محدد'}}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-grid compact">
+          <div class="info-item">
+            <span class="info-label">المعرض</span>
+            <span class="info-value">{{request.faultName || 'غير محدد'}}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">الباركود</span>
+            <span class="info-value code">{{request.barcode || '-'}}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">الكمية</span>
+            <span class="info-value count">{{request.countDevice}}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">تاريخ الشراء</span>
+            <span class="info-value">{{request.datePurchase || 'غير محدد'}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Maintenance Details -->
+    <div class="card card-modern info-panel full-width">
+      <div class="panel-header">
+        <div class="panel-icon maintenance">
+          <mat-icon>build_circle</mat-icon>
+        </div>
+        <h3 class="panel-title">تفاصيل الصيانة</h3>
+      </div>
+      <div class="panel-body">
+        <div class="detail-cards">
+          <div class="detail-card fault">
+            <div class="detail-header">
+              <mat-icon>warning_amber</mat-icon>
+              <span>وصف العطل</span>
+            </div>
+            <p class="detail-content">{{request.intro_damage || 'لم يتم تحديد العطل'}}</p>
+          </div>
+          <div class="detail-card note">
+            <div class="detail-header">
+              <mat-icon>sticky_note_2</mat-icon>
+              <span>ملاحظة 1</span>
+            </div>
+            <p class="detail-content">{{request.intro_disc || 'لا توجد ملاحظات'}}</p>
+          </div>
+          <div class="detail-card note">
+            <div class="detail-header">
+              <mat-icon>note_add</mat-icon>
+              <span>ملاحظة 2</span>
+            </div>
+            <p class="detail-content">{{request.intro_discT || 'لا توجد ملاحظات'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Actions -->
+  <div class="bottom-actions">
+    <button class="btn-modern btn-back" routerLink="/maintenance">
+      <i class="material-icons">arrow_back</i>
+      <span>العودة للقائمة</span>
+    </button>
+  </div>
+</div>

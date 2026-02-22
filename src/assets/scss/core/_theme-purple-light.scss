@@ -1,0 +1,631 @@
+// =====================================================
+// LIGHT PURPLE THEME — Elegant purple-tinted light mode
+// =====================================================
+// Color Palette (user-specified gradient):
+//   Gradient:    linear-gradient(326deg, #a4508b 0%, #5f0a87 74%)
+//   Primary:     #a4508b (magenta-purple)
+//   Dark:        #5f0a87 (deep violet)
+//   Background:  #f8f0f6 (rose-lavender mist)
+//   Surface:     #ffffff
+//   Text:        #3d1a3a (deep magenta-brown)
+//   Secondary:   #6b4a6a (muted purple)
+//   Muted:       #8b7585 (dusty purple)
+//   Borders:     #e8d5e3 (soft pink-purple)
+// =====================================================
+
+body.theme-purple-light {
+    // === Design Tokens ===
+    --bg-color: #f8f0f6;
+    --surface-color: #ffffff;
+    --text-main: #3d1a3a;
+    --text-muted: #6b4a6a;
+    --border-color: #e8d5e3;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-blur: blur(16px);
+    --shadow-soft: 0 4px 12px rgba(164, 80, 139, 0.08), 0 2px 4px rgba(164, 80, 139, 0.05);
+    --shadow-deep: 0 20px 40px rgba(164, 80, 139, 0.12), 0 8px 16px rgba(164, 80, 139, 0.08);
+
+    background-color: #f8f0f6 !important;
+    color: #3d1a3a !important;
+
+    // ─────────────────────────────────────
+    // MAIN PANEL
+    // ─────────────────────────────────────
+    .main-panel {
+        background-color: #f8f0f6 !important;
+    }
+
+    .wrapper {
+        background-color: #f8f0f6 !important;
+    }
+
+    // ─────────────────────────────────────
+    // SIDEBAR — Rich magenta-purple gradient
+    // ─────────────────────────────────────
+    .sidebar {
+        background: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%) !important;
+        box-shadow: -4px 0 30px rgba(164, 80, 139, 0.2) !important;
+
+        &::before {
+            background: radial-gradient(circle at 30% 20%, rgba(199, 125, 186, 0.2) 0%, transparent 65%) !important;
+        }
+    }
+
+    // ─────────────────────────────────────
+    // NAVBAR — White with soft purple tint
+    // ─────────────────────────────────────
+    .navbar,
+    .floating-navbar {
+        background: rgba(255, 255, 255, 0.92) !important;
+        border-color: rgba(164, 80, 139, 0.1) !important;
+        box-shadow: 0 4px 20px rgba(164, 80, 139, 0.08) !important;
+    }
+
+    .navbar-title {
+        color: #3d1a3a !important;
+    }
+
+    .nav-link-icon {
+        color: #6b4a6a !important;
+
+        &:hover {
+            color: #a4508b !important;
+            background: rgba(164, 80, 139, 0.08) !important;
+        }
+    }
+
+    .nav-link-profile {
+        color: #3d1a3a !important;
+        background: rgba(164, 80, 139, 0.05) !important;
+        border-color: rgba(164, 80, 139, 0.12) !important;
+
+        &:hover {
+            background: rgba(164, 80, 139, 0.08) !important;
+            border-color: rgba(164, 80, 139, 0.2) !important;
+        }
+    }
+
+    .user-avatar {
+        background: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%) !important;
+    }
+
+    .username-text {
+        color: #3d1a3a !important;
+    }
+
+    .navbar-toggler-modern {
+        background: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%) !important;
+        box-shadow: 0 4px 12px rgba(164, 80, 139, 0.3) !important;
+    }
+
+    // ─────────────────────────────────────
+    // DROPDOWN MENUS
+    // ─────────────────────────────────────
+    .dropdown-menu,
+    .dropdown-menu-modern {
+        background: #ffffff !important;
+        border-color: rgba(164, 80, 139, 0.1) !important;
+        box-shadow: 0 12px 40px rgba(164, 80, 139, 0.12) !important;
+    }
+
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.92) !important;
+        border-color: rgba(164, 80, 139, 0.08) !important;
+    }
+
+    .glass-panel-deep {
+        background: rgba(255, 255, 255, 0.97) !important;
+        border-color: rgba(164, 80, 139, 0.08) !important;
+    }
+
+    .dropdown-item-modern {
+        color: #3d1a3a !important;
+
+        i {
+            color: #6b4a6a !important;
+        }
+
+        &:hover {
+            background: rgba(164, 80, 139, 0.06) !important;
+            color: #5f0a87 !important;
+
+            i {
+                color: #a4508b !important;
+            }
+        }
+
+        &.logout:hover {
+            background: rgba(239, 68, 68, 0.06) !important;
+            color: #dc2626 !important;
+        }
+    }
+
+    .dropdown-divider {
+        border-color: #e8d5e3 !important;
+        background: #e8d5e3 !important;
+    }
+
+    // ─────────────────────────────────────
+    // CARDS — White with pink-purple shadows
+    // ─────────────────────────────────────
+    .card {
+        background: #ffffff !important;
+        color: #3d1a3a !important;
+        border: 1px solid rgba(164, 80, 139, 0.06) !important;
+        box-shadow: 0 2px 16px rgba(164, 80, 139, 0.07),
+            0 0 0 1px rgba(164, 80, 139, 0.03) !important;
+    }
+
+    .card-modern,
+    .mat-card,
+    .mat-mdc-card {
+        background: #ffffff !important;
+        color: #3d1a3a !important;
+    }
+
+    .card-body {
+        color: #3d1a3a !important;
+    }
+
+    .card .card-category:not([class*="text-"]) {
+        color: #8b7585 !important;
+    }
+
+    .card-footer {
+        border-top-color: #e8d5e3 !important;
+
+        .stats {
+            color: #8b7585 !important;
+        }
+    }
+
+    // Card Headers — Using the user-specified gradient
+    .card-header-primary .card-icon,
+    .card-header-primary .card-text,
+    .card-header-primary:not(.card-header-icon):not(.card-header-text) {
+        background: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%) !important;
+        box-shadow: 0 6px 20px rgba(164, 80, 139, 0.3) !important;
+    }
+
+    .card-header-info .card-icon,
+    .card-header-info .card-text,
+    .card-header-info:not(.card-header-icon):not(.card-header-text) {
+        background: linear-gradient(326deg, #b8609e 0%, #7a2098 74%) !important;
+        box-shadow: 0 6px 20px rgba(164, 80, 139, 0.3) !important;
+    }
+
+    .card-header-success .card-icon,
+    .card-header-success .card-text,
+    .card-header-success:not(.card-header-icon):not(.card-header-text) {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25) !important;
+    }
+
+    .card-header-warning .card-icon,
+    .card-header-warning .card-text,
+    .card-header-warning:not(.card-header-icon):not(.card-header-text) {
+        background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+        box-shadow: 0 6px 20px rgba(245, 158, 11, 0.25) !important;
+    }
+
+    .card-header-danger .card-icon,
+    .card-header-danger .card-text,
+    .card-header-danger:not(.card-header-icon):not(.card-header-text) {
+        background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.25) !important;
+    }
+
+    .card-header-rose .card-icon,
+    .card-header-rose .card-text,
+    .card-header-rose:not(.card-header-icon):not(.card-header-text) {
+        background: linear-gradient(135deg, #ec4899, #db2777) !important;
+        box-shadow: 0 6px 20px rgba(236, 72, 153, 0.25) !important;
+    }
+
+    .card-stats .card-header .card-header-icon,
+    .card-stats .card-header .card-header-text {
+        background: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%) !important;
+    }
+
+    .card-stats .card-body+.card-footer {
+        border-top-color: #e8d5e3 !important;
+    }
+
+    .card-header.card-header-icon .card-title,
+    .card-header.card-header-text .card-title {
+        color: #3d1a3a !important;
+    }
+
+    // ─────────────────────────────────────
+    // TABLES
+    // ─────────────────────────────────────
+    .table {
+        color: #3d1a3a !important;
+
+        >thead>tr>th {
+            color: #6b4a6a !important;
+            border-bottom-color: #e8d5e3 !important;
+        }
+
+        >tbody>tr>td {
+            color: #3d1a3a !important;
+            border-bottom-color: rgba(164, 80, 139, 0.06) !important;
+        }
+
+        >tbody>tr:hover {
+            background-color: rgba(164, 80, 139, 0.04) !important;
+        }
+    }
+
+    .table-striped>tbody>tr:nth-of-type(odd) {
+        background-color: rgba(164, 80, 139, 0.02) !important;
+    }
+
+    .table.table-hover tbody tr:hover {
+        background-color: rgba(164, 80, 139, 0.05) !important;
+    }
+
+    .table-bordered {
+        border-color: #e8d5e3 !important;
+
+        th,
+        td {
+            border-color: #e8d5e3 !important;
+        }
+    }
+
+    .mat-header-row,
+    .mat-mdc-header-row {
+        background: rgba(164, 80, 139, 0.03) !important;
+    }
+
+    .modern-paginator,
+    .mat-paginator,
+    .mat-mdc-paginator {
+        background: #ffffff !important;
+        color: #6b4a6a !important;
+        border-top: 1px solid #e8d5e3 !important;
+    }
+
+    // ─────────────────────────────────────
+    // FORM FIELDS
+    // ─────────────────────────────────────
+    .form-control {
+        color: #3d1a3a !important;
+        border-color: #e8d5e3 !important;
+
+        &:focus {
+            border-color: #a4508b !important;
+            box-shadow: 0 0 0 0.2rem rgba(164, 80, 139, 0.15) !important;
+        }
+
+        &::placeholder {
+            color: #8b7585 !important;
+        }
+    }
+
+    .mat-form-field,
+    .mat-mdc-form-field {
+        color: #3d1a3a !important;
+    }
+
+    .mat-mdc-input-element,
+    .mat-input-element {
+        color: #3d1a3a !important;
+        caret-color: #a4508b !important;
+    }
+
+    .mat-mdc-floating-label,
+    .mat-form-field-label {
+        color: #6b4a6a !important;
+    }
+
+    .mat-input-underline,
+    .mat-form-field-underline {
+        background-color: #e8d5e3 !important;
+    }
+
+    .mat-focused .mat-input-placeholder,
+    .mat-focused .mat-form-field-label {
+        color: #a4508b !important;
+    }
+
+    .mat-input-ripple,
+    .mat-form-field-ripple {
+        background-color: #a4508b !important;
+    }
+
+    .mat-input-placeholder {
+        color: #8b7585 !important;
+    }
+
+    // ─────────────────────────────────────
+    // BUTTONS — Purple primary
+    // ─────────────────────────────────────
+    .btn-primary,
+    .btn-info {
+        background: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%) !important;
+        border-color: #a4508b !important;
+        box-shadow: 0 4px 15px rgba(164, 80, 139, 0.25) !important;
+
+        &:hover,
+        &:focus {
+            background: linear-gradient(326deg, #8f4579 0%, #4d0870 74%) !important;
+            box-shadow: 0 6px 20px rgba(164, 80, 139, 0.35) !important;
+        }
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        border-color: #10b981 !important;
+    }
+
+    .btn-pink,
+    .btn-purple {
+        background: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%) !important;
+    }
+
+    // ─────────────────────────────────────
+    // DIALOGS & MODALS
+    // ─────────────────────────────────────
+    .mat-dialog-container,
+    .mat-mdc-dialog-container,
+    .mat-mdc-dialog-surface {
+        background: #ffffff !important;
+        color: #3d1a3a !important;
+    }
+
+    .modal-content {
+        background: #ffffff !important;
+        color: #3d1a3a !important;
+        border-color: #e8d5e3 !important;
+    }
+
+    .modal-header {
+        border-bottom-color: #e8d5e3 !important;
+    }
+
+    .modal-footer {
+        border-top-color: #e8d5e3 !important;
+    }
+
+    // ─────────────────────────────────────
+    // SELECT / AUTOCOMPLETE
+    // ─────────────────────────────────────
+    .mat-select-panel,
+    .mat-mdc-select-panel,
+    .mat-autocomplete-panel,
+    .mat-mdc-autocomplete-panel {
+        background: #ffffff !important;
+        border: 1px solid #e8d5e3 !important;
+    }
+
+    .mat-option,
+    .mat-mdc-option {
+        color: #3d1a3a !important;
+
+        &:hover,
+        &.mat-active {
+            background: rgba(164, 80, 139, 0.06) !important;
+        }
+
+        &.mat-selected {
+            color: #5f0a87 !important;
+        }
+    }
+
+    // ─────────────────────────────────────
+    // TABS
+    // ─────────────────────────────────────
+    .mat-tab-label,
+    .mat-mdc-tab {
+        color: #6b4a6a !important;
+
+        &.mat-tab-label-active,
+        &.mdc-tab--active {
+            color: #5f0a87 !important;
+        }
+    }
+
+    .mat-ink-bar,
+    .mat-mdc-tab-indicator {
+        background-color: #a4508b !important;
+    }
+
+    // ─────────────────────────────────────
+    // TYPOGRAPHY
+    // ─────────────────────────────────────
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: #3d1a3a !important;
+    }
+
+    p {
+        color: #4d2a4a !important;
+    }
+
+    label {
+        color: #6b4a6a !important;
+    }
+
+    a {
+        color: #a4508b;
+
+        &:hover {
+            color: #5f0a87;
+        }
+    }
+
+    hr {
+        border-color: #e8d5e3 !important;
+    }
+
+    .text-muted {
+        color: #8b7585 !important;
+    }
+
+    // ─────────────────────────────────────
+    // FOOTER — Using the gradient
+    // ─────────────────────────────────────
+    .footer-modern {
+        background: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%) !important;
+
+        &::before {
+            background: linear-gradient(90deg, transparent, rgba(199, 125, 186, 0.4), transparent) !important;
+        }
+
+        &::after {
+            background: radial-gradient(circle, rgba(199, 125, 186, 0.15), transparent 70%) !important;
+        }
+    }
+
+    .footer {
+        border-top-color: #e8d5e3 !important;
+    }
+
+    // ─────────────────────────────────────
+    // SCROLLBAR
+    // ─────────────────────────────────────
+    scrollbar-color: rgba(164, 80, 139, 0.3) #f3e8f0;
+
+    &::-webkit-scrollbar-track,
+    .main-panel::-webkit-scrollbar-track {
+        background: #f3e8f0 !important;
+    }
+
+    &::-webkit-scrollbar-thumb,
+    .main-panel::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, rgba(164, 80, 139, 0.4), rgba(95, 10, 135, 0.2)) !important;
+        border: 2px solid #f3e8f0 !important;
+        border-radius: 10px !important;
+
+        &:hover {
+            background: linear-gradient(180deg, rgba(164, 80, 139, 0.6), rgba(95, 10, 135, 0.35)) !important;
+        }
+    }
+
+    // ─────────────────────────────────────
+    // CHECKBOX / RADIO
+    // ─────────────────────────────────────
+    .mat-checkbox-checked .mat-checkbox-background {
+        background-color: #a4508b !important;
+    }
+
+    .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+        border-color: #a4508b !important;
+    }
+
+    .mat-radio-button.mat-accent .mat-radio-inner-circle {
+        background-color: #a4508b !important;
+    }
+
+    // ─────────────────────────────────────
+    // TOASTR
+    // ─────────────────────────────────────
+    .ngx-toastr {
+        box-shadow: 0 8px 24px rgba(164, 80, 139, 0.12) !important;
+    }
+
+    // ─────────────────────────────────────
+    // MISC
+    // ─────────────────────────────────────
+    .border-top {
+        border-top-color: #e8d5e3 !important;
+    }
+
+    .card-chart .card-body+.card-footer {
+        border-top-color: #e8d5e3 !important;
+    }
+
+    .alert {
+        border-color: rgba(164, 80, 139, 0.1) !important;
+    }
+
+    .input-group-text {
+        border-color: #e8d5e3 !important;
+        color: #6b4a6a !important;
+    }
+
+    .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+        background-color: rgba(164, 80, 139, 0.35) !important;
+    }
+
+    .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+        background-color: #a4508b !important;
+    }
+
+    .mat-progress-bar-fill::after {
+        background-color: #a4508b !important;
+    }
+
+    .mat-expansion-panel {
+        background: #ffffff !important;
+        color: #3d1a3a !important;
+    }
+
+    // ─────────────────────────────────────
+    // PAGE HEADERS — Override encapsulated component styles
+    // ─────────────────────────────────────
+    .page-header {
+        background: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%) !important;
+        box-shadow: 0 10px 40px rgba(164, 80, 139, 0.2) !important;
+
+        .page-title {
+            color: white !important;
+        }
+
+        .page-subtitle {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        &::before {
+            background: radial-gradient(circle, rgba(199, 125, 186, 0.2) 0%, transparent 70%) !important;
+        }
+
+        &::after {
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%) !important;
+        }
+    }
+
+    // Card-header-premium inside components
+    .card-header-premium {
+        background: linear-gradient(135deg, rgba(164, 80, 139, 0.06), rgba(164, 80, 139, 0.02)) !important;
+        border-bottom-color: rgba(164, 80, 139, 0.08) !important;
+    }
+
+    // Badge-id inside components
+    .badge-id {
+        background: linear-gradient(326deg, #a4508b, #5f0a87) !important;
+        color: white !important;
+    }
+
+    // Panel header inside components
+    .panel-header {
+        background: linear-gradient(135deg, rgba(164, 80, 139, 0.06), rgba(164, 80, 139, 0.02)) !important;
+    }
+
+    // Modern table row hover inside components
+    .modern-table tr.mat-row:hover {
+        background-color: rgba(164, 80, 139, 0.04) !important;
+    }
+
+    // Dashboard specific
+    .dashboard-modern {
+        background: linear-gradient(180deg, #f8f0f6 0%, #f3e8f0 100%) !important;
+    }
+
+    // Quick action hover arrow color inside components
+    .quick-action-card:hover .action-arrow {
+        color: #a4508b !important;
+    }
+
+    // Ensure brand tagline/subtitle is light on purple gradients
+    .brand-tagline,
+    .brand-subtitle {
+        color: rgba(255, 255, 255, 0.95) !important;
+    }
+}

@@ -1,0 +1,408 @@
+.page-container {
+  padding: 1.5rem;
+}
+
+// --- PREMIUM CARD HEADER ---
+.card-header-premium {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(99, 102, 241, 0.02));
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+
+  .header-left {
+    .header-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 0 0 0.25rem 0;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .header-subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .icon-box {
+    width: 48px;
+    height: 48px;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6366f1;
+
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+// --- PREMIUM BUTTON STYLES ---
+.btn-modern {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+
+  i.material-icons {
+    font-size: 22px;
+    transition: transform 0.3s ease;
+  }
+
+  &.btn-primary {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #4338ca 100%);
+    color: white;
+    box-shadow:
+      0 4px 15px rgba(99, 102, 241, 0.35),
+      0 1px 3px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent);
+      transition: left 0.5s ease;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 8px 25px rgba(99, 102, 241, 0.45),
+        0 4px 10px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+      &::before {
+        left: 100%;
+      }
+
+      i.material-icons {
+        transform: scale(1.15);
+      }
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow:
+        0 4px 12px rgba(99, 102, 241, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.btn-outline {
+    background: white;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+    i.material-icons {
+      color: #6366f1;
+    }
+
+    &:hover {
+      background: #f8fafc;
+      border-color: #6366f1;
+      color: #6366f1;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .btn-text {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+// --- FORM SECTIONS ---
+.form-section {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0 0 1.25rem 0;
+    font-family: 'Outfit', sans-serif;
+
+    mat-icon {
+      color: #6366f1;
+      font-size: 22px;
+      width: 22px;
+      height: 22px;
+    }
+  }
+}
+
+// --- STATUS CARDS (Radio Groups) ---
+.status-card {
+  padding: 1rem 1.25rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .status-label {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .status-options {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    mat-radio-button {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// --- FORM ACTIONS ---
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 2rem;
+  margin-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+// --- FORM FIELDS ---
+mat-form-field {
+  width: 100%;
+}
+
+// =====================
+// RESPONSIVE STYLES
+// =====================
+
+// Tablet (768px - 991px)
+@media (max-width: 991px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  .card-header-premium {
+    padding: 1.25rem 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .header-left {
+      .header-title {
+        font-size: 1.25rem;
+      }
+
+      .header-subtitle {
+        font-size: 0.85rem;
+      }
+    }
+
+    .icon-box {
+      width: 40px;
+      height: 40px;
+
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .form-section {
+    padding: 1.25rem 0;
+
+    .section-title {
+      font-size: 1rem;
+    }
+  }
+
+  .status-card {
+    padding: 0.85rem 1rem;
+
+    .status-options {
+      gap: 0.75rem;
+    }
+  }
+}
+
+// Mobile (max-width: 767px)
+@media (max-width: 767px) {
+  .page-container {
+    padding: 0.75rem;
+  }
+
+  .card-header-premium {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: right;
+
+    .header-left {
+      width: 100%;
+      margin-bottom: 0.75rem;
+
+      .header-title {
+        font-size: 1.15rem;
+      }
+
+      .header-subtitle {
+        font-size: 0.8rem;
+      }
+    }
+
+    .header-right {
+      width: 100%;
+      justify-content: flex-end;
+    }
+
+    .icon-box {
+      width: 36px;
+      height: 36px;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  .form-section {
+    padding: 1rem 0;
+
+    .section-title {
+      font-size: 0.95rem;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  .status-card {
+    margin-top: 0.5rem;
+
+    .status-label {
+      font-size: 0.8rem;
+    }
+
+    .status-options {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+
+    .btn-modern {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+// Small phones (max-width: 480px)
+@media (max-width: 480px) {
+  .page-container {
+    padding: 0.5rem;
+  }
+
+  .card-header-premium {
+    padding: 0.85rem;
+
+    .header-title {
+      font-size: 1rem;
+    }
+  }
+
+  .btn-modern {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+
+    i.material-icons {
+      font-size: 20px;
+    }
+  }
+}
+
+// === ADD NEW OPTION STYLES ===
+::ng-deep .add-new-option {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.03)) !important;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+
+  .add-new-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6366f1;
+    font-weight: 600;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(99, 102, 241, 0.08)) !important;
+  }
+}

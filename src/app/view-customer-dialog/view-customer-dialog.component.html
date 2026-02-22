@@ -1,0 +1,135 @@
+<div class="dialog-container" dir="rtl">
+  <div class="dialog-header-premium">
+    <div class="d-flex align-items-center">
+      <div class="icon-box">
+        <mat-icon>visibility</mat-icon>
+      </div>
+      <div class="ms-3">
+        <h2 class="dialog-title">بيانات العميل</h2>
+        <p class="dialog-subtitle">عرض معلومات العميل {{customer?.customers_FName}}</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-btn" [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <div class="row g-3">
+      <!-- Customer ID -->
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>رقم العميل</mat-label>
+          <input matInput readonly [value]="customer?.customersNum">
+          <mat-icon matSuffix>badge</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Name Field -->
+      <div class="col-md-8">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>الاسم الكامل</mat-label>
+          <input matInput readonly [value]="customer?.customers_FName">
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>رقم الهاتف (أساسي)</mat-label>
+          <input matInput readonly [value]="customer?.customers_phone1">
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>رقم الهاتف (بديل)</mat-label>
+          <input matInput readonly
+            [value]="customer?.customers_phone2 === 'غير متوفر' ? '' : customer?.customers_phone2">
+          <mat-icon matSuffix>phone_iphone</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>البريد الإلكتروني</mat-label>
+          <input matInput readonly [value]="customer?.customers_email">
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Address -->
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>المحافظة / المدينة</mat-label>
+          <input matInput readonly [value]="customer?.customers_AddressName">
+          <mat-icon matSuffix>location_city</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>الحي / المنطقة</mat-label>
+          <input matInput readonly [value]="customer?.customers_Address2">
+          <mat-icon matSuffix>map</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>اسم الشارع</mat-label>
+          <input matInput readonly [value]="customer?.customers_Address1">
+          <mat-icon matSuffix>signpost</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Financial Info -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>اسم البنك</mat-label>
+          <input matInput readonly [value]="customer?.customers_bank">
+          <mat-icon matSuffix>account_balance</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>رقم الحساب البنكي (IBAN)</mat-label>
+          <input matInput readonly [value]="customer?.customers_ACC">
+          <mat-icon matSuffix>credit_card</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Location Coordinates -->
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>إحداثيات الموقع (X)</mat-label>
+          <input matInput readonly [value]="customer?.locationLatitude">
+          <mat-icon matSuffix>my_location</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>إحداثيات الموقع (Y)</mat-label>
+          <input matInput readonly [value]="customer?.locationLongitude">
+          <mat-icon matSuffix>my_location</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12">
+        <div class="status-section">
+          <label class="status-label">حالة العميل:</label>
+          <span class="status-badge" [class.active]="customer?.customers_Status == 1"
+            [class.inactive]="customer?.customers_Status != 1">
+            {{customer?.customers_Status == 1 ? 'فعال' : 'غير فعال'}}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-actions mt-4">
+      <button mat-button type="button" [mat-dialog-close]="false" class="btn-modern btn-light">
+        <mat-icon>arrow_forward</mat-icon>
+        رجوع
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+<div class="dialog-container" dir="rtl">
+    <!-- Premium Header -->
+    <div class="dialog-header-premium">
+        <div class="d-flex align-items-center">
+            <div class="icon-box">
+                <mat-icon>handyman</mat-icon>
+            </div>
+            <div class="ms-3">
+                <h2 class="dialog-title">تحديث حالة الصيانة</h2>
+                <p class="dialog-subtitle">تعديل حالة الطلب وإضافة قطع الغيار</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-btn" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-content">
+        <form [formGroup]="editMaintenanceForm" (ngSubmit)="onSubmit()">
+
+            <!-- Main Request Info -->
+            <div class="status-section">
+                <div class="section-label">
+                    <mat-icon class="label-icon">assignment</mat-icon>
+                    بيانات الصيانة:
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>حالة الطلب</mat-label>
+                            <mat-select formControlName="request_statues">
+                                <mat-option *ngFor="let status of Status" [value]="status.value">
+                                    {{status.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="editMaintenanceForm.get('request_statues').hasError('required')">
+                                هذا الحقل مطلوب
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>وصف العطل / ملاحظات الفني</mat-label>
+                            <textarea matInput formControlName="general_Desc" rows="3"
+                                placeholder="اكتب تفاصيل الصيانة هنا..."></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parts Section -->
+            <div class="parts-section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <mat-icon>precision_manufacturing</mat-icon>
+                        قطع الغيار والمواد المستخدمة
+                    </h3>
+                    <button type="button" class="btn-modern btn-outline btn-sm btn-primary-outline" (click)="addPart()">
+                        <mat-icon>add</mat-icon>
+                        إضافة قطعة
+                    </button>
+                </div>
+
+                <div formArrayName="parts">
+                    <div *ngFor="let part of parts.controls; let i=index" [formGroupName]="i" class="part-row">
+                        <div class="row align-items-center g-2">
+                            <!-- Item Dropdown -->
+                            <div class="col-md-5">
+                                <mat-form-field appearance="outline" class="w-100 dense-field">
+                                    <mat-label>اسم المادة / القطعة</mat-label>
+                                    <mat-select formControlName="item">
+                                        <mat-option [value]="null" (click)="addNewItemOption()" class="add-new-option">
+                                            <mat-icon>add_circle_outline</mat-icon>
+                                            إضافة مادة جديدة
+                                        </mat-option>
+                                        <mat-divider></mat-divider>
+                                        <mat-option *ngFor="let item of itemsList" [value]="item">
+                                            {{ item.ItemName || item.itemName }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="part.get('item').hasError('required')">مطلوب</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Warehouse (Auto-filled) -->
+                            <div class="col-md-4">
+                                <mat-form-field appearance="outline" class="w-100 dense-field">
+                                    <mat-label>المستودع</mat-label>
+                                    <input matInput formControlName="warehouseName" readonly
+                                        placeholder="يتم التحديد تلقائيًا">
+                                    <mat-icon matSuffix>store</mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Quantity -->
+                            <div class="col-md-2">
+                                <mat-form-field appearance="outline" class="w-100 dense-field">
+                                    <mat-label>الكمية</mat-label>
+                                    <input type="number" matInput formControlName="quantity" min="1">
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Delete Button -->
+                            <div class="col-md-1 text-center">
+                                <button type="button" mat-icon-button color="warn" (click)="removePart(i)"
+                                    matTooltip="حذف">
+                                    <mat-icon>delete_outline</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="parts.controls.length === 0" class="no-parts-message">
+                        <div class="text-center py-4">
+                            <mat-icon
+                                style="color: #cbd5e1; font-size: 32px; width: 32px; height: 32px;">inventory_2</mat-icon>
+                            <p class="text-muted mt-2 mb-0">لم يتم إضافة أي قطع غيار بعد</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dialog-actions">
+                <button type="button" class="btn-modern btn-light" (click)="onCancel()">
+                    <mat-icon>close</mat-icon>
+                    إلغاء
+                </button>
+                <button type="submit" class="btn-modern btn-primary" [disabled]="!editMaintenanceForm.valid">
+                    <mat-icon>save</mat-icon>
+                    <span>حفظ البيانات</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
