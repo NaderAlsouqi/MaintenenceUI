@@ -1,3 +1,8 @@
+<div class="demo-banner" *ngIf="demoMode">
+  <span class="demo-banner__dot"></span>
+  Demo — sample data
+</div>
+
 <router-outlet></router-outlet>
 
 <ngx-spinner  size = "large" color = "rgba(11,183,165,0.8)" type = "fire" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>

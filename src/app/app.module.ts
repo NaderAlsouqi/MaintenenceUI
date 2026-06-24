@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -118,9 +118,16 @@ import { HttpClient } from '@angular/common/http';
 import { TaxDefinitionComponent } from './tax-definition/tax-definition.component';
 import { TaxModalComponent } from './tax-modal/tax-modal.component';
 import { ReceiptModalComponent } from './receipt-modal/receipt-modal.component';
+import { DemoService } from './services/demo.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+// Runs demo auto-login (when the app is opened with ?demo=1) BEFORE the router and auth
+// guards activate, so the visitor lands straight on the dashboard with a demo session.
+export function initDemoFactory(demo: DemoService) {
+  return () => demo.initDemoSession();
 }
 
 
@@ -266,7 +273,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 
   ],
   providers: [
-    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+    {
+      // Demo auto-login must complete before the auth guard runs (see initDemoFactory).
+      provide: APP_INITIALIZER,
+      useFactory: initDemoFactory,
+      deps: [DemoService],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

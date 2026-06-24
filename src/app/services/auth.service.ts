@@ -41,6 +41,26 @@ export class AuthService {
     );
   }
 
+  // Demo login -------------------------------
+  // Auto sign-in for the public iframe preview (?demo=1). Calls a DEDICATED backend endpoint
+  // that issues a short-lived, read-only demo JWT for the demo account. No credentials are
+  // sent from the client, so NO password ships in the JS bundle. The resulting token is
+  // stored under the same 'token' key the rest of the app already reads.
+  demoLogin() {
+    return this.http.post(this.url + environment.demoLoginEndpoint, {}).pipe(
+      map((value: any) => {
+        if (value != null && value.token) {
+          localStorage.setItem("token", value.token);
+          this.decodedToken = this.jwtHelper.decodeToken(value.token);
+          this.id = this.decodedToken?.nameid;
+          this.role = this.decodedToken?.role_id;
+          this.loggedin = true;
+        }
+        return value;
+      })
+    );
+  }
+
   // LoggedIn -------------------------------
   loggedIn()
   {

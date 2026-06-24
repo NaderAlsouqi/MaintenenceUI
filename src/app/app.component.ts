@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { DemoService } from './services/demo.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,10 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private translate: TranslateService) {
+  // Shows the small "Demo — sample data" badge when running in the public iframe preview.
+  demoMode = false;
+
+  constructor(private translate: TranslateService, private demo: DemoService) {
     // Set default language
     this.translate.addLangs(['en', 'ar']);
     this.translate.setDefaultLang('ar');
@@ -21,6 +25,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.demoMode = this.demo.isDemo();
+
     this.translate.onLangChange.subscribe((event) => {
       this.updateDirection(event.lang);
       localStorage.setItem('lang', event.lang);

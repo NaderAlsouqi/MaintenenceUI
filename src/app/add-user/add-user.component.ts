@@ -58,7 +58,8 @@ export class AddUserComponent implements OnInit {
     const dialogRef =
       this.dialog.open(AddNewUserComponent, {
         width: '550px',
-        maxWidth: '95vw'
+        maxWidth: '95vw',
+        maxHeight: '90vh',
 
       })
     dialogRef.afterClosed().subscribe(() => {
